@@ -63,7 +63,7 @@
 						</select>						
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-block">Save</button>
+						<button type="submit" class="btn btn-primary btn-block btn-flat">Save</button>
 					</div>
 				</form>
 			</div>
