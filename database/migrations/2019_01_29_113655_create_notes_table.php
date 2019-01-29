@@ -25,6 +25,13 @@ class CreateNotesTable extends Migration
             ->onDelete('restrict')
             ->onUpdate('cascade');
             
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')
+            ->onDelete('restrict')
+            ->onUpdate('cascade');
+            
             $table->timestamps();
         });
     }

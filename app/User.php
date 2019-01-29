@@ -28,3 +28,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 }
+
+class User extends Model
+{
+    public function contact() {
+        return $this->hasMany('\App\Contact');
+    }
+}
