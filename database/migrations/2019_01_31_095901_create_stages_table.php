@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDealStatusesTable extends Migration
+class CreateStagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateDealStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('deal_statuses', function (Blueprint $table) {
+        Schema::create('stages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->timestamps();
         });
     }
 
@@ -27,6 +26,6 @@ class CreateDealStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deal_statuses');
+        Schema::dropIfExists('stages');
     }
 }

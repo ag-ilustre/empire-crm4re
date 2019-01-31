@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class DealStatusController extends Controller
+class PropertyStatusController extends Controller
 {
     //
 }

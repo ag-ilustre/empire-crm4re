@@ -18,13 +18,6 @@ class CreateTasksTable extends Migration
             $table->string('name');
             $table->date('deadline');
 
-            $table->unsignedInteger('contact_id');
-            $table->foreign('contact_id')
-            ->references('id')
-            ->on('contacts')
-            ->onDelete('restrict')
-            ->onUpdate('cascade');
-
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
             ->references('id')
@@ -32,8 +25,8 @@ class CreateTasksTable extends Migration
             ->onDelete('restrict')
             ->onUpdate('cascade');
 
-            $table->unsignedInteger('task_id');
-            $table->foreign('task_id')
+            $table->unsignedInteger('task_status_id');
+            $table->foreign('task_status_id')
             ->references('id')
             ->on('tasks')
             ->onDelete('restrict')

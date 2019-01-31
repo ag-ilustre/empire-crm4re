@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class OpportunityStageController extends Controller
+class ProjectController extends Controller
 {
     //
 }

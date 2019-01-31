@@ -15,9 +15,7 @@ class CreateNotesTable extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->text('description');
-
+            
             $table->unsignedInteger('contact_id');
             $table->foreign('contact_id')
             ->references('id')
@@ -25,13 +23,8 @@ class CreateNotesTable extends Migration
             ->onDelete('restrict')
             ->onUpdate('cascade');
             
-            $table->unsignedInteger('user_id');
-            $table->foreign('user_id')
-            ->references('id')
-            ->on('users')
-            ->onDelete('restrict')
-            ->onUpdate('cascade');
-            
+            $table->string('title');
+            $table->text('description');
             $table->timestamps();
         });
     }

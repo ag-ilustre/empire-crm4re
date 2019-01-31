@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOpportunityStagesTable extends Migration
+class CreatePropertyStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateOpportunityStagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('opportunity_stages', function (Blueprint $table) {
+        Schema::create('property_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->timestamps();
         });
     }
 
@@ -27,6 +26,6 @@ class CreateOpportunityStagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('opportunity_stages');
+        Schema::dropIfExists('property_statuses');
     }
 }

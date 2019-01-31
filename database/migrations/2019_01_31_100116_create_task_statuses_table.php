@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePropertyTypesTable extends Migration
+class CreateTaskStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreatePropertyTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('property_types', function (Blueprint $table) {
+        Schema::create('task_statuses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');            
-            $table->timestamps();
+            $table->string('name');
         });
     }
 
@@ -27,6 +26,6 @@ class CreatePropertyTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('property_types');
+        Schema::dropIfExists('task_statuses');
     }
 }

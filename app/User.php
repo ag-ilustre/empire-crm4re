@@ -31,7 +31,13 @@ class User extends Authenticatable
 
 class User extends Model
 {
-    public function contact() {
+    //a user belongs to a role
+    public function role() {
+         return $this->belongsTo('\App\Role');
+    }
+
+    //a user has many contacts
+    public function contacts() {
         return $this->hasMany('\App\Contact');
     }
 }

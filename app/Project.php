@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TaskStatus extends Model
+class Project extends Model
 {
     public $timestamps = false; //table timestamps column
 }

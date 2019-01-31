@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model
 {
-    public function opportunity_stage() {
-    	return $this->belongsTo('\App\OpportunityStage');
+    //a contact belongs to a stage
+    public function stage() {
+        return $this->belongsTo('\App\Stage');
     }
 
     public function user() {
-    	return $this->belongsTo('\App\User');
+        return $this->belongsTo('\App\User');
     }
 }

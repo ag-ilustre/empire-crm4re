@@ -24,20 +24,20 @@ class CreateContactsTable extends Migration
             $table->string('company');
             $table->string('address');
 
-            $table->unsignedInteger('opportunity_stage_id');
-            $table->foreign('opportunity_stage_id')
-                  ->references('id')
-                  ->on('opportunity_stages')
-                  ->onDelete('restrict')
-                  ->onUpdate('cascade');
+            $table->unsignedInteger('stage_id');
+            $table->foreign('stage_id')
+            ->references('id')
+            ->on('stages')
+            ->onDelete('restrict')
+            ->onUpdate('cascade');
 
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('restrict')
-                  ->onUpdate('cascade');
-
+            ->references('id')
+            ->on('users')
+            ->onDelete('restrict')
+            ->onUpdate('cascade');
+            
             $table->timestamps();
         });
     }
