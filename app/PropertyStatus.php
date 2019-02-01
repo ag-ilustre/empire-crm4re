@@ -10,6 +10,6 @@ class PropertyStatus extends Model
 
     //a property_status has many projects
     public function projects() {
-        return $this->hasMany('\App\Project');
+        return $this->hasMany('App\Project');
     }
 }

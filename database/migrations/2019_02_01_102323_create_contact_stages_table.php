@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNotesTable extends Migration
+class CreateContactStagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('notes', function (Blueprint $table) {
+        Schema::create('contact_stages', function (Blueprint $table) {
             $table->increments('id');
             
             $table->unsignedInteger('contact_id');
@@ -22,9 +22,16 @@ class CreateNotesTable extends Migration
             ->on('contacts')
             ->onDelete('restrict')
             ->onUpdate('cascade');
+
+            $table->unsignedInteger('stage_id');
+            $table->foreign('stage_id')
+            ->references('id')
+            ->on('stages')
+            ->onDelete('restrict')
+            ->onUpdate('cascade');
             
             $table->string('title');
-            $table->text('description');
+            $table->text('note');
             $table->timestamps();
         });
     }
@@ -36,6 +43,6 @@ class CreateNotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notes');
+        Schema::dropIfExists('contact_stages');
     }
 }
