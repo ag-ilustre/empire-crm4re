@@ -1,7 +1,7 @@
-@extends('admintemplate')
+@extends('template')
 @section('pagetitle', 'Dashboard')
 
-@section('admin_body')
+@section('body')
 	
 	<div class="container">
 		<div class="row">
@@ -63,7 +63,7 @@
 						</select>						
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-block btn-flat">Save</button>
+						<button type="submit" class="btn btn-primary btn-block">Save</button>
 					</div>
 				</form>
 			</div>

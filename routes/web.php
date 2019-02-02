@@ -10,6 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware("auth")->group(function() {
+	//admin
+	Route::get('/agents', 'AdminController@showAgents');
+	Route::delete('/agentdelete/{id}', 'AdminController@deleteAgent');
+	Route::put('/agentroleedit/{id}', 'AdminController@editAgentRole');
+
+});
 
 Route::get('/admindashboard', function () {
     return view('admindashboard');
