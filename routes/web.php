@@ -12,14 +12,17 @@
 */
 Route::middleware("auth")->group(function() {
 	//admin
-	Route::get('/agents', 'AdminController@showAgents');
-	Route::delete('/agentdelete/{id}', 'AdminController@deleteAgent');
-	Route::put('/agentroleedit/{id}', 'AdminController@editAgentRole');
+	Route::get('/admin/agents', 'AdminController@showAgents');
+	Route::delete('/admin/agentdelete/{id}', 'AdminController@deleteAgent');
+	Route::put('/admin/agentroleedit/{id}', 'AdminController@editAgentRole');	
+	Route::get('/admin/contacts', 'AdminController@showContacts');
 
+	//agent
+	Route::get('/agent/contacts', 'AgentController@showAgentContacts');
 });
 
-Route::get('/admindashboard', function () {
-    return view('admindashboard');
+Route::get('/', function () {
+    return view('home');
 });
 
 Auth::routes();

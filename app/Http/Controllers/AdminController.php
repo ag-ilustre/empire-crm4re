@@ -5,20 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Role;
+use App\Contact;
+use App\Stage;
 use Session;
 use DB;
 use Auth;
 
 class AdminController extends Controller
 {
-	//page: /agents
     public function showAgents(){
-        //SELECT all from items_table
         $users = User::all(); 
-    	// $items = DB::table('items')->select('name')->get(): //example of raw query
-        //SELECT all from categories_table
     	$roles = Role::all();
-        //return the catalog.blade.php with the variables $items and 
     	return view('admin.agents', compact('users', 'roles')); 
     }
 
@@ -26,15 +23,19 @@ class AdminController extends Controller
     	$agentroleedit = User::find($id);
     	$agentroleedit->role_id = $request->editedRole;
     	$agentroleedit->save();
-    	// dd($taskupdate);
-    	return redirect('/agents');
+    	return redirect('/admin/agents');
     }
 
     public function deleteAgent($id){
     	$agentdelete = User::find($id);
     	$agentdelete->delete();
-    	return redirect('/agents');
+    	return redirect('/admin/agents');
     }
 
-    //page: /contacts
+    public function showContacts(){
+        $users = User::all();
+        $contacts = Contact::all(); 
+        $stages = Stage::all();
+        return view('admin.contacts', compact('users', 'contacts', 'stages')); 
+    }
 }

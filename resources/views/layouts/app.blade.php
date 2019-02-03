@@ -17,6 +17,9 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
+    {{-- Fontawesome --}}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -54,10 +57,10 @@
                             @if(Auth::user()->role_id === 1)
                             <!-- Admin's Navbar -->
                             <li class="nav-item">
-                              <a class="nav-link" href="/agents">Agents</a>
+                              <a class="nav-link" href="/admin/agents">Agents</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="#">Contacts</a>
+                              <a class="nav-link" href="/admin/contacts">Contacts</a>
                             </li>
                             <li class="nav-item">
                               <a class="nav-link" href="#">Opportunities</a>
@@ -71,7 +74,7 @@
                             @else
                             <!-- Agent's Navbar -->
                             <li class="nav-item">
-                              <a class="nav-link" href="#">Contacts</a>
+                              <a class="nav-link" href="/agent/contacts">Contacts</a>
                             </li>
                             <li class="nav-item">
                               <a class="nav-link" href="#">Opportunities</a>

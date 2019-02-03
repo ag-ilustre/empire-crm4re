@@ -1,4 +1,4 @@
-@extends('layouts.app')
+opportunities.blade.php@extends('layouts.app')
 
 @section('pagetitle', 'Contacts')
 

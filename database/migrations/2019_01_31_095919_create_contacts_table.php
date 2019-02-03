@@ -17,7 +17,7 @@ class CreateContactsTable extends Migration
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->integer('contact_number');
+            $table->text('contact_number');
             $table->string('email')->unique();
             $table->string('image_path')->default('sample.jpg');
             $table->string('occupation');
