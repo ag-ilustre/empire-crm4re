@@ -16,16 +16,21 @@ nav {
 }
 
 .nav-link {
-	font-size: 1.1rem;
+	font-size: 1rem;
 	font-family: 'Vollkorn SC', serif;
-	/*font-family: 'Roboto Slab', serif;*/
 	/*font-family: 'Lato', sans-serif;*/
+	/*font-family: 'Roboto Slab', serif;*/
 	/*font-family: 'Roboto Condensed', sans-serif;*/
-	font-weight: 500;
+	font-weight:400;
 	color: #00bc9c !important;
 	/*text-transform: uppercase;*/
+	/*letter-spacing: 0.25px;*/
 
+}
 
+.nav-link:hover {
+	border-bottom: 1px solid;
+	border-top: 1px solid;
 }
 
 .btn-flat {
@@ -87,5 +92,5 @@ th {
 	font-family: 'Vollkorn SC', serif;
 	font-weight: 700;
 	font-size: 1.2rem;
-	letter-spacing: 0.3rem;
+	letter-spacing: 0.2rem;
 }
