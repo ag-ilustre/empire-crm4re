@@ -11,7 +11,7 @@
 		<div class="row">
 			<div class="col mx-auto">
 			<table class="table table-hover m-2">
-			    <thead class="thead-dark">
+			    <thead class="purple-bg">
 			        <tr>
 			            <th>Agent</th>
 			            <th>Contact</th>

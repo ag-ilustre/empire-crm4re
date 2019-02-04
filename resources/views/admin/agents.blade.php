@@ -6,17 +6,23 @@
 	
 	<div class="container">
 		<div class="row">
-			{{-- SEARCH BAR HERE --}}
+			<div class="col-lg-6 col-md-6"></div>
+			<div class="col-lg-3 col-md-3 my-2">
+				<input type="" name="searchAgentPage" class="form-control" placeholder="Search">
+			</div>
+			<div class="col-lg-3 col-md-3">
+				<button class="btn btn-block btn-add my-2">ADD AGENT</button>
+			</div>
 		</div>
 		<div class="row">
 			<table class="table table-hover m-2">
-			    <thead class="thead-dark">
+			    <thead class="purple-border">
 			        <tr>
 			            <th>Name</th>
 			            <th>Username</th>
 			            <th>Email</th>
 			            <th>Role</th>
-			            <th>Action</th>
+			            <th>Actions</th>
 			        </tr>
 			    </thead>
 			    <tbody>
@@ -30,9 +36,9 @@
 			                    <td>{{ $role->name }}</td>
 			                @endif
 			            @endforeach			            
-			            <td>
-			            	<button type="button" class="btn btn-primary" onclick="openEditModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')">Edit Role</button>
-			            	<button type="button" class="btn btn-danger" onclick="openDeleteModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}', '{{ $role->name }}')" data-toggle="modal">Delete</button>
+			            <td>			   
+			            	<button type="button" class="btn btn-link" onclick="openEditModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')"><i class="fas fa-user-edit"></i></button>
+			            	<button type="button" class="btn btn-link" onclick="openDeleteModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')" data-toggle="modal"><i class="fas fa-trash"></i></button>
 			            </td>
 			        </tr>
 			        @endforeach
@@ -77,13 +83,21 @@
 		          <span aria-hidden="true">&times;</span>
 		        </button>
 		      </div>
-		      <div class="modal-body">
+		      <div class="modal-body mx-3 mb-2">
 	       	    <p>Name: <span id="editAgentRole" name="editAgentRole"></span></p>
 		       	<form id="editRoleForm" method="POST">
 		       		{{ csrf_field() }}
 		       		{{ method_field('PUT') }}
 		       	  <div class="form-group">
 		       	    <label>Role:</label>
+			       	    {{-- <div class="custom-control custom-radio">
+			       	      <input type="radio" id="customRadio1" name="editedRole" value="2" class="custom-control-input">
+			       	      <label class="custom-control-label" for="customRadio1" default>agent</label>
+			       	    </div>
+			       	    <div class="custom-control custom-radio">
+			       	      <input type="radio" id="customRadio2" name="editedRole" value="3" class="custom-control-input">
+			       	      <label class="custom-control-label" for="customRadio2">none</label>
+			       	    </div> --}}
 		       	    <select type="number" name="editedRole">
 		       	        @foreach($roles as $role)
 		       	            @if($user->role_id == $role->id)
@@ -93,13 +107,13 @@
 		       	            @endif
 		       	        @endforeach
 		       	    </select>
-			        <button type="submit" class="btn btn-primary">Save</button>
+		       	    <div class="text-center mt-2">
+				        <button type="submit" class="btn btn-wide btn-primary m-1">Save</button>
+				        <button type="button" class="btn btn-wide btn-secondary m-1" data-dismiss="modal">Close</button>
+				    </div>
 		       	  </div>
 		       	</form>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		      </div>
+		      </div>		      
 		    </div>
 		  </div>
 		</div>
@@ -108,13 +122,13 @@
 
 <script type="text/javascript">
 	function openDeleteModal(id, name) {
-		$("#deleteAgent").attr("action","/agentdelete/"+id);
+		$("#deleteAgent").attr("action","/admin/agentdelete/"+id);
 		$('#agentDeleteMessage').html('Do you want to delete <strong>'+name+'</strong>?');
 		$("#deleteModal").modal("show");
 	}
 
-	function openEditModal(id, name, role) {
-		$("#editRoleForm").attr("action","/agentroleedit/"+id);
+	function openEditModal(id, name) {
+		$("#editRoleForm").attr("action","/admin/agentroleedit/"+id);
 		$("#editAgentRole").text(name);
 		$("#editModal").modal("show");
 	}
