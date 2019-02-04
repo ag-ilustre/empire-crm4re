@@ -6,16 +6,19 @@
 	
 	<div class="container">
 		<div class="row">
+			<h1 class="currentPage"><i class="fas fa-users"></i> Agents</h1>
+		</div>
+		<div class="row justify-content-center">
 			<div class="col-lg-6 col-md-6"></div>
 			<div class="col-lg-3 col-md-3 my-2">
 				<input type="" name="searchAgentPage" class="form-control" placeholder="Search">
 			</div>
 			<div class="col-lg-3 col-md-3">
-				<button class="btn btn-block btn-add my-2">ADD AGENT</button>
+				<button class="btn btn-block btn-add my-2"><i class="fas fa-plus"></i><strong><i class="fas fa-user-alt"></i></strong>  ADD AGENT</button>
 			</div>
 		</div>
 		<div class="row">
-			<table class="table table-hover m-2">
+			<table class="table table-hover my-3 table-purple">
 			    <thead class="purple-border">
 			        <tr>
 			            <th>Name</th>

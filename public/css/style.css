@@ -1,5 +1,31 @@
+* {
+	font-family: 'Lato', sans-serif;
+}
+
+body {
+  	background-image: url("/images/buildings.png");
+	background-color: rgba(67, 5, 65, 0.7); /* Used if the image is unavailable */
+	background-position: 0 100px; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover; /* Resize the background image to cover the entire container */
+	background-attachment: fixed;
+}
+
 nav {
 	background-color:  rgba(67, 5, 65, 0.8) !important;
+}
+
+.nav-link {
+	font-size: 1.1rem;
+	font-family: 'Vollkorn SC', serif;
+	/*font-family: 'Roboto Slab', serif;*/
+	/*font-family: 'Lato', sans-serif;*/
+	/*font-family: 'Roboto Condensed', sans-serif;*/
+	font-weight: 500;
+	color: #00bc9c !important;
+	/*text-transform: uppercase;*/
+
+
 }
 
 .btn-flat {
@@ -21,6 +47,11 @@ nav {
 	color: rgba(67, 5, 65, 0.7) !important;
 }
 
+.btn-primary {
+	background-color: rgba(67, 5, 65, 0.8) !important;
+	border-color: rgba(67, 5, 65, 0.8) !important;
+}
+
 .btn-add {
 	background-color: #00bc9c !important;
 	color: white;
@@ -35,7 +66,26 @@ nav {
 	border-color:  rgba(67, 5, 65, 1) !important;
 	border-width: 2px !important;
 }
+
+.table-purple {
+	background-color: #f9f9f9;
+}
+
 th {
 	color: rgba(67, 5, 65, .8) !important;
 	font-weight: 600;
+}
+
+.currentPage {
+	color: #00bc9c;
+	font-family: 'Vollkorn SC', serif;
+	font-weight: 700;
+}
+
+#appName {
+	color: #00bc9c;
+	font-family: 'Vollkorn SC', serif;
+	font-weight: 700;
+	font-size: 1.2rem;
+	letter-spacing: 0.3rem;
 }
