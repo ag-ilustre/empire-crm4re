@@ -44,6 +44,13 @@ class PropertyStatusesTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
+            4 => 
+            array (
+                'id' => 5,
+                'name' => 'cancelled',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
         ));
         
         

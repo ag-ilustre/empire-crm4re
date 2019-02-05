@@ -34,24 +34,17 @@ class StagesTableSeeder extends Seeder
             2 => 
             array (
                 'id' => 3,
-                'name' => 'active',
+                'name' => 'customer',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
             3 => 
             array (
                 'id' => 4,
-                'name' => 'conditional',
+                'name' => 'lost',
                 'created_at' => NULL,
                 'updated_at' => NULL,
-            ),
-            4 => 
-            array (
-                'id' => 5,
-                'name' => 'customer',
-                'created_at' => NULL,
-                'updated_at' => NULL,
-            ),
+            ),            
         ));
         
         

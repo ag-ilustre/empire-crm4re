@@ -4,23 +4,29 @@
 
 @section('content')
 	
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<h4 class="current-page"><i class="far fa-address-card"></i> Contacts</h4>
+			<h4 class="current-page"><i class="fas fa-users"></i> Contacts</h4>
 		</div>
-		<div class="row justify-content-center">
-			<div class="col-lg-6 col-md-6"></div>
-			<div class="col-lg-3 col-md-3 my-2">
-				<input type="" name="searchAgentPage" class="form-control" placeholder="Search">
-			</div>
-			<div class="col-lg-3 col-md-3">
-				<button class="btn btn-block btn-greencyan my-2"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> ADD CONTACT</button>
-			</div>
+		<div class="row mr-auto">
+			<div class="col-lg-6 col-md-6 col-sm-6"></div>
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<div class="row">
+					<div class="col-2"></div>
+					<div class="col-5 my-auto div-inline">
+						<input type="text" name="searchAgentPage" class="form-control" placeholder="Search">		
+					</div>
+					<div class="col-5 my-auto div-inline">
+						<button class="btn btn-block btn-greencyan my-2"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> ADD CONTACT</button>					
+					</div>
+				</div>
+			</div>			
 		</div>
-		<div class="row">
-			<div class="col-lg-12 table-responsive">	
-			<table class="table table-hover my-3 mx-auto table-purple">
-			    <thead class="border-purple">
+		<div class="row">						
+			<div class="col-lg-12 table-responsive p-4">
+				<div class="table-responsive">				
+				<table class="table table-hover my-3 table-purple">
+				    <thead class="border-purple">
 			        <tr class="my-3">
 			            <th class="p-4">Agent</th>
 			            <th class="p-4">Contact</th>

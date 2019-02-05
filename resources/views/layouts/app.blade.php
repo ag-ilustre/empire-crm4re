@@ -67,10 +67,10 @@
                               <a class="nav-link" href="/admin/opportunities">Opportunities</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="#">Properties</a>
+                              <a class="nav-link" href="/admin/projects">Projects</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="#">Tasks</a>
+                              <a class="nav-link" href="/admin/tasks">Tasks</a>
                             </li>
                             @else
                             <!-- Agent's Navbar -->
@@ -78,13 +78,13 @@
                               <a class="nav-link" href="/agent/contacts">Contacts</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="#">Opportunities</a>
+                              <a class="nav-link" href="/agent/opportunities">Opportunities</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="#">Properties</a>
+                              <a class="nav-link" href="/agent/properties">Properties</a>
                             </li>
                             <li class="nav-item">
-                              <a class="nav-link" href="#">Tasks</a>
+                              <a class="nav-link" href="/agent/tasks">Tasks</a>
                             </li>
                             @endif
                     </ul>

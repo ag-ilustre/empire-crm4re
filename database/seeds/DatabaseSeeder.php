@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(TaskStatusesTableSeeder::class);
         // $this->call(StagesTableSeeder::class);
         // $this->call(UsersTableSeeder::class);
-        $this->call(ContactsTableSeeder::class);
+        // $this->call(ContactsTableSeeder::class);
     }
 }

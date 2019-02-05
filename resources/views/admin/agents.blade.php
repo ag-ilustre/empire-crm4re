@@ -4,21 +4,27 @@
 
 @section('content')
 	
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<h4 class="current-page"><i class="fas fa-users"></i> Agents</h4>
 		</div>
-		<div class="row justify-content-center">
-			<div class="col-lg-6 col-md-6"></div>
-			<div class="col-lg-3 col-md-3 my-2">
-				<input type="" name="searchAgentPage" class="form-control" placeholder="Search">
-			</div>
-			<div class="col-lg-3 col-md-3">
-				<button class="btn btn-block btn-greencyan my-2"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> ADD AGENT</button>
-			</div>
+		<div class="row mr-auto">
+			<div class="col-lg-6 col-md-6 col-sm-6"></div>
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<div class="row">
+					<div class="col-2"></div>
+					<div class="col-5 my-auto div-inline">
+						<input type="text" name="searchAgentPage" class="form-control" placeholder="Search">		
+					</div>
+					<div class="col-5 my-auto div-inline">
+						<button class="btn btn-block btn-greencyan my-2"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> ADD AGENT</button>					
+					</div>
+				</div>
+			</div>			
 		</div>
 		<div class="row">						
-			<div class="col-lg-12 table-responsive">				
+			<div class="col-lg-12 table-responsive p-4">
+				<div class="table-responsive">				
 				<table class="table table-hover my-3 table-purple">
 				    <thead class="border-purple">
 				        <tr class="my-3">
@@ -49,6 +55,7 @@
 				        @endforeach
 				    </tbody>
 				</table>
+				</div>
 			</div>			
 		</div>
 	</div>
@@ -126,19 +133,22 @@
 		$("#editModal").modal("show");
 
 		// alert(roleId);
+		// $("#adminRadio").prop("checked", false);
+		// $("#agentRadio").prop("checked", false);
+		// $("#noneRadio").prop("checked", false);
 
 		if (roleId == 1) {
-			$("#adminRadio").prop("checked", false);
+			$("#adminRadio").prop("checked", true);
 			$("#agentRadio").prop("checked", false);
-			$("#noneRadio").prop("checked", true);
+			$("#noneRadio").prop("checked", false);
 		} else if (roleId == 2) {			
 			$("#agentRadio").prop("checked", true);			
 			$("#adminRadio").prop("checked", false);
 			$("#noneRadio").prop("checked", false);
 		} else {			
-			$("#noneRadio").prop("checked", false);
+			$("#noneRadio").prop("checked", true);
 			$("#agentRadio").prop("checked", false);
-			$("#adminRadio").prop("checked", true);
+			$("#adminRadio").prop("checked", false);
 		}
 	}
 

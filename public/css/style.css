@@ -147,10 +147,10 @@ nav {
 }
 
 .btn {
-    height: 36px;
+    height: 37px;
     display: inline-block;
     font: 14px/36px "Roboto", sans-serif !important;
-    padding: 0 4px;
+    padding: 0 6px;
     border-radius: 2px;
     min-width: 40px;
     text-align: center;
@@ -170,6 +170,22 @@ nav {
 th {
 	color: rgba(67, 5, 65, .8) !important;
 	font-weight: 600;
+}
+
+.active.tab-purple {
+	color: #fff !important;
+	background-color: rgba(67, 5, 65, .8) !important;
+	border-radius: 2px !important;
+}
+
+.tab-purple {
+	color: #ededed !important;
+	background-color: rgba(67, 5, 65, .4) !important;
+	border-radius: 2px !important;
+}
+
+.tab-content {
+	background-color: #f9f9f9;
 }
 
 .current-page {
@@ -216,8 +232,9 @@ th {
 }
 
 .opportunities-avatar {
-	width: 40px;
-	height: 40px;
+	width: 100%;
+	height: auto;
+	border-radius: 50%;
 }
 
 .opportunities-card-name {
@@ -267,11 +284,16 @@ th {
     background-color: rgba(67, 5, 65, 1); /* Used if the image is unavailable */
     background-position: center;
     background-size: 15px 15px;
+    z-index: 20000;
 }
 
+.div-inline {
+	display: inline;
+}
 
-
-
+.form-control {
+	border: 1px solid rgba(67, 5, 65, 0.5) !important;
+}	
 
 /* MEDIA QUERIES */
 @media screen and (max-width: 600px) { 
