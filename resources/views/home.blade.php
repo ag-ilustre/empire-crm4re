@@ -8,7 +8,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Admin Dashboard</div>
+                <div class="card-header dashboard-title">Admin Dashboard</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -28,7 +28,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Agent Dashboard</div>
+                <div class="card-header dashboard-title">Agent Dashboard</div>
 
                 <div class="card-body">
                     @if (session('status'))

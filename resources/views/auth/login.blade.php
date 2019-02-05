@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
+@section('pagetitle', 'Login')
+
 @section('content')
 <div class="container" id="loginPage">
     <div class="row justify-content-center">
         <div class="col-md-8 mt-4">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header auth-card-title">{{ __('Login') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">

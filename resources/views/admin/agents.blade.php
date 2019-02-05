@@ -6,7 +6,7 @@
 	
 	<div class="container">
 		<div class="row">
-			<h1 class="currentPage"><i class="fas fa-users"></i> Agents</h1>
+			<h4 class="current-page"><i class="fas fa-users"></i> Agents</h4>
 		</div>
 		<div class="row justify-content-center">
 			<div class="col-lg-6 col-md-6"></div>
@@ -14,39 +14,42 @@
 				<input type="" name="searchAgentPage" class="form-control" placeholder="Search">
 			</div>
 			<div class="col-lg-3 col-md-3">
-				<button class="btn btn-block btn-add my-2"><i class="fas fa-plus"></i><strong><i class="fas fa-user-alt"></i></strong>  ADD AGENT</button>
+				<button class="btn btn-block btn-greencyan my-2"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> ADD AGENT</button>
 			</div>
 		</div>
-		<div class="row">
-			<table class="table table-hover my-3 table-purple">
-			    <thead class="purple-border">
-			        <tr>
-			            <th>Name</th>
-			            <th>Username</th>
-			            <th>Email</th>
-			            <th>Role</th>
-			            <th>Actions</th>
-			        </tr>
-			    </thead>
-			    <tbody>
-			        @foreach($users as $user)
-			        <tr>
-			            <td>{{ $user->first_name }} {{ $user->last_name }}</td>
-			            <td>{{ $user->username }}</td>
-			            <td>{{ $user->email }}</td>
-			            @foreach($roles as $role)
-			                @if($user->role_id == $role->id)
-			                    <td>{{ $role->name }}</td>
-			                @endif
-			            @endforeach			            
-			            <td>			   
-			            	<button type="button" class="btn btn-link" onclick="openEditModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')"><i class="fas fa-user-edit"></i></button>
-			            	<button type="button" class="btn btn-link" onclick="openDeleteModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')" data-toggle="modal"><i class="fas fa-trash"></i></button>
-			            </td>
-			        </tr>
-			        @endforeach
-			    </tbody>
-			</table>
+		<div class="row">						
+			<div class="col-lg-12 table-responsive">				
+				<table class="table table-hover my-3 table-purple">
+				    <thead class="border-purple">
+				        <tr class="my-3">
+				            <th class="p-4">Name</th>
+				            <th class="p-4">Username</th>
+				            <th class="p-4">Email</th>
+				            <th class="p-4">Role</th>
+				            <th class="p-4">Actions</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        @foreach($users as $user)
+				        <tr>
+				            <td class="p-3">{{ $user->first_name }} {{ $user->last_name }}</td>
+				            <td class="p-3">{{ $user->username }}</td>
+				            <td class="p-3">{{ $user->email }}</td>
+				            @foreach($roles as $role)
+				                @if($user->role_id == $role->id)
+				                    <td class="p-3">{{ $role->name }}</td>
+				                    <input type="hidden" id="userRole" value="{{ $role->id }}">
+				                @endif
+				            @endforeach			            
+				            <td class="p-3">			   
+				            	<button type="button" class="btn btn-link btn-icon" onclick="openEditModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}', '{{ $user->role_id }}')"><i class="fas fa-user-edit"></i></button>
+				            	<button type="button" class="btn btn-link btn-icon" onclick="openDeleteModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')" data-toggle="modal"><i class="fas fa-trash"></i></button>
+				            </td>
+				        </tr>
+				        @endforeach
+				    </tbody>
+				</table>
+			</div>			
 		</div>
 	</div>
 
@@ -92,27 +95,20 @@
 		       		{{ csrf_field() }}
 		       		{{ method_field('PUT') }}
 		       	  <div class="form-group">
-		       	    <label>Role:</label>
-			       	    {{-- <div class="custom-control custom-radio">
-			       	      <input type="radio" id="customRadio1" name="editedRole" value="2" class="custom-control-input">
-			       	      <label class="custom-control-label" for="customRadio1" default>agent</label>
-			       	    </div>
-			       	    <div class="custom-control custom-radio">
-			       	      <input type="radio" id="customRadio2" name="editedRole" value="3" class="custom-control-input">
-			       	      <label class="custom-control-label" for="customRadio2">none</label>
-			       	    </div> --}}
-		       	    <select type="number" name="editedRole">
-		       	        @foreach($roles as $role)
-		       	            @if($user->role_id == $role->id)
-		       	                <option value="{{ $role->id }}" selected>{{ $role->name }}</option>
-		       	            @else
-		       	                <option value="{{ $role->id }}">{{ $role->name }}</option>
-		       	            @endif
-		       	        @endforeach
-		       	    </select>
+		       	    <label>Role:</label>		       	    
+		       	        <div>
+		       	        	<input type="radio" id="adminRadio" name="editedRole" value="1">
+		       	        	<label for="adminRadio"> admin</label>
+		       	        	<input type="radio" id="agentRadio" name="editedRole" value="2">
+		       	        	<label for="agentRadio"> agent</label>		       	        	
+		       	        	<input type="radio" id="noneRadio" name="editedRole" value="3"> 
+		       	        	<label for="noneRadio"> none</label>
+		       	        </div>
+
+		       	    
 		       	    <div class="text-center mt-2">
-				        <button type="submit" class="btn btn-wide btn-primary m-1">Save</button>
-				        <button type="button" class="btn btn-wide btn-secondary m-1" data-dismiss="modal">Close</button>
+				        <button type="submit" class="btn btn-wide btn-primary m-1">SAVE</button>
+				        <button type="button" class="btn btn-wide btn-secondary m-1" data-dismiss="modal">CLOSE</button>
 				    </div>
 		       	  </div>
 		       	</form>
@@ -124,15 +120,32 @@
 @endsection
 
 <script type="text/javascript">
+	function openEditModal(id, name, roleId) {
+		$("#editRoleForm").attr("action","/admin/agentroleedit/"+id);
+		$("#editAgentRole").text(name);
+		$("#editModal").modal("show");
+
+		// alert(roleId);
+
+		if (roleId == 1) {
+			$("#adminRadio").prop("checked", false);
+			$("#agentRadio").prop("checked", false);
+			$("#noneRadio").prop("checked", true);
+		} else if (roleId == 2) {			
+			$("#agentRadio").prop("checked", true);			
+			$("#adminRadio").prop("checked", false);
+			$("#noneRadio").prop("checked", false);
+		} else {			
+			$("#noneRadio").prop("checked", false);
+			$("#agentRadio").prop("checked", false);
+			$("#adminRadio").prop("checked", true);
+		}
+	}
+
 	function openDeleteModal(id, name) {
 		$("#deleteAgent").attr("action","/admin/agentdelete/"+id);
 		$('#agentDeleteMessage').html('Do you want to delete <strong>'+name+'</strong>?');
 		$("#deleteModal").modal("show");
 	}
 
-	function openEditModal(id, name) {
-		$("#editRoleForm").attr("action","/admin/agentroleedit/"+id);
-		$("#editAgentRole").text(name);
-		$("#editModal").modal("show");
-	}
 </script>

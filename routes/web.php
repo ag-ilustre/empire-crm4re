@@ -16,13 +16,16 @@ Route::middleware("auth")->group(function() {
 	Route::delete('/admin/agentdelete/{id}', 'AdminController@deleteAgent');
 	Route::put('/admin/agentroleedit/{id}', 'AdminController@editAgentRole');	
 	Route::get('/admin/contacts', 'AdminController@showContacts');
+	Route::get('/admin/opportunities', function () {
+	    return view('admin.opportunities');
+	});
 
 	//agent
 	Route::get('/agent/contacts', 'AgentController@showAgentContacts');
 });
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('home');
 });
 
 Auth::routes();
