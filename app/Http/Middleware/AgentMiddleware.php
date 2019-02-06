@@ -6,7 +6,7 @@ use Closure;
 use Auth;
 use Illuminate\Contracts\Auth\Guard;
 
-class AdminMiddleware
+class AgentMiddleware
 {
     /**
      * The Guard implementation.
@@ -35,7 +35,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->role_id == 1) {
+        if (Auth::user() && Auth::user()->role_id == 2) {
                 return $next($request);
         }
             return redirect('/');

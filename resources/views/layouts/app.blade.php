@@ -58,6 +58,9 @@
                             @if(Auth::user()->role_id === 1)
                             <!-- Admin's Navbar -->
                             <li class="nav-item">
+                              <a class="nav-link" href="/home">Home</a>
+                            </li>
+                            <li class="nav-item">
                               <a class="nav-link" href="/admin/agents">Agents</a>
                             </li>
                             <li class="nav-item">
@@ -72,8 +75,11 @@
                             <li class="nav-item">
                               <a class="nav-link" href="/admin/tasks">Tasks</a>
                             </li>
-                            @else
+                            @elseif(Auth::user()->role_id === 2)
                             <!-- Agent's Navbar -->
+                            <li class="nav-item">
+                              <a class="nav-link" href="/home">Home</a>
+                            </li>
                             <li class="nav-item">
                               <a class="nav-link" href="/agent/contacts">Contacts</a>
                             </li>

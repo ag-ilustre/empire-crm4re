@@ -6,11 +6,11 @@
 	
 	<div class="container-fluid">
 		<div class="row">
-			<h4 class="current-page"><i class="far fa-handshake"></i> Opportunities</h4>
-		</div>
-	</div>
-
-	<div class="container-fluid">
+			<div class="col-lg-12 my-4">
+				<h4 class="current-page text-center"><span class="text-underline"><i class="far fa-handshake"></i> Opportunities</span></h4>
+			</div>
+		</div>			
+	
 		<div class="row m-2">			
 			{{-- 1 - LEADS --}}
 			<div class="col-lg-3 m-0 px-1 py-2">

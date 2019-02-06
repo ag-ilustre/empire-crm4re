@@ -6,8 +6,9 @@
 
 body {
   	background-image: url("/images/buildings.png");
-	background-color: rgba(67, 5, 65, 0.7); /* Used if the image is unavailable */
-	background-position: 0 100px; /* Center the image */
+    background-color: rgba(67, 5, 65, 0.7); /* Used if the image is unavailable */
+	/*background-color: rgba(225, 225, 225, 1); /* Used if the image is unavailable */*/
+	/*background-position: 250px 300px; /* Center the image */*/
 	background-repeat: no-repeat; /* Do not repeat the image */
 	background-size: cover; /* Resize the background image to cover the entire container */
 	background-attachment: fixed;
@@ -189,15 +190,23 @@ th {
 }
 
 .current-page {
-	color: #00bc9c;
-	/*font-family: 'Vollkorn SC', serif;*/
-	font-family: 'Cinzel', serif;
-	/*font-family: 'Roboto', sans-serif;*/
-	font-weight: 600;
+	
 	/*text-transform: uppercase;*/
-	margin-left: 30px;
-	padding: 5px 0;
-	border-bottom: 2px solid #00bc9c;
+	/*margin-left: 30px;*/
+	/*padding: 5px 0;*/
+
+}
+
+.text-underline {
+    border-bottom: 2px solid #00bc9c;
+    color: #00bc9c;
+    /*font-family: 'Vollkorn SC', serif;*/
+    font-family: 'Cinzel', serif;
+    /*font-family: 'Roboto', sans-serif;*/
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0 30px;
+    padding: 5px 0;
 }
 
 #app-name {

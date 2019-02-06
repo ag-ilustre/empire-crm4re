@@ -6,24 +6,19 @@
 	
 	<div class="container-fluid">
 		<div class="row">
-			<h4 class="current-page"><i class="fas fa-users"></i> Agents</h4>
+			<div class="col-lg-12 my-4">
+				<h4 class="current-page text-center"><span class="text-underline"><i class="fas fa-users"></i> Agents</span></h4>
+			</div>
 		</div>
-		<div class="row mr-auto">
-			<div class="col-lg-6 col-md-6 col-sm-6"></div>
-			<div class="col-lg-6 col-md-6 col-sm-12">
-				<div class="row">
-					<div class="col-2"></div>
-					<div class="col-5 my-auto div-inline">
-						<input type="text" name="searchAgentPage" class="form-control" placeholder="Search">		
-					</div>
-					<div class="col-5 my-auto div-inline">
-						<button class="btn btn-block btn-greencyan my-2"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> ADD AGENT</button>					
-					</div>
-				</div>
-			</div>			
+		<div class="row">
+			<div class="col-lg-8 col-md-8"></div>
+			<div class="col-lg-3 col-md-3 col-sm-12">
+				<input type="text" name="searchAgentPage" class="form-control" placeholder="Search">
+			</div>	
+			<div class="col-lg-1 col-md-1"></div>
 		</div>
 		<div class="row">						
-			<div class="col-lg-12 table-responsive p-4">
+			<div class="col-lg-12 table-responsive px-4">
 				<div class="table-responsive">				
 				<table class="table table-hover my-3 table-purple">
 				    <thead class="border-purple">
@@ -59,6 +54,8 @@
 			</div>			
 		</div>
 	</div>
+
+	
 
 	{{-- Delete modal form --}}
 		<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -127,6 +124,7 @@
 @endsection
 
 <script type="text/javascript">
+	
 	function openEditModal(id, name, roleId) {
 		$("#editRoleForm").attr("action","/admin/agentroleedit/"+id);
 		$("#editAgentRole").text(name);

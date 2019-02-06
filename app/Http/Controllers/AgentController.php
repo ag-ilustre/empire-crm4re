@@ -27,4 +27,10 @@ class AgentController extends Controller
     	$stages = Stage::all();
     	return view('agent.opportunities', compact('user', 'contacts', 'stages'));
     }
+
+    public function addContact() {
+        $user = new User;
+
+
+    }
 }

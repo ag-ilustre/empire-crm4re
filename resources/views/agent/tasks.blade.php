@@ -5,9 +5,11 @@
 @section('content')
 	
 	<div class="container-fluid">
-		<div class="row">			
-			<h4 class="current-page p-1"><i class="fas fa-users"></i> Tasks</h4>
-		</div>
+		<div class="row">
+			<div class="col-lg-12 my-4">
+				<h4 class="current-page text-center"><span class="text-underline"><i class="fas fa-users"></i> Tasks</span></h4>
+			</div>
+		</div>		
 		<div class="row mr-auto">
 			<div class="col-lg-6 col-md-6 col-sm-6"></div>
 			<div class="col-lg-6 col-md-6 col-sm-12">

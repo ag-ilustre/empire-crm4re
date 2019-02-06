@@ -15,21 +15,38 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::middleware("auth")->group(function() {
-	//admin
-	Route::get('/admin/agents', 'AdminController@showAgents');
-	Route::delete('/admin/agentdelete/{id}', 'AdminController@deleteAgent');
-	Route::put('/admin/agentroleedit/{id}', 'AdminController@editAgentRole');	
-	Route::get('/admin/contacts', 'AdminController@showContacts');
-	
-
-	//agent
-	Route::get('/agent/contacts', 'AgentController@showAgentContacts');
-	Route::get('/agent/opportunities', 'AgentController@showOpportunities');
-	Route::get('/agent/tasks', function () {
-    return view('agent.tasks');
-});   
+Route::get('/home', function () {
+    return view('auth.login');
 });
+ 
+//admin
+// Route::group(['middleware' => 'admin'], function() {
+Route::middleware(['admin'])->group(function(){
+    // agents page
+    Route::get('/admin/agents', 'AdminController@showAgents');
+    Route::get('/admin/menu/addagent', 'AgentController@addAgent');
+    Route::delete('/admin/agentdelete/{id}', 'AdminController@deleteAgent');
+    Route::put('/admin/agentroleedit/{id}', 'AdminController@editAgentRole');	
+
+    // contacts page
+    Route::get('/admin/contacts', 'AdminController@showContacts');
+
+});
+// });
+
+//agent
+Route::middleware(['agent'])->group(function(){
+	// contacts page
+    Route::get('/agent/contacts', 'AgentController@showAgentContacts');
+    
+    // opportunities page
+	Route::get('/agent/opportunities', 'AgentController@showOpportunities');
+
+    // tasks page
+	Route::get('/agent/tasks', function () {
+    	return view('agent.tasks');
+    	});
+});  
 
 Auth::routes();
 
