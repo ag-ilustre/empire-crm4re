@@ -19,11 +19,33 @@ class AdminController extends Controller
     	return view('admin.agents', compact('users', 'roles')); 
     }
 
-    public function editAgentRole(Request $request, $id){
-    	$agentroleedit = User::find($id);
-    	$agentroleedit->role_id = $request->editedRole;
+    public function editAgentRole($id, Request $request){
+        $agentroleedit = User::find($id);
+        $agentroleedit->role_id = $request->editedRoleId;
     	$agentroleedit->save();
-    	return redirect('/admin/agents');
+        
+        $agent_first_name = $agentroleedit->first_name;
+        $agent_last_name = $agentroleedit->last_name;
+
+        $role = Role::find($agentroleedit->role_id);
+        $role_id = $role->id;
+        $role_name = $role->name;
+
+        
+
+        // $response = array(
+        //   'role_id' => 'role_id', 
+        //   'role_name' => 'role_name'
+        // );
+
+        return response()->json(['agent_first_name'=> $agent_first_name, 'agent_last_name'=> $agent_last_name,'role_id' => $role_id, 'role_name' => $role_name]);
+        // return response()->json(['role_id' => 'role_id', 'role_name' => 'role_name']);
+    	// return redirect('/admin/agents');
+
+        // return view('nameview', compact('agenttroleedit'));
+
+        // $query = Response::json($request->input('agentroledit'));
+      //  $query = Response::json($request->input('yourData'));
     }
 
     public function deleteAgent($id){

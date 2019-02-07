@@ -1,0 +1,21 @@
+Script:
+
+$.ajax({
+	url: '...',
+	type: 'POST',
+	dataType: 'JSON',
+	data: {
+		_token: $('meta[name="csrf-token"]').attr('content'),
+		yourData: yourData,
+	},
+	success: (data) => {
+		//...
+	}
+});
+
+Controller:
+
+public yourFunction (Request $request) {
+	$query = Response::json($request->input('yourData'));
+	...
+}

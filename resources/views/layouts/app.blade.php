@@ -9,10 +9,6 @@
 
     <title>@yield('pagetitle') | Empire: CRM for Real Estate</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/script.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Vollkorn+SC|Cinzel|Lato|Roboto+Condensed" rel="stylesheet" type="text/css">
@@ -123,5 +119,9 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/script.js') }}" defer></script>
 </body>
 </html>

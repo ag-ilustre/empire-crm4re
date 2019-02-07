@@ -38,12 +38,12 @@
 				            <td class="p-3">{{ $user->email }}</td>
 				            @foreach($roles as $role)
 				                @if($user->role_id == $role->id)
-				                    <td class="p-3">{{ $role->name }}</td>
-				                    <input type="hidden" id="userRole" value="{{ $role->id }}">
+				                    <td class="p-3" id="newAgentRole{{ $user->id }}">{{ $role->name }}</td>
+				                    <input type="hidden" id="userRole{{ $role->id }}" value="{{ $role->id }}">
 				                @endif
 				            @endforeach			            
 				            <td class="p-3">			   
-				            	<button type="button" class="btn btn-link btn-icon" onclick="openEditModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}', '{{ $user->role_id }}')"><i class="fas fa-user-edit"></i></button>
+				            	<button type="button" class="btn btn-link btn-icon" data-toggle="modal" onclick="openEditModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}', '{{ $user->role_id }}')"><i class="fas fa-user-edit"></i></button>
 				            	<button type="button" class="btn btn-link btn-icon" onclick="openDeleteModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')" data-toggle="modal"><i class="fas fa-trash"></i></button>
 				            </td>
 				        </tr>
@@ -94,11 +94,13 @@
 		        </button>
 		      </div>
 		      <div class="modal-body mx-3 mb-2">
-	       	    <p>Name: <span id="editAgentRole" name="editAgentRole"></span></p>
+	       	    <p>Name: <span id="agentName" name="editAgentRole"></span></p>
+	       	    <input type="hidden" id="agentId" name="agentId" value="">
 		       	<form id="editRoleForm" method="POST">
 		       		{{ csrf_field() }}
 		       		{{ method_field('PUT') }}
 		       	  <div class="form-group">
+		       	  	<input type="hidden" id="agentId" name="agentId" value="">
 		       	    <label>Role:</label>		       	    
 		       	        <div>
 		       	        	<input type="radio" id="adminRadio" name="editedRole" value="1">
@@ -107,11 +109,12 @@
 		       	        	<label for="agentRadio"> agent</label>		       	        	
 		       	        	<input type="radio" id="noneRadio" name="editedRole" value="3"> 
 		       	        	<label for="noneRadio"> none</label>
+		       	        	
 		       	        </div>
 
 		       	    
 		       	    <div class="text-center mt-2">
-				        <button type="submit" class="btn btn-wide btn-primary m-1">SAVE</button>
+				        <button type="button" id="saveEditedRole" class="btn btn-wide btn-primary m-1" onclick="saveUpdatedRole()" data-dismiss="modal">SAVE</button>
 				        <button type="button" class="btn btn-wide btn-secondary m-1" data-dismiss="modal">CLOSE</button>
 				    </div>
 		       	  </div>
@@ -121,14 +124,20 @@
 		  </div>
 		</div>
 
-@endsection
+<script>
 
-<script type="text/javascript">
-	
 	function openEditModal(id, name, roleId) {
-		$("#editRoleForm").attr("action","/admin/agentroleedit/"+id);
-		$("#editAgentRole").text(name);
+		// $("#editRoleForm").attr("action","/admin/agentroleedit/"+id);
 		$("#editModal").modal("show");
+
+		updateValuesInEditModal(id, name, roleId);		
+
+	} 
+
+	function updateValuesInEditModal (id, name, roleId) {
+		console.log(id+" "+name+" "+roleId);
+		$("#agentId").attr("value", id);	
+		$("#agentName").html(name);
 
 		// alert(roleId);
 		// $("#adminRadio").prop("checked", false);
@@ -147,7 +156,34 @@
 			$("#noneRadio").prop("checked", true);
 			$("#agentRadio").prop("checked", false);
 			$("#adminRadio").prop("checked", false);
-		}
+		}		
+	}
+
+
+	function saveUpdatedRole() {
+		var id = $('input[name="agentId"]').val();
+		var editedRoleId = $('input[name="editedRole"]:checked').val();
+		// console.log(editedRole);
+		$.ajax({
+			url: '/admin/agentroleedit/'+id,
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				'_token': $('meta[name="csrf-token"]').attr('content'),
+				'_method':'PUT',
+				'editedRoleId': editedRoleId,
+			},
+			success: function(data) {
+				// console.log(id + " " + data.agent_first_name + " " + data.agent_last_name + " " + data.role_id + " " +data.role_name);
+				$('#newAgentRole'+id).html(data.role_name);		
+				$("#userRoleId"+id).attr("value", data.role_id);
+				
+				var agentname = data.agent_first_name + " " + data.agent_last_name;
+				// console.log(agentname);
+				updateValuesInEditModal(id, agentname, data.role_id);
+				// fix the modal "new" role displayed
+			}
+		});
 	}
 
 	function openDeleteModal(id, name) {
@@ -157,3 +193,4 @@
 	}
 
 </script>
+@endsection
