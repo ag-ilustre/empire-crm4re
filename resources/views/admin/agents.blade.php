@@ -121,8 +121,7 @@
 		       	        	<input type="radio" id="agentRadio" name="editedRole" value="2">
 		       	        	<label for="agentRadio"> agent</label>		       	        	
 		       	        	<input type="radio" id="noneRadio" name="editedRole" value="3"> 
-		       	        	<label for="noneRadio"> none</label>
-		       	        	
+		       	        	<label for="noneRadio"> none</label>		       	        	
 		       	        </div>
 
 		       	    
@@ -237,4 +236,5 @@
 
 
 </script>
+
 @endsection

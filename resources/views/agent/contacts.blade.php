@@ -17,9 +17,11 @@
 					<div class="col-2"></div>
 					<div class="col-5 my-auto div-inline">
 						<input type="text" name="searchAgentPage" class="form-control" placeholder="Search">		
-					</div>
+					</div>					
 					<div class="col-5 my-auto div-inline">
-						<button class="btn btn-block btn-greencyan my-2"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> ADD CONTACT</button>					
+
+						<a class="btn btn-greencyan my-2" href="/agent/addacontact" title="Add a Contact"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> Add a Contact</a>									
+
 					</div>
 				</div>
 			</div>			
@@ -75,4 +77,6 @@
 			</div>
 		</div>
 	</div>
+	
+
 @endsection

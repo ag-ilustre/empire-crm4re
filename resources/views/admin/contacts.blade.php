@@ -7,20 +7,17 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-12 my-4">
-				<h4 class="current-page text-center"><span class="text-underline"><i class="fas fa-users"></i> Contacts</span></h4>
+				<h3 class="current-page text-center"><span class="text-underline"><i class="fas fa-users"></i> Contacts</span></h3>
 			</div>
 		</div>		
 		<div class="row mr-auto">
 			<div class="col-lg-6 col-md-6 col-sm-6"></div>
 			<div class="col-lg-6 col-md-6 col-sm-12">
 				<div class="row">
-					<div class="col-2"></div>
-					<div class="col-5 my-auto div-inline">
-						<input type="text" name="searchAgentPage" class="form-control" placeholder="Search">		
-					</div>
-					<div class="col-5 my-auto div-inline">
-						<button class="btn btn-block btn-greencyan my-2"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> ADD CONTACT</button>					
-					</div>
+					<div class="col-6"></div>
+					<div class="col-6 my-auto div-inline">
+						<input type="text" name="searchAdminPage" class="form-control" placeholder="Search">		
+					</div>					
 				</div>
 			</div>			
 		</div>
@@ -30,17 +27,19 @@
 				<table class="table table-hover my-3 table-purple">
 				    <thead class="border-purple">
 			        <tr class="my-3">
+			            <th class="p-4">#</th>
 			            <th class="p-4">Agent</th>
 			            <th class="p-4">Contact</th>
 			            <th class="p-4">Stage</th>			            
 			            <th class="p-4">Last Activity</th>
 			            <th class="p-4">Properties</th>
-			            <th class="p-4">Actions</th>
+			            <th class="p-4 text-center">Actions</th>
 			        </tr>
 			    </thead>
 			    <tbody>
 			        @foreach($contacts as $contact)
 			        <tr>
+		                <td class="p-4 text-center">{{ $loop->iteration }}</td>
 			        	{{-- agent --}}
 			            @foreach($users as $user)
 			                @if($contact->user_id == $user->id)
@@ -60,25 +59,152 @@
 			            {{-- properties --}}
 			            <td class="p-4">insert number of properties here</td>            	
 			            {{-- actions --}}
-			            <td class="p-4"><span class="nav-item dropdown">
-			            	  <button type="button" class="btn btn-link btn-icon" onclick="openEditModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')"><i class="fas fa-search mx-1"></i></i></button>
-			            	  <button type="button" class="btn btn-link btn-icon" onclick="openDeleteModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')" data-toggle="modal"><i class="fas fa-trash"></i></button>
-			            	  <a class="btn-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			            	    <i class="fas fa-ellipsis-h mx-1"></i>
-			            	  </a>
-			            	  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			            	    <a class="dropdown-item btn-link" href="#"><i class="fas fa-search mx-1"></i> View Profile</a>
-			            	    <a class="dropdown-item btn-link" href="#"><i class="fas fa-trash mx-1"></i> Delete Contact</a>
-			            	    <a class="dropdown-item btn-link" href="#"><i class="far fa-sticky-note mx-1"></i> Add a Note</a>
-			            	    <a class="dropdown-item btn-link" href="#"><i class="fas fa-calendar-alt mx-1"></i> Add a Task</a>
-			            	  </div>
-			            	</span>
+			            <td class="p-4">
+			            	{{-- VIEW PROFILE --}}
+			            	<button class="btn btn-link btn-icon" onclick="openViewProfileModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')" data-toggle="modal" data-target=".admincontactsViewProfile" title="View Profile"><i class="fas fa-search mx-1"></i></button>
+			            	{{-- DELETE CONTACT --}}
+			            	<button class="btn btn-link btn-icon" onclick="openDeleteContactModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')" data-toggle="modal" data-target=".admincontactsDeleteContact" title="Delete Contact"><i class="fas fa-trash mx-1"></i></button>
+			            	{{-- ADD A NOTE --}}
+			            	<button class="btn btn-link btn-icon" onclick="openAddANoteModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')" data-toggle="modal" data-target=".admincontactsAddANote" title="Add a Note"><i class="far fa-sticky-note mx-1"></i></button>
+			            	{{-- ADD A TASK --}}
+			            	<button class="btn btn-link btn-icon" onclick="openAddATaskModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')" data-toggle="modal" data-target=".admincontactsAddATask" title="Add a Task"><i class="fas fa-calendar-alt mx-1"></i></button>
 			            </td>
 			        </tr>
 			        @endforeach
 			    </tbody>
 			</table>
-		</div>
+			</div>
 		</div>
 	</div>
+
+	
+	<!-- VIEW PROFILE -->
+	<div class="modal fade admincontactsViewProfile" tabindex="-1" role="dialog" aria-labelledby="admincontactsViewProfileModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg modal-dialog-centered">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+	    	    <h5 class="modal-title" id="admincontactsViewProfileModalLabel">View Porfile</h5>
+	    	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	    	    	<span aria-hidden="true">&times;</span>
+	    		</button>
+	    	</div>
+	    	<div class="modal-body">
+    	        <form>
+    	          	<div class="form-group">
+    	            	<label for="recipient-name" class="col-form-label">Recipient:</label>
+	    	            <input type="text" class="form-control" id="recipient-name">
+	    	        </div>
+	    	        <div class="form-group">
+    	            	<label for="message-text" class="col-form-label">Message:</label>
+	    	            <textarea class="form-control" id="message-text"></textarea>
+    	          	</div>
+    	        </form>    	        
+    	    </div>
+    	    <div class="modal-footer">
+       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Send message</button>
+	      	</div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- DELETE CONTACT -->
+	<div class="modal fade admincontactsDeleteContact" tabindex="-1" role="dialog" aria-labelledby="admincontactsDeleteContactModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+	    	    <h5 class="modal-title" id="admincontactsDeleteContactModalLabel">View Porfile</h5>
+	    	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	    	    	<span aria-hidden="true">&times;</span>
+	    		</button>
+	    	</div>
+	    	<div class="modal-body">
+    	        <form>
+    	          	<div class="form-group">
+    	            	<label for="recipient-name" class="col-form-label">Recipient:</label>
+	    	            <input type="text" class="form-control" id="recipient-name">
+	    	        </div>
+	    	        <div class="form-group">
+    	            	<label for="message-text" class="col-form-label">Message:</label>
+	    	            <textarea class="form-control" id="message-text"></textarea>
+    	          	</div>
+    	        </form>    	        
+    	    </div>
+    	    <div class="modal-footer">
+       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Send message</button>
+	      	</div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- ADD A NOTE -->
+	<div class="modal fade admincontactsAddANote" tabindex="-1" role="dialog" aria-labelledby="admincontactsAddANoteModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+	    	    <h5 class="modal-title" id="admincontactsAddANoteModalLabel">View Porfile</h5>
+	    	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	    	    	<span aria-hidden="true">&times;</span>
+	    		</button>
+	    	</div>
+	    	<div class="modal-body">
+    	        <form>
+    	          	<div class="form-group">
+    	            	<label for="recipient-name" class="col-form-label">Recipient:</label>
+	    	            <input type="text" class="form-control" id="recipient-name">
+	    	        </div>
+	    	        <div class="form-group">
+    	            	<label for="message-text" class="col-form-label">Message:</label>
+	    	            <textarea class="form-control" id="message-text"></textarea>
+    	          	</div>
+    	        </form>    	        
+    	    </div>
+    	    <div class="modal-footer">
+       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Send message</button>
+	      	</div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- ADD A TASK -->
+	<div class="modal fade admincontactsAddATask" tabindex="-1" role="dialog" aria-labelledby="admincontactsAddATaskModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+	    	    <h5 class="modal-title" id="admincontactsAddATaskModalLabel">View Porfile</h5>
+	    	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	    	    	<span aria-hidden="true">&times;</span>
+	    		</button>
+	    	</div>
+	    	<div class="modal-body">
+    	        <form>
+    	          	<div class="form-group">
+    	            	<label for="recipient-name" class="col-form-label">Recipient:</label>
+	    	            <input type="text" class="form-control" id="recipient-name">
+	    	        </div>
+	    	        <div class="form-group">
+    	            	<label for="message-text" class="col-form-label">Message:</label>
+	    	            <textarea class="form-control" id="message-text"></textarea>
+    	          	</div>
+    	        </form>    	        
+    	    </div>
+    	    <div class="modal-footer">
+       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Send message</button>
+	      	</div>
+	    </div>
+	  </div>
+	</div>
+
+<script>
+	
+	function AddAcontact() {
+		$(".admincontactsAddAcontact").modal("show");
+	}
+
+
+</script>
+
 @endsection

@@ -13,6 +13,8 @@ use Auth;
 
 class AdminController extends Controller
 {
+
+// ADMIN - AGENTS
     public function showAgents(){
         $users = User::all(); 
     	$roles = Role::all();
@@ -63,10 +65,15 @@ class AdminController extends Controller
 
     }
 
+// ADMIN - CONTACTS
     public function showContacts(){
         $users = User::all();
         $contacts = Contact::all(); 
         $stages = Stage::all();
         return view('admin.contacts', compact('users', 'contacts', 'stages')); 
     }
+
+
+
+
 }

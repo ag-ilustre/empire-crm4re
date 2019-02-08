@@ -28,8 +28,26 @@ class AgentController extends Controller
     	return view('agent.opportunities', compact('user', 'contacts', 'stages'));
     }
 
-    public function addContact() {
-        $user = new User;
+    public function addAContact() {
+        $rules = array(
+            "contactFirstName" => "required",
+            "contactLastName" => "required",
+            "contactContactNumber" => "required",
+            "contactEmail"  => "required",
+            "contactOccupation"  => "required",
+            "contactCompany"  => "required",
+            "contactAddress"  => "required",
+            "contactStage"  => "required",
+            
+        );
+        //to validate $request from form
+        $this->validate($request, $rules);
+
+        $id = Auth::user()->id;
+        $users = User::all();
+        $contact = new Contact;
+
+
 
 
     }
