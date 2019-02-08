@@ -24,6 +24,7 @@ Route::get('/home', function () {
 Route::middleware(['admin'])->group(function(){
     // agents page
     Route::get('/admin/agents', 'AdminController@showAgents');
+    Route::get('/admin/menu/searchagentspage', 'AdminController@searchAgentsPage');
     Route::get('/admin/menu/addagent', 'AgentController@addAgent');
     Route::delete('/admin/agentdelete/{id}', 'AdminController@deleteAgent');
     Route::put('/admin/agentroleedit/{id}', 'AdminController@editAgentRole');	

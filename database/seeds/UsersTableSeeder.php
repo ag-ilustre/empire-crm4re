@@ -30,6 +30,7 @@ class UsersTableSeeder extends Seeder
                 'role_id' => 1,
                 'created_at' => NULL,
                 'updated_at' => NULL,
+                'deleted_at' => NULL,
             ),
             1 => 
             array (
@@ -44,6 +45,7 @@ class UsersTableSeeder extends Seeder
                 'role_id' => 2,
                 'created_at' => '2019-02-02 17:11:15',
                 'updated_at' => '2019-02-02 17:11:15',
+                'deleted_at' => NULL,
             ),
             2 => 
             array (
@@ -58,6 +60,7 @@ class UsersTableSeeder extends Seeder
                 'role_id' => 2,
                 'created_at' => '2019-02-02 17:14:24',
                 'updated_at' => '2019-02-02 17:14:24',
+                'deleted_at' => NULL,
             ),
             3 => 
             array (
@@ -72,6 +75,7 @@ class UsersTableSeeder extends Seeder
                 'role_id' => 2,
                 'created_at' => '2019-02-02 17:15:02',
                 'updated_at' => '2019-02-02 17:15:02',
+                'deleted_at' => NULL,
             ),
             4 => 
             array (
@@ -86,6 +90,7 @@ class UsersTableSeeder extends Seeder
                 'role_id' => 2,
                 'created_at' => '2019-02-02 17:15:43',
                 'updated_at' => '2019-02-02 17:15:43',
+                'deleted_at' => NULL,
             ),
             5 => 
             array (
@@ -100,6 +105,7 @@ class UsersTableSeeder extends Seeder
                 'role_id' => 3,
                 'created_at' => '2019-02-02 17:16:07',
                 'updated_at' => '2019-02-02 22:45:32',
+                'deleted_at' => NULL,
             ),
             6 => 
             array (
@@ -114,6 +120,7 @@ class UsersTableSeeder extends Seeder
                 'role_id' => 3,
                 'created_at' => '2019-02-02 17:16:07',
                 'updated_at' => '2019-02-02 22:45:32',
+                'deleted_at' => NULL,
             ),
         ));
         

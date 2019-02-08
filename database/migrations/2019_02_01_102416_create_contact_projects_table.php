@@ -42,6 +42,7 @@ class CreateContactProjectsTable extends Migration
             $table->decimal('estimated_commission', 10,2);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

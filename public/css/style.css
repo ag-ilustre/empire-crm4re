@@ -304,22 +304,31 @@ th {
 	border: 1px solid rgba(67, 5, 65, 0.5) !important;
 }	
 
-/* MEDIA QUERIES */
-@media screen and (max-width: 600px) { 
-	.opportunities-card-name {
-		font-size: 1.3rem;
-	}
+/*admin/agent*/
+/*#table-admin-agent {
+    margin-right: 50px;
+    margin-left: 50px;
+}*/
 
-	.opportunities-card-text {
-		font-size: 1rem;
-	}
-	
+
+/*MEDIA QUERIES*/
+
+/*for tablet*/
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+
 }
 
 
-@media screen and (min-width: 600px) and (max-width: 768px) {
+/*for phone*/
+@media only screen and (max-width: 600px) {
+/*agent/opportunities*/
+    .opportunities-card-name {
+        font-size: 1.3rem;
+    }
 
-	
-
-	
+    .opportunities-card-text {
+        font-size: 1rem;
+    }
+    
+}
 }

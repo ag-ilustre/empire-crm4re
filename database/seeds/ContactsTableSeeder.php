@@ -32,6 +32,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 2,
                 'created_at' => '2019-02-01 00:00:00',
                 'updated_at' => '2019-02-01 00:00:00',
+                'deleted_at' => NULL,
             ),
             1 => 
             array (
@@ -48,6 +49,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 2,
                 'created_at' => '2019-02-01 00:00:00',
                 'updated_at' => '2019-02-01 00:00:00',
+                'deleted_at' => NULL,
             ),
             2 => 
             array (
@@ -64,6 +66,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 2,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             3 => 
             array (
@@ -80,6 +83,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 2,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             4 => 
             array (
@@ -96,6 +100,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 3,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             5 => 
             array (
@@ -112,6 +117,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 3,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             6 => 
             array (
@@ -128,6 +134,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 3,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             7 => 
             array (
@@ -144,6 +151,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 3,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             8 => 
             array (
@@ -160,6 +168,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 4,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             9 => 
             array (
@@ -176,6 +185,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 4,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             10 => 
             array (
@@ -192,6 +202,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 4,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             11 => 
             array (
@@ -208,6 +219,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 4,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             12 => 
             array (
@@ -224,6 +236,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 5,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             13 => 
             array (
@@ -240,6 +253,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 5,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             14 => 
             array (
@@ -256,6 +270,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 5,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             15 => 
             array (
@@ -272,6 +287,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 5,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             16 => 
             array (
@@ -288,6 +304,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 6,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             17 => 
             array (
@@ -304,6 +321,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 6,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             18 => 
             array (
@@ -320,6 +338,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 6,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
             19 => 
             array (
@@ -336,6 +355,7 @@ class ContactsTableSeeder extends Seeder
                 'user_id' => 6,
                 'created_at' => '2019-02-02 00:00:00',
                 'updated_at' => '2019-02-02 00:00:00',
+                'deleted_at' => NULL,
             ),
         ));
         

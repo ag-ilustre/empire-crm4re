@@ -19,3 +19,8 @@ public yourFunction (Request $request) {
 	$query = Response::json($request->input('yourData'));
 	...
 }
+
+
+Session:
+
+Session::flash("successmessage", "Deleted Agent successfully!")

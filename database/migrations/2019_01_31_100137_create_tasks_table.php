@@ -33,6 +33,7 @@ class CreateTasksTable extends Migration
             ->onUpdate('cascade');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

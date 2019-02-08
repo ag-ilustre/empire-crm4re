@@ -16,7 +16,12 @@ class AdminController extends Controller
     public function showAgents(){
         $users = User::all(); 
     	$roles = Role::all();
-    	return view('admin.agents', compact('users', 'roles')); 
+
+     	return view('admin.agents', compact('users', 'roles')); 
+    }
+
+    public function searchAgentsPage(){
+
     }
 
     public function editAgentRole($id, Request $request){
@@ -24,34 +29,38 @@ class AdminController extends Controller
         $agentroleedit->role_id = $request->editedRoleId;
     	$agentroleedit->save();
         
-        $agent_first_name = $agentroleedit->first_name;
-        $agent_last_name = $agentroleedit->last_name;
+        $agent_first_name = $agentroleedit->first_name;        $agent_last_name = $agentroleedit->last_name;
+        $agent_name = $agent_first_name." ".$agent_last_name;
 
         $role = Role::find($agentroleedit->role_id);
         $role_id = $role->id;
         $role_name = $role->name;
-
-        
-
+       
         // $response = array(
         //   'role_id' => 'role_id', 
         //   'role_name' => 'role_name'
         // );
-
-        return response()->json(['agent_first_name'=> $agent_first_name, 'agent_last_name'=> $agent_last_name,'role_id' => $role_id, 'role_name' => $role_name]);
+        // Session::flash("successmessage", "Updated Role successfully!")
+        return response()->json(['agent_name'=> $agent_name, 'role_id' => $role_id, 'role_name' => $role_name]);
         // return response()->json(['role_id' => 'role_id', 'role_name' => 'role_name']);
     	// return redirect('/admin/agents');
 
         // return view('nameview', compact('agenttroleedit'));
-
-        // $query = Response::json($request->input('agentroledit'));
-      //  $query = Response::json($request->input('yourData'));
     }
 
     public function deleteAgent($id){
-    	$agentdelete = User::find($id);
-    	$agentdelete->delete();
-    	return redirect('/admin/agents');
+        $count = Contact::where(['user_id' => $id])->get()->count();
+
+        if ($count == 0) {
+        	$agentdelete = User::find($id);
+        	$agentdelete->delete();
+        	// return redirect('/admin/agents');
+            return response()->json(['status' => 'deleted', 'message'=> 'Deleted Agent successfully!', 'agentdelete_id'=> $id]);
+        } else {
+            return response()->json(['message'=> 'Deleting Agent is not allowed! Contacts are connected to this Agent. Consider editing the role instead.']);
+        }
+
+
     }
 
     public function showContacts(){

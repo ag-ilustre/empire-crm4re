@@ -33,6 +33,7 @@ class CreateContactStagesTable extends Migration
             $table->string('title');
             $table->text('note');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

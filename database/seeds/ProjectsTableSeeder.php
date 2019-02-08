@@ -23,6 +23,7 @@ class ProjectsTableSeeder extends Seeder
                 'name' => 'Atlas Residences',
                 'created_at' => NULL,
                 'updated_at' => NULL,
+                'deleted_at' => NULL,
             ),
             1 => 
             array (
@@ -30,6 +31,7 @@ class ProjectsTableSeeder extends Seeder
                 'name' => 'Cyllene Residences',
                 'created_at' => NULL,
                 'updated_at' => NULL,
+                'deleted_at' => NULL,
             ),
             2 => 
             array (
@@ -37,6 +39,7 @@ class ProjectsTableSeeder extends Seeder
                 'name' => 'Calypso Residences',
                 'created_at' => NULL,
                 'updated_at' => NULL,
+                'deleted_at' => NULL,
             ),
             3 => 
             array (
@@ -44,6 +47,7 @@ class ProjectsTableSeeder extends Seeder
                 'name' => 'Leda Residences',
                 'created_at' => NULL,
                 'updated_at' => NULL,
+                'deleted_at' => NULL,
             ),
             4 => 
             array (
@@ -51,6 +55,7 @@ class ProjectsTableSeeder extends Seeder
                 'name' => 'Galatea Residences',
                 'created_at' => NULL,
                 'updated_at' => NULL,
+                'deleted_at' => NULL,
             ),
         ));
         

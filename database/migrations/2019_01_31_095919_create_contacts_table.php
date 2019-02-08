@@ -39,6 +39,7 @@ class CreateContactsTable extends Migration
             ->onUpdate('cascade');
             
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
