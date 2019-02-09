@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="col">
 				{{-- @if(Session::has("successmessage")) --}}
-				<div id="errorBox">
+				<div class="errorBox">
 					{{-- {{ Session::get("successmessage") }} --}}
 					<span class="errorMessage"></span>
 				</div>
@@ -220,14 +220,14 @@
 				// console.log(data.agentdelete_id);
 				if(data.status == 'deleted') {
 					$('#row'+data.agentdelete_id).remove();
-					$('#errorBox').attr("class", "alert alert-success text-center");
+					$('.errorBox').attr("class", "alert alert-success text-center");
 					$('.errorMessage').html(data.message);
-					$('#errorBox').fadeOut(3000);
+					$('.errorBox').fadeOut(3000);
 
 				} else {
-					$('#errorBox').attr("class", "alert alert-danger text-center");
+					$('.errorBox').attr("class", "alert alert-danger text-center");
 					$('.errorMessage').html(data.message);
-					$('#errorBox').fadeOut(7000);
+					$('.errorBox').fadeOut(7000);
 				}
 				
 			}

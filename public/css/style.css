@@ -53,6 +53,29 @@ nav {
 	color: rgba(67, 5, 65, 1) !important;
 }
 
+.btn {
+    height: 37px;
+    display: inline-block;
+    font: 14px/36px "Roboto", sans-serif !important;
+    padding: 0 6px;
+    border-radius: 2px;
+    min-width: 40px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    /*box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);*/
+}
+
+/*.btn:hover {
+    transition: .4s;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
+}
+
+.btn:active {
+    transition: .4s;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}*/
+
 /*primary button*/
 .btn.btn-primary {
     transition: .4s;
@@ -61,7 +84,6 @@ nav {
     border-radius: 2px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
     border: 1px solid rgba(67, 5, 65, 0.8);
-    /*margin: 5px;*/
     text-transform: uppercase;
 }
 .btn.btn-primary:hover {
@@ -71,7 +93,7 @@ nav {
     border: 1px solid rgba(67, 5, 65, 0.8);
 }
 .btn.btn-primary:active {
-    transition: .2s;
+    transition: .4s;
     background: rgba(67, 5, 65, 0.8);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     border: 1px solid rgba(67, 5, 65, 0.8);
@@ -147,17 +169,7 @@ nav {
     border: -1px solid rgba(255, 160, 0, 0.24);
 }
 
-.btn {
-    height: 37px;
-    display: inline-block;
-    font: 14px/36px "Roboto", sans-serif !important;
-    padding: 0 6px;
-    border-radius: 2px;
-    min-width: 40px;
-    text-align: center;
-    position: relative;
-    cursor: pointer;
-}
+
 
 .border-purple {
 	border-color:  rgba(67, 5, 65, 1) !important;
@@ -201,8 +213,9 @@ th {
     border-bottom: 2px solid #00bc9c;
     color: #00bc9c;
     /*font-family: 'Vollkorn SC', serif;*/
-    font-family: 'Cinzel', serif;
-    /*font-family: 'Roboto', sans-serif;*/
+    /*font-family: 'Cinzel', serif;*/
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.8rem;
     font-weight: 600;
     text-transform: uppercase;
     margin: 0 30px;
@@ -223,12 +236,29 @@ th {
 }
 
 /*HOME PAGE*/
-.dashboard-title, .auth-card-title {
-	font-size: 1rem;
+.dashboard-title, .auth-card-title, .card-title {
+	font-size: 1.1rem;
 	font-family: 'Roboto', sans-serif;
 	color: rgba(67, 5, 65, .8) !important;
 	font-weight: 500;
 }
+
+/*contractprofile.blade*/
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.view-profile-avatar {
+    border-radius: 50%
+    height: 250px;
+    width: 250px;
+}
+
+.view-profile-card {
+    width: 100%;
+}
+
 
 /*OPPORTUNITIES*/
 .card {
@@ -252,7 +282,7 @@ th {
 
 /*for scrolling of cards in opportunities page*/
 .scroll {
-    max-height: 300px;
+    max-height: 500px;
     overflow-y: auto;
 }
 
@@ -295,6 +325,8 @@ th {
     background-size: 15px 15px;
     z-index: 20000;
 }
+/*end of scrolling in cards*/
+
 
 .div-inline {
 	display: inline;
@@ -332,3 +364,83 @@ th {
     
 }
 }
+
+/*TABS IN PROFILE*/
+.tabs {
+}
+.tabs input[type=radio] {
+  display: none; 
+}
+.tabs label {
+  transition: background 0.4s ease-in-out, height 0.2s linear;
+  display: inline-block;
+  cursor: pointer;
+  color: #00bc9c;
+  width: 40%;
+  height: 3em;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  background: #FCFCFC;
+  text-align: center;
+  line-height: 3em; 
+}
+.tabs label:last-of-type {
+  border-bottom: none; 
+}
+.tabs label:hover {
+  background: #00bc9c;
+  color:#ffffff;
+}
+@media screen and (max-width: 1600px) {
+.tabs label {
+  width: 40%; } 
+}
+@media screen and (max-width: 900px) {
+.tabs label {
+  width: 40%; 
+  } 
+}
+@media screen and (max-width: 600px) {
+.tabs label {
+  width: 40%;
+  /*display: inline;*/
+  border-bottom: 2px solid #C7C6C4;
+  border-radius: 0; 
+} 
+}
+@media screen and (max-width: 600px) {
+.tabs {
+  /*margin: 0; */
+} 
+}
+
+#tab1:checked + label, #tab2:checked + label, #tab3:checked + label, #tab4:checked + label {
+  background: #00bc9c;
+  color: #FFFFFF; }
+
+.tab-content {
+  position: absolute;
+  top: -9999px;
+  /*padding: 10px; */
+}
+
+.tab-content-wrapper{
+  background: #FCFCFC;
+  border-top: #2EBEB9 5px solid;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  border-top-right-radius: 2px;
+  height: 100%;
+  
+}
+@media screen and (max-width: 600px) {
+.tab-content-wrapper, .tab1-content-wrapper {
+  border: none;
+  border-radius: 0; 
+} 
+}
+
+#tab1:checked ~ .tab-content-wrapper #tab-content-1, #tab2:checked ~ .tab-content-wrapper #tab-content-2, #tab3:checked ~ .tab-content-wrapper #tab-content-3, #tab4:checked ~ .tab-content-wrapper #tab-content-4 {
+  position: relative;
+  top: 0px;
+ }

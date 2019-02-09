@@ -200,9 +200,7 @@
 
 <script>
 	
-	function AddAcontact() {
-		$(".admincontactsAddAcontact").modal("show");
-	}
+	
 
 
 </script>

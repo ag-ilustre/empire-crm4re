@@ -39,7 +39,13 @@ Route::middleware(['admin'])->group(function(){
 Route::middleware(['agent'])->group(function(){
 	// contacts page
     Route::get('/agent/contacts', 'AgentController@showAgentContacts');
-    
+   	Route::get('/agent/contacts/addacontact', function () {
+       	return view('agent.addacontact');
+       	});
+    Route::post('/agent/contacts/addacontact', 'AgentController@saveNewContact');
+   	Route::get('/agent/contacts/viewprofile/{id}', 'AgentController@viewProfileContact');
+
+
     // opportunities page
 	Route::get('/agent/opportunities', 'AgentController@showOpportunities');
 

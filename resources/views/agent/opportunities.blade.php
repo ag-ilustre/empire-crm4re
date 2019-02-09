@@ -15,7 +15,7 @@
 			{{-- 1 - LEADS --}}
 			<div class="col-lg-3 m-0 px-1 py-2">
 				<div class="text-center">
-				  <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseLeads" aria-expanded="true" aria-controls="collapseLeads">
+				  <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseLeads" aria-expanded="false" aria-controls="collapseLeads">
 				    Leads
 				  </button>
 				</div>
