@@ -10,16 +10,13 @@
 				<h4 class="current-page text-center"><span class="text-underline"><i class="fas fa-users"></i> Agents</span></h4>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col">
-				{{-- @if(Session::has("successmessage")) --}}
-				<div class="errorBox">
-					{{-- {{ Session::get("successmessage") }} --}}
-					<span class="errorMessage"></span>
-				</div>
-				{{-- @elseif(Session::has("deletemessage")) --}}
+		{{-- ERROR MESSAGE FROM AJAX --}}
+		<div class="row justify-content-center errorBox">
+			<div class="col-8 mx-auto p-2" id="errorBoxAgents">
+				<span id="errorMessageAgents"></span>
 			</div>
 		</div>
+		
 		<div class="row">
 			<div class="col-lg-8 col-md-8"></div>
 			<div class="col-lg-3 col-md-3 col-sm-12">
@@ -43,7 +40,7 @@
 				    </thead>
 				    <tbody>
 				        @foreach($users as $user)
-				        <tr id="row{{ $user->id }}" class="mr-2 p-3">
+				        <tr id="userRow{{ $user->id }}" class="mr-2 p-3">
 				        	<td class="px-3 text-center">{{ $loop->iteration }}</td>
 				            <td class="px-3">{{ $user->first_name }} {{ $user->last_name }}</td>
 				            <td class="px-3">{{ $user->username }}</td>
@@ -71,7 +68,7 @@
 
 	{{-- Delete modal form --}}
 		<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="deleteModalLabel">Delete Agent</h5>
@@ -98,7 +95,7 @@
 
 		{{-- Edit modal form --}}
 		<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <h5 class="modal-title" id="editModalLabel">Edit Role</h5>
@@ -135,13 +132,16 @@
 		    </div>
 		  </div>
 		</div>
+@endsection
+
+@section('javascript')
 
 <script>	
 
 	function updateValuesInEditModal (id, agentName, roleId) {
 		// console.log("updated "+id+" "+agentName+" "+roleId);
-		$("#agentName").attr("value", agentName); //Line_98 input
-		$("#agentId").attr("value", id); //Line_103 input
+		$("#agentName").attr("value", agentName); 
+		$("#agentId").attr("value", id); 
 
 		// alert(roleId);
 		// $("#adminRadio").prop("checked", false);
@@ -167,15 +167,15 @@
 
 	}
 
-	function openEditModal(id, name, roleId) { //Line_46 button
-		$("#editModal").modal("show"); //Line_87 modal
+	function openEditModal(id, name, roleId) { 
+		$("#editModal").modal("show"); 
 
 		updateValuesInEditModal(id, name, roleId);		
 	} 
 
-	function saveUpdatedRole() { //Line_117 button
-		var id = $('input[name="agentId"]').val(); //Line_103 input
-		var editedRoleId = $('input[name="editedRole"]:checked').val(); //Lines_106_108_110 input
+	function saveUpdatedRole() { 
+		var id = $('input[name="agentId"]').val(); 
+		var editedRoleId = $('input[name="editedRole"]:checked').val(); 
 		// console.log(editedRole);
 		$.ajax({
 			url: '/admin/agentroleedit/'+id,
@@ -188,20 +188,26 @@
 			},
 			success: function(data) {
 				// console.log("data "+id + " " + data.agent_name + " " + data.role_id + " " +data.role_name);
-				$('#newAgentRole'+id).html(data.role_name);	//Line_41 input
-				$("#userRoleId"+id).attr("value", data.role_id); //Line_42 input
+				$('#newAgentRole'+id).html(data.role_name);	
+				$("#userRoleId"+id).attr("value", data.role_id); 
 				
 				updateValuesInEditModal(id, data.agent_name, data.role_id);
 			
-				$('#btnOpenEditModal'+id).attr("onclick","openEditModal('"+id+"', '"+data.agent_name+"', '"+data.role_id+"')"); //Line_46 button
+				$('#btnOpenEditModal'+id).attr("onclick","openEditModal('"+id+"', '"+data.agent_name+"', '"+data.role_id+"')");
+
+				$('#errorBoxAgents').fadeIn(1000); 
+				$('#errorBoxAgents').css({"position" : "fixed", "z-index": "1000", "top": "50%"});
+				$('#errorBoxAgents').attr("class", "alert alert-success text-center");
+				$('#errorMessageAgents').html(data.message);
+				$('#errorBoxAgents').fadeOut(3000); 
 			}
 		});
 	}
 
-	function openDeleteModal(id, name) { //Line_47 button
-		$("#deleteModal").modal("show"); //Line_61 modal
-		// $("#deleteAgent").attr("action","/admin/agentdelete/"+id); //Line_71 form
-		$('#agentDeleteMessage').html('Do you want to delete <strong>'+name+'</strong>?'); //Line_75 p
+	function openDeleteModal(id, name) { 
+		$("#deleteModal").modal("show"); 
+		// $("#deleteAgent").attr("action","/admin/agentdelete/"+id); 
+		$('#agentDeleteMessage').html('Do you want to delete <strong>'+name+'</strong>?'); 
 		$('#agentIdToDelete').attr('value', id);
 	}
 
@@ -219,15 +225,21 @@
 			success: function(data) {
 				// console.log(data.agentdelete_id);
 				if(data.status == 'deleted') {
-					$('#row'+data.agentdelete_id).remove();
-					$('.errorBox').attr("class", "alert alert-success text-center");
-					$('.errorMessage').html(data.message);
-					$('.errorBox').fadeOut(3000);
+					$('#userRow'+data.agentdelete_id).remove();
+					// error message
+					$('#errorBoxAgents').fadeIn(1000);
+					$('#errorBoxAgents').css({"position" : "fixed", "z-index": "1000", "top": "50%"});
+					$('#errorBoxAgents').attr("class", "alert alert-success text-center");
+					$('#errorMessageAgents').html(data.message);
+					$('#errorBoxAgents').fadeOut(3000);
 
 				} else {
-					$('.errorBox').attr("class", "alert alert-danger text-center");
-					$('.errorMessage').html(data.message);
-					$('.errorBox').fadeOut(7000);
+					// error message
+					$('#errorBoxAgents').fadeIn(1000);
+					$('#errorBoxAgents').css({"position" : "fixed", "z-index": "1000", "top": "50%"});
+					$('#errorBoxAgents').attr("class", "alert alert-danger text-center");
+					$('#errorMessageAgents').html(data.message);
+					$('#errorBoxAgents').fadeOut(3000);
 				}
 				
 			}

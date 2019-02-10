@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Role;
 use App\Contact;
+use App\Project;
+use App\PropertyStatus;
+use App\Role;
 use App\Stage;
+use App\Task;
+use App\TaskStatus;
 use Session;
 use DB;
 use Auth;
@@ -43,7 +47,7 @@ class AdminController extends Controller
         //   'role_name' => 'role_name'
         // );
         // Session::flash("successmessage", "Updated Role successfully!")
-        return response()->json(['agent_name'=> $agent_name, 'role_id' => $role_id, 'role_name' => $role_name]);
+        return response()->json(['message' => 'Saved role successfully!', 'agent_name'=> $agent_name, 'role_id' => $role_id, 'role_name' => $role_name]);
         // return response()->json(['role_id' => 'role_id', 'role_name' => 'role_name']);
     	// return redirect('/admin/agents');
 
@@ -59,7 +63,7 @@ class AdminController extends Controller
         	// return redirect('/admin/agents');
             return response()->json(['status' => 'deleted', 'message'=> 'Deleted Agent successfully!', 'agentdelete_id'=> $id]);
         } else {
-            return response()->json(['message'=> 'Deleting Agent is not allowed! Contacts are connected to this Agent. Consider editing the role instead.']);
+            return response()->json(['message'=> 'Cannot delete! Agent has associated Contacts.']);
         }
 
 

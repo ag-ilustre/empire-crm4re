@@ -23,7 +23,7 @@
 						    	<p class="card-text my-0"><i class="fas fa-map-marker-alt px-2"></i>{{ $contact->address }}</p>
 						    	<p class="card-text my-0"><i class="fas fa-briefcase px-2"></i>{{ $contact->occupation }} at {{ $contact->company }}</p>
 						    	<div class="text-center">
-							    	<a href="#" class="btn btn-primary my-2 px-3 text-center">Edit Profile</a>
+							    	<a href="#" class="btn btn-greencyan my-2 px-3 text-center">Edit Profile</a>
 						    	</div>
 						  	</div>
 						</div>				

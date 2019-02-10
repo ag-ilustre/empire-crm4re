@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Contact;
+use App\Project;
+use App\PropertyStatus;
+use App\Role;
 use App\Stage;
+use App\Task;
+use App\TaskStatus;
 use Session;
 use DB;
 use Auth;
@@ -69,5 +74,25 @@ class AgentController extends Controller
         // $properties = $contact->projects()->get(); 
         $stages = Stage::all(); // to get names of stages
         return view('agent.contactprofile', compact('contact', 'stages', 'tasks')); 
+    }
+
+    public function deleteContact($id){
+        $countTask = Task::where(['contact_id' => $id])->get()->count();
+
+        // to check in console.log:
+        // return response()->json(['count' => $countTask]);
+
+        if ($countTask == 0) {
+            $contact = Contact::find($id);
+            // $contact->users()->detach();
+            // $contact->stages()->detach();
+            // $contact->stages()->detach();
+
+            $contact->delete();
+            // return redirect('/admin/agents');
+            return response()->json(['status' => 'deleted', 'message'=> 'Deleted Contact successfully!', 'contactdelete_id'=> $id]);
+        } else {
+            return response()->json(['message'=> 'Not allowed! Contact has associated tasks.']);
+        }
     }
 }
