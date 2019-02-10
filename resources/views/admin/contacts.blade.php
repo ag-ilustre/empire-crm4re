@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+{{-- ADMIN/CONTACTS --}}
 @section('pagetitle', 'Contacts')
 
 @section('content')

@@ -80,13 +80,10 @@ class AgentController extends Controller
         $countTask = Task::where(['contact_id' => $id])->get()->count();
 
         // to check in console.log:
-        // return response()->json(['count' => $countTask]);
+        // return response()->json(['message' => 'test']);
 
         if ($countTask == 0) {
             $contact = Contact::find($id);
-            // $contact->users()->detach();
-            // $contact->stages()->detach();
-            // $contact->stages()->detach();
 
             $contact->delete();
             // return redirect('/admin/agents');
@@ -94,5 +91,17 @@ class AgentController extends Controller
         } else {
             return response()->json(['message'=> 'Not allowed! Contact has associated tasks.']);
         }
+    }
+
+    public function saveNewTask($id, Request $request) {
+        
+        $task = new Task;
+        $task->name = $request->newTask;
+        $task->deadline = $request->taskDeadline;
+        $task->task_status_id = 1;
+        $task->contact_id = $id;
+        $task->save();
+
+        return response()->json(['status' => 'saved', 'message'=> 'Added new task successfully!']);
     }
 }

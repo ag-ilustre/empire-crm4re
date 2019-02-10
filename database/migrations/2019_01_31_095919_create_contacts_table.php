@@ -19,7 +19,7 @@ class CreateContactsTable extends Migration
             $table->string('last_name');
             $table->string('contact_number');
             $table->string('email')->unique();
-            $table->string('image_path')->default('sample.jpg');
+            $table->string('image_path')->default('images/avatar.png');
             $table->string('occupation');
             $table->string('company');
             $table->string('address');

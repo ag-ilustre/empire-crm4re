@@ -42,9 +42,11 @@ Route::middleware(['agent'])->group(function(){
    	Route::get('/agent/contacts/addacontact', function () {
        	return view('agent.addacontact');
        	});
-    Route::delete('/agent/contactdelete/{id}', 'AgentController@deleteContact');
+    Route::delete('/agent/contacts/delete/{id}', 'AgentController@deleteContact');
     Route::get('/agent/contacts/viewprofile/{id}', 'AgentController@viewProfileContact');
     Route::post('/agent/contacts/addacontact', 'AgentController@saveNewContact');
+    Route::post('/agent/contacts/addatask/{id}', 'AgentController@saveNewTask');
+
 
     // opportunities page
 	Route::get('/agent/opportunities', 'AgentController@showOpportunities');

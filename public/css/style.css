@@ -14,6 +14,10 @@ body {
 	background-attachment: fixed;
 }
 
+.modal {
+  border-radius: 2px;
+}
+
 nav {
 	background-color:  rgba(67, 5, 65, 0.8) !important;
 }

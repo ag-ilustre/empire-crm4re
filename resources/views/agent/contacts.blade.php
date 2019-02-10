@@ -124,7 +124,7 @@
 
 		<!-- ADD A NOTE -->
 		<div class="modal fade agentcontactsAddANote" tabindex="-1" role="dialog" aria-labelledby="agentcontactsAddANoteModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		    	<div class="modal-header">
 		    	    <h5 class="modal-title" id="agentcontactsAddANoteModalLabel">View Porfile</h5>
@@ -154,30 +154,33 @@
 
 		<!-- ADD A TASK -->
 		<div class="modal fade agentcontactsAddATask" tabindex="-1" role="dialog" aria-labelledby="agentcontactsAddATaskModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		    	<div class="modal-header">
-		    	    <h5 class="modal-title" id="agentcontactsAddATaskModalLabel">View Porfile</h5>
+		    	    <h5 class="modal-title" id="agentcontactsAddATaskModalLabel">Add a Task</h5>
 		    	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		    	    	<span aria-hidden="true">&times;</span>
 		    		</button>
 		    	</div>
 		    	<div class="modal-body">
-	    	        <form>
-	    	          	<div class="form-group">
-	    	            	<label for="recipient-name" class="col-form-label">Recipient:</label>
-		    	            <input type="text" class="form-control" id="recipient-name">
-		    	        </div>
-		    	        <div class="form-group">
-	    	            	<label for="message-text" class="col-form-label">Message:</label>
-		    	            <textarea class="form-control" id="message-text"></textarea>
-	    	          	</div>
-	    	        </form>    	        
+    	          	<div class="form-group my-0 py-0">
+	    	            <input type="hidden" id="contactIdForNewTask" name="contactIdForNewTask" value="">
+    	            	<h5 class="py-0 my-0 text-center" id="contactNameTask"></h5>
+	    	        </div>
+	    	        <div class="form-group">
+    	            	<label for="newTask" class="col-form-label">Task:</label>
+	    	            <textarea class="form-control" id="newTask" name="taskDeadline" required=""></textarea>
+    	          	</div>
+    	          	<div class="form-group">
+    	            	<label for="taskDeadline" class="col-form-label">Set a Deadline:</label>
+	    	            <input type="datetime-local" class="form-control" id="taskDeadline" name="taskDeadline" required="">
+	    	        </div>
+	                <div class="text-center m-1">
+	                	<button type="button" id="saveNewTask" onclick="saveNewTask()" class="btn btn-wide btn-primary m-1" data-dismiss="modal">SAVE</button>
+	        	        <button type="reset" class="btn btn-wide btn-reset m-1">RESET</button>
+	        	        <button type="button" class="btn btn-wide btn-dark m-1" data-dismiss="modal">CANCEL</button>
+	                </div>
 	    	    </div>
-	    	    <div class="modal-footer">
-	       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary">Send message</button>
-		      	</div>
 		    </div>
 		  </div>
 		</div>
@@ -195,7 +198,7 @@
 
 
 	function openDeleteContactModal(id, name) { 
-		$("#agentcontactsDeleteContact").modal("show"); 
+		// $("#agentcontactsDeleteContact").modal("show"); 
 		// $("#deleteAgent").attr("action","/admin/agentdelete/"+id); 
 		$('#contactDeleteMessage').html('Do you want to delete <strong>'+name+'</strong>?'); 
 		$('#contactIdToDelete').attr('value', id);
@@ -205,7 +208,7 @@
 		var contactIdToDelete = $('#contactIdToDelete').val();
 		console.log(contactIdToDelete);
 		$.ajax({
-			url: '/agent/contactdelete/'+contactIdToDelete,
+			url: '/agent/contacts/delete/'+contactIdToDelete,
 			type: 'POST',
 			dataType: 'JSON',
 			data: {
@@ -237,6 +240,45 @@
 		});
 	}
 
+	function openAddATaskModal(id, name) {
+		$('#contactNameTask').html(name);
+		$('#contactIdForNewTask').attr("value", id);
+	}
+
+	function saveNewTask() {
+		var contactIdForNewTask = $('#contactIdForNewTask').val();
+		var newTask = $('#newTask').val();
+		var taskDeadline = $('#taskDeadline').val();
+		console.log(contactIdForNewTask+","+newTask+","+taskDeadline);
+
+		$.ajax({
+			url: '/agent/contacts/addatask/'+contactIdForNewTask,
+			type: 'POST',
+			dataType: 'JSON',
+			data: {
+				'_token': $('meta[name="csrf-token"]').attr('content'),
+				'contactIdForNewTask': contactIdForNewTask,
+				'newTask': newTask,
+				'taskDeadline': taskDeadline
+			},
+			success: function(data) {
+				console.log(data);
+				if(data.status == 'saved') {
+					
+					// error message
+					$('#errorBoxAgentContacts').fadeIn(1000);
+					$('#errorBoxAgentContacts').css({"position" : "fixed", "z-index": "1000", "top": "50%"});
+					$('#errorBoxAgentContacts').attr("class", "alert alert-success text-center");
+					$('#errorMessageAgentContacts').html(data.message);
+					$('#errorBoxAgentContacts').fadeOut(3000);
+					// $('#contactIdForNewTask').reset();
+					// $('#newTask').reset();
+				} 
+				
+			}
+		});
+
+	}
 
 </script>
 
