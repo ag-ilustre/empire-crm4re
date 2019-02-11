@@ -24,3 +24,8 @@ public yourFunction (Request $request) {
 Session:
 
 Session::flash("successmessage", "Deleted Agent successfully!")
+
+
+number_format:
+{{ number_format($mobility->travelcosts, 2, '.', ',') }}
+

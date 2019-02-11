@@ -29,7 +29,7 @@
 					      	{{-- avatar --}}
 					      	<div class="col-4 py-auto">
 					      		<div class="card-body text-center">
-						      		<img class="opportunities-avatar" src="../../public/{{ $contact->image_path }}" alt="{{ $contact->name }} avatar">
+						      		<img class="opportunities-avatar" src="/{{ $contact->image_path }}" alt="{{ $contact->name }} avatar">
 						      	</div>
 					      	</div>
 					      	{{-- name, occupation, company --}}

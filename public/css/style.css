@@ -14,6 +14,10 @@ body {
 	background-attachment: fixed;
 }
 
+.ajax-error-message {
+  font-size: 1rem;
+}
+
 .modal {
   border-radius: 2px;
 }
@@ -41,6 +45,18 @@ nav {
 	border-top: 1px solid #00bc9c;
 }
 
+a {
+  color: rgba(67, 5, 65, 0.8);
+}
+
+a:hover {
+  color: rgba(67, 5, 65, 1);
+}
+
+a:active {
+  color: rgba(67, 5, 65, 1);
+}
+
 .form-control {
 	border-radius: 2px !important;
 }
@@ -61,9 +77,9 @@ nav {
     height: 37px;
     display: inline-block;
     font: 14px/36px "Roboto", sans-serif !important;
-    padding: 0 6px;
+    padding: 0 5px;
     border-radius: 2px;
-    min-width: 40px;
+    min-width: 30px;
     text-align: center;
     position: relative;
     cursor: pointer;
@@ -105,7 +121,7 @@ nav {
 
 /*greencyan button*/
 .btn.btn-greencyan {
-    transition: .4s;
+    transition: .1s;
     background: #00bc9c;
     color: #fff;
     border-radius: 2px;
@@ -115,14 +131,39 @@ nav {
     text-transform: uppercase;
 }
 .btn.btn-greencyan:hover {
-    transition: .4s;
+    transition: .1s;
     background: #00bc9c;
     box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.26);
     border: 1px solid #00bc9c;
 }
 .btn.btn-greencyan:active {
-    transition: .4s;
+    transition: .1s;
     background: #00bc9c;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    border: 1px solid #00bc9c;
+}
+
+/*greencyan button*/
+.btn-greencyan-check {
+    transition: .1s;
+    background: #00bc9c;
+    color: #00bc9c;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
+    border: 1px #00bc9c;
+    padding: 3px;
+}
+.btn-greencyan-check:hover {
+    transition: .1s;
+    background: #00bc9c;
+    color: #fff;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.26);
+    border: 1px solid #00bc9c;
+}
+.btn-greencyan-check:active {
+    transition: .1s;
+    background: #00bc9c;
+    color: #fff;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     border: 1px solid #00bc9c;
 }
@@ -155,24 +196,41 @@ nav {
 
 /*flat button*/
 .btn.btn-flat {
+    height: 30px !important;
+    /*width: 10px;*/
+    /*padding: 5px 5px !important;*/
+    vertical-align: middle;
+    /*padding-bottom: 20px;*/
     transition: .4s;
-    background: #FFF;
-    color: #FFA000;
+    background: #f9f9f9;
+    color: #f9f9f9;
     border-radius: 2px;
-    border: -1px solid rgba(67, 5, 65, 0.8);
-    /*margin: 10px;*/
+    border: 1px solid #00bc9c;
 }
 .btn.btn-flat:hover {
+  height: 30px !important;
+    /*padding: 5px 5px !important;*/
+    /*padding-bottom: 20px;*/
+    vertical-align: middle;
     transition: .4s;
-    background: rgba(255, 160, 0, 0.12);
-    border: -1px solid rgba(67, 5, 65, 0.8);
+    color: #fff;
+    background: #00bc9c;
+    border: 1px solid #00bc9c;
 }
 .btn.btn-flat:active {
+  height: 30px !important;
+    /*padding: 5px 5px !important;*/
+    /*padding-bottom: 20px;*/
+    vertical-align: middle;
     transition: .2s;
-    background: rgba(67, 5, 65, 0.8);
-    border: -1px solid rgba(255, 160, 0, 0.24);
+    color: #fff;
+    background: #00bc9c;
+    border: 1px solid #00bc9c;
 }
 
+.fas {
+
+}
 
 
 .border-purple {
@@ -263,6 +321,13 @@ img {
     width: 100%;
 }
 
+#profile-card {
+  height: 75vh;
+}
+
+.capitalize-text {
+  text-transform: capitalize;
+}
 
 /*OPPORTUNITIES*/
 .card {
@@ -286,7 +351,7 @@ img {
 
 /*for scrolling of cards in opportunities page*/
 .scroll {
-    max-height: 500px;
+    max-height: 60vh;
     overflow-y: auto;
 }
 

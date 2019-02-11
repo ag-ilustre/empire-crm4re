@@ -13,13 +13,13 @@
 						
 		<div class="row justify-content-center errorBox">
 			{{-- ERROR MESSAGE FROM AJAX --}}
-			<div class="col-8 mx-auto p-2" id="errorBoxAgentContacts">
-				<span id="errorMessageAgentContacts"></span>
+			<div class="col-8 mx-auto p-2 w-100" id="errorBoxAgentContacts">
+				<p id="errorMessageAgentContacts" class="ajax-error-message"></p>
 			</div>
 			@if(Session::has("successmessage"))					
 			<div class="col-8 mx-auto p-2">
 				<div class="alert alert-success text-center">
-					{{ Success::get('successmessage') }} 
+					<span class=".ajax-error-messag">{{ Session::get('successmessage') }} </span>
 				    <button class="btn btn-link" onclick="closeErrorBox()"><i class="fas fa-window-close"></i></button>
 				</div>
 			</div>
@@ -62,7 +62,7 @@
 				  			    @foreach($contacts as $contact)
 				  			    <tr id="contactRow{{ $contact->id }}" class="mr-2 p-3">
 				  			    	<td class="px-3 text-center">{{ $loop->iteration }}</td>
-				  			        <td class="px-3">{{ $contact->first_name }} {{ $contact->last_name }}</td>
+				  			        <td class="px-3"><a href="/agent/contacts/viewprofile/{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</a></td>
   			                    	@foreach($stages as $stage)
   			        	                @if($contact->stage_id == $stage->id)
   			        	                    <td class="px-3">{{ $stage->name }}</td>
@@ -76,19 +76,20 @@
 				  			        	<a class="btn btn-link btn-icon" href="/agent/contacts/viewprofile/{{ $contact->id }}" title="View Profile"><i class="fas fa-search mx-1"></i></a>
 				  			        	{{-- DELETE CONTACT --}}
 				  			        	<button class="btn btn-link btn-icon" onclick="openDeleteContactModal({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target="#agentcontactsDeleteContact" title="Delete Contact"><i class="fas fa-trash mx-1"></i></button>
-				  			        	
-				  			        	 <span class="nav-item dropdown">
+				  			        	{{-- ADD A TASK --}}
+				  			        	<a class="btn btn-link btn-icon" onclick="openAddATaskModal({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target="#agentcontactsAddATask" title="Add a Task"><i class="fas fa-calendar-alt mx-1"></i></a>
+
+				  			        	{{-- for stretch goal features --}}
+				  			        	{{-- <span class="nav-item dropdown">
 				  			        	 	<button class="btn btn-link btn-icon" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h mx-1"></i>
 						            		</button>
 						            		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						  			        	{{-- ADD A NOTE --}}
+						  			        	
 						  			        	<a class="dropdown-item btn-link" onclick="openAddANoteModal({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target=".agentcontactsAddANote" title="Add a Note"><i class="far fa-sticky-note mx-1"></i> Add a Note</a>
-						  			        	{{-- ADD A TASK --}}
-						  			        	<a class="dropdown-item btn-link" onclick="openAddATaskModal({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target=".agentcontactsAddATask" title="Add a Task"><i class="fas fa-calendar-alt mx-1"></i> Add a Task</a>
-						  			        	{{-- ADD A TASK --}}
+						  			        	
 						  			        	<a class="dropdown-item btn-link" onclick="openAddAPropertyModala({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target=".agentcontactsAddATask" title="Add a Task"><i class="far fa-building mx-1"></i> Add a Property</a>
 						  			        </div>
-						  			    </span>
+						  			    </span> --}}
 				  			        </td>		  			        
 				  			    </tr>
 				  			    @endforeach
@@ -153,7 +154,7 @@
 		</div>
 
 		<!-- ADD A TASK -->
-		<div class="modal fade agentcontactsAddATask" tabindex="-1" role="dialog" aria-labelledby="agentcontactsAddATaskModalLabel" aria-hidden="true">
+		<div class="modal fade" id="agentcontactsAddATask" tabindex="-1" role="dialog" aria-labelledby="agentcontactsAddATaskModalLabel" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		    	<div class="modal-header">
@@ -167,19 +168,23 @@
 	    	            <input type="hidden" id="contactIdForNewTask" name="contactIdForNewTask" value="">
     	            	<h5 class="py-0 my-0 text-center" id="contactNameTask"></h5>
 	    	        </div>
-	    	        <div class="form-group">
-    	            	<label for="newTask" class="col-form-label">Task:</label>
-	    	            <textarea class="form-control" id="newTask" name="taskDeadline" required=""></textarea>
-    	          	</div>
-    	          	<div class="form-group">
-    	            	<label for="taskDeadline" class="col-form-label">Set a Deadline:</label>
-	    	            <input type="datetime-local" class="form-control" id="taskDeadline" name="taskDeadline" required="">
-	    	        </div>
-	                <div class="text-center m-1">
-	                	<button type="button" id="saveNewTask" onclick="saveNewTask()" class="btn btn-wide btn-primary m-1" data-dismiss="modal">SAVE</button>
+	    	        <form id="addTaskForm">
+		    	        <div class="form-group">
+	    	            	<label for="newTask" class="col-form-label">Task:</label>
+		    	            <textarea class="form-control" id="newTask" name="newTask" required autofocus></textarea>
+		    	            <p id="newTaskErrorMessage"></p>
+	    	          	</div>
+	    	          	<div class="form-group">
+	    	            	<label for="taskDeadline" class="col-form-label">Set a Deadline:</label>
+		    	            <input type="datetime-local" class="form-control" id="taskDeadline" name="taskDeadline" required>
+		    	            <p id="taskDeadlineErrorMessage"></p>
+		    	        </div>
+	                <div class="text-center m-1 modal-footer">
+	                	<button type="button" id="saveNewTask" onclick="saveNewTask()" class="btn btn-wide btn-primary m-1">SAVE</button>
 	        	        <button type="reset" class="btn btn-wide btn-reset m-1">RESET</button>
 	        	        <button type="button" class="btn btn-wide btn-dark m-1" data-dismiss="modal">CANCEL</button>
 	                </div>
+		    	    </form>
 	    	    </div>
 		    </div>
 		  </div>
@@ -192,14 +197,11 @@
 	
 	// for session successmessage
 	function closeErrorBox() {
-		// $('.errorBox').fadeIn(3000);
 		$('.errorBox').fadeOut(3000);
 	}
 
 
 	function openDeleteContactModal(id, name) { 
-		// $("#agentcontactsDeleteContact").modal("show"); 
-		// $("#deleteAgent").attr("action","/admin/agentdelete/"+id); 
 		$('#contactDeleteMessage').html('Do you want to delete <strong>'+name+'</strong>?'); 
 		$('#contactIdToDelete').attr('value', id);
 	}
@@ -224,7 +226,7 @@
 					$('#errorBoxAgentContacts').fadeIn(1000);
 					$('#errorBoxAgentContacts').css({"position" : "fixed", "z-index": "1000", "top": "50%"});
 					$('#errorBoxAgentContacts').attr("class", "alert alert-success text-center");
-					$('#errorMessageAgentContacts').html(data.message);
+					$('#errorMessageAgentContacts').html("<i class='fas fa-check fa-lg'></i> "+data.message);
 					$('#errorBoxAgentContacts').fadeOut(3000);
 
 				} else {
@@ -232,7 +234,7 @@
 					$('#errorBoxAgentContacts').fadeIn(1000);
 					$('#errorBoxAgentContacts').css({"position" : "fixed", "z-index": "1000", "top": "50%"});
 					$('#errorBoxAgentContacts').attr("class", "alert alert-danger text-center");
-					$('#errorMessageAgentContacts').html(data.message);
+					$('#errorMessageAgentContacts').html("<i class='fas fa-exclamation-triangle fa-lg'></i>  "+data.message);
 					$('#errorBoxAgentContacts').fadeOut(3000);
 				}
 				
@@ -243,6 +245,21 @@
 	function openAddATaskModal(id, name) {
 		$('#contactNameTask').html(name);
 		$('#contactIdForNewTask').attr("value", id);
+
+		//ensure button has no data-dimiss modal
+		$("#saveNewTask").removeAttr("data-dismiss", "modal"); 
+		//pass the id to the save button
+		$("#saveNewTask").attr("id", "saveNewTask"+id); 
+
+		$('#newTaskErrorMessage').html("");
+		$('#taskDeadlineErrorMessage').html("");
+		// $('#agentcontactsAddATask').on('hidden.bs.modal', function () {
+		//     	$(this).find('form').trigger('reset');
+		// 	});	
+
+		//empty fields
+		// $('#addTaskForm').reset();
+		
 	}
 
 	function saveNewTask() {
@@ -251,34 +268,63 @@
 		var taskDeadline = $('#taskDeadline').val();
 		console.log(contactIdForNewTask+","+newTask+","+taskDeadline);
 
-		$.ajax({
-			url: '/agent/contacts/addatask/'+contactIdForNewTask,
-			type: 'POST',
-			dataType: 'JSON',
-			data: {
-				'_token': $('meta[name="csrf-token"]').attr('content'),
-				'contactIdForNewTask': contactIdForNewTask,
-				'newTask': newTask,
-				'taskDeadline': taskDeadline
-			},
-			success: function(data) {
-				console.log(data);
-				if(data.status == 'saved') {
-					
-					// error message
-					$('#errorBoxAgentContacts').fadeIn(1000);
-					$('#errorBoxAgentContacts').css({"position" : "fixed", "z-index": "1000", "top": "50%"});
-					$('#errorBoxAgentContacts').attr("class", "alert alert-success text-center");
-					$('#errorMessageAgentContacts').html(data.message);
-					$('#errorBoxAgentContacts').fadeOut(3000);
-					// $('#contactIdForNewTask').reset();
-					// $('#newTask').reset();
-				} 
-				
-			}
-		});
+		$('#newTaskErrorMessage').html("");
+		$('#taskDeadlineErrorMessage').html("");
 
+		if (contactIdForNewTask != "" && newTask != "") {
+			//hide modal if fields are not empty
+			$("#saveNewTask"+contactIdForNewTask).attr("data-dismiss", "modal"); 
+			
+			$.ajax({
+				url: '/agent/contacts/addatask/'+contactIdForNewTask,
+				type: 'POST',
+				dataType: 'JSON',
+				data: {
+					'_token': $('meta[name="csrf-token"]').attr('content'),
+					'contactIdForNewTask': contactIdForNewTask,
+					'newTask': newTask,
+					'taskDeadline': taskDeadline
+				},
+				success: function(data) {
+					console.log(data);
+					if(data.status == 'saved') {
+						
+						// error message
+						$('#errorBoxAgentContacts').fadeIn(1000);
+						$('#errorBoxAgentContacts').css({"position" : "fixed", "z-index": "1000", "top": "50%"});
+						$('#errorBoxAgentContacts').attr("class", "alert alert-success text-center");
+						$('#errorMessageAgentContacts').html("<i class='fas fa-check fa-lg'></i> "+data.message);
+						$('#errorBoxAgentContacts').fadeOut(3000);
+
+						$('#newTask').attr("value", "");
+						$('#taskDeadline').attr("value", "");
+						$('#agentcontactsAddATask').modal('hide');
+
+					} 
+					
+				}
+
+			});
+				//return to old id
+				$("#saveNewTask"+contactIdForNewTask).attr("id", "saveNewTask"); 
+
+		} 
+
+		if (newTask == "") {
+			$('#newTaskErrorMessage').css("color", "red");
+			$('#newTaskErrorMessage').html("Required field");
+
+		}
+
+		if (taskDeadline == "") {
+			$('#taskDeadlineErrorMessage').css("color", "red");
+			$('#taskDeadlineErrorMessage').html("Required field");
+		}	
+
+		
 	}
+
+	
 
 </script>
 

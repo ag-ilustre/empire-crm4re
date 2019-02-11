@@ -82,7 +82,8 @@
 		                        <label for="contactAddress" class="col-md-4 col-form-label text-md-right">Address:</label>
 
 		                        <div class="col-md-6">
-		                        	<input id="contactAddress" type="text" class="form-control" name="contactAddress" required>	                           
+		                        	<textarea id="contactAddress" type="text" class="form-control" name="contactAddress" required></textarea>
+		                        	{{-- <input id="contactAddress" type="text" class="form-control" name="contactAddress" required>	                            --}}
 		                        </div>
 		                    </div>
 

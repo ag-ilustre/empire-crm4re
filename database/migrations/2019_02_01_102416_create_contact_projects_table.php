@@ -38,8 +38,8 @@ class CreateContactProjectsTable extends Migration
             ->onDelete('restrict')
             ->onUpdate('cascade');
 
-            $table->decimal('total_contract_price', 10,2);
-            $table->decimal('estimated_commission', 10,2);
+            $table->decimal('total_contract_price', 13,4);
+            $table->decimal('estimated_commission', 13,4);
 
             $table->timestamps();
             $table->softDeletes();

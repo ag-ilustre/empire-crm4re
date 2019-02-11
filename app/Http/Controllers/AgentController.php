@@ -69,11 +69,17 @@ class AgentController extends Controller
     public function viewProfileContact($id) {
         $user_id = Auth::user()->id; // get user id
         $contact = Contact::find($id); // get specific contact
+        $stages = Stage::all(); // to get names of stages
+        $projects = Project::all(); 
+        $property_statuses = PropertyStatus::all();
         $tasks = $contact->tasks()->get(); // get all tasks for contact
         // $notes = $contact->notes()->get(); 
-        // $properties = $contact->projects()->get(); 
-        $stages = Stage::all(); // to get names of stages
-        return view('agent.contactprofile', compact('contact', 'stages', 'tasks')); 
+      
+        if($user_id == $contact->user_id) {
+            return view('agent.contactprofile', compact('contact', 'stages', 'projects', 'property_statuses', 'tasks')); 
+        } else {
+            return redirect('/home');
+        }
     }
 
     public function deleteContact($id){
@@ -103,5 +109,107 @@ class AgentController extends Controller
         $task->save();
 
         return response()->json(['status' => 'saved', 'message'=> 'Added new task successfully!']);
+    }
+
+    public function showEditContactForm($id) {
+        $user_id = Auth::user()->id; // get user id
+        $contact = Contact::find($id);
+        $stages = Stage::all();
+
+
+        if($user_id == $contact->user_id) {
+            return view('agent.editcontact', compact('contact', 'stages')); 
+        } else {
+            return redirect('/home');
+        }
+
+    }
+
+    public function saveEditedContact($id, Request $request) {
+        $rules = array(
+            "editContactFirstName" => "required",
+            "editContactLastName" => "required",
+            "editContactContactNumber" => "required",
+            "editContactEmail"  => "required",
+            "editContactOccupation"  => "required",
+            "editContactCompany"  => "required",
+            "editContactAddress"  => "required",
+            "editContactStage"  => "required",
+            
+        );
+        //to validate $request from form
+        $this->validate($request, $rules);
+
+        $user_id = Auth::user()->id;
+        $users = User::all();
+        $contact = Contact::find($id);
+        $contact->first_name = $request->editContactFirstName;
+        $contact->last_name = $request->editContactLastName;
+        $contact->contact_number = $request->editContactContactNumber;
+        $contact->email = $request->editContactEmail;
+        $contact->occupation = $request->editContactOccupation;
+        $contact->company = $request->editContactCompany;
+        $contact->address = $request->editContactAddress;
+        $contact->stage_id = $request->editContactStage;
+        $contact->user_id = $user_id;
+        $contact->save();
+
+        Session::flash("successmessage", "Edited Profile successfully!");
+        return redirect('/agent/contacts/viewprofile/'.$id);        
+    }
+
+    public function showAddAPropertyForm($id) {
+        $user_id = Auth::user()->id; // get user id
+        $contact = Contact::find($id); // get specific contact
+        // $tasks = $contact->tasks()->get(); // get all tasks for contact
+        // $properties = $contact->projects()->get(); 
+        // $notes = $contact->notes()->get(); 
+        $property_statuses = PropertyStatus::all(); // to get names of stages
+        $projects = Project::all(); // to get names of stages
+        
+        if($user_id == $contact->user_id) {
+            return view('agent.addaproperty', compact('contact', 'property_statuses', 'projects')); 
+        } else {
+            return redirect('/home');
+        }       
+    }
+
+    public function saveNewProperty($id, Request $request) {
+        $rules = array(
+            "newPropertyProject" => "required",
+            "newPropertyDescription" => "required",
+            "newPropertyStatus" => "required",
+            "newPropertyTotalContractPrice"  => "required"
+        );
+        //to validate $request from form
+        $this->validate($request, $rules);
+
+        $project_id = $request->newPropertyProject;
+        // dd($project_id);
+        $property_description = $request->newPropertyDescription;
+        $property_status_id = $request->newPropertyStatus;
+        $total_contract_price = $request->newPropertyTotalContractPrice;
+
+        $estimated_commission = 0.04 * $total_contract_price;
+
+        $contact = Contact::find($id);
+
+        //Change contact_stage per property_status_id
+        if ($property_status_id == 5) {
+            $contact->stage_id = 4; //change the contact_stage to "lost" since a property acquisition is cancelled!
+            $contact->save();
+        } else {
+            $contact->stage_id = 3; //change the contact_stage to "customer" since a property is reserved/purchased!
+            $contact->save();
+        }
+
+        // $contact->projects()->attach($project_id, ['property_description' => $property_description, 'property_status_id' => $property_status_id, 'total_contract_price' => $total_contract_price, 'estimated_commission' => $estimated_commission]);
+
+        $contact_projects = DB::table('contact_projects')->insert(
+             ['contact_id' => $contact->id, 'project_id' => $project_id, 'property_description' => $property_description, 'property_status_id' => $property_status_id, 'total_contract_price' => $total_contract_price, 'estimated_commission' => $estimated_commission]
+        );
+         
+        Session::flash("successmessage", "New Property added successfully!");
+        return redirect('/agent/contacts/viewprofile/'.$id);  
     }
 }
