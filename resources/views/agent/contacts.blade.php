@@ -6,7 +6,7 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-lg-12 my-4">
+			<div class="col-lg-12 mt-4 title-banner p-4">
 				<h4 class="current-page text-center"><span class="text-underline"><i class="fas fa-users"></i> Contacts</span></h4>
 			</div>
 		</div>		
@@ -26,7 +26,7 @@
 			@endif
 		</div>
 		
-		<div class="row mr-auto">
+		{{-- <div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6"></div>
 			<div class="col-lg-6 col-md-6 col-sm-12">
 				<div class="row">
@@ -41,19 +41,24 @@
 					</div>
 				</div>
 			</div>			
-		</div>	
+		</div>	 --}}
 		<div class="row">						
 			<div class="col-lg-12 table-responsive p-4">
-				<div class="table-responsive px-5">				
-					<table class="table table-hover my-3 table-purple">
+				<div class="card p-4">
+					
+				<div class="text-right">
+					<a class="btn btn-greencyan px-3" href="/agent/contacts/addacontact" title="Add a Contact"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> Add a Contact</a>		
+				</div>
+				<div class="table-responsive px-5">	
+					<table class="table table-striped my-3 table-purple">
 					    <thead class="border-purple">
 					        <tr class="my-3">	
-					        	<th width="10%" class="p-3 text-center">#</th>
-					        	<th width="18%" class="p-3">Contact</th>
-					        	<th width="18%" class="p-3">Stage</th>
-					        	<th width="18%" class="p-3">Added on</th>
-					        	<th width="18%" class="p-3">Last Activity on</th>
-					        	<th width="18%" class="p-3">Actions</th>
+					        	<th width="9%" class="p-3 text-center">#</th>
+					        	<th width="17%" class="p-3">Contact</th>
+					        	<th width="15%" class="p-3">Stage</th>
+					        	<th width="17%" class="p-3">Added on</th>
+					        	<th width="17%" class="p-3">Last Activity on</th>
+					        	<th width="25%" class="p-3 text-center">Actions</th>
 					        </tr>
 					    </thead>
 				  		<tbody>	   
@@ -71,7 +76,7 @@
 
 				  			        <td class="px-3">{{ $contact->created_at->diffForHumans() }}</td>
 				  			        <td class="px-3">{{ $contact->updated_at->diffForHumans() }}</td>
-				  			        <td class="px-3">
+				  			        <td class="px-3 text-center">
 				  			        	{{-- VIEW PROFILE --}}
 				  			        	<a class="btn btn-link btn-icon" href="/agent/contacts/viewprofile/{{ $contact->id }}" title="View Profile"><i class="fas fa-search mx-1"></i></a>
 				  			        	{{-- DELETE CONTACT --}}
@@ -98,6 +103,7 @@
 					</table>
 				</div>
 			</div>
+		</div>
 		</div>
 	</div>
 
