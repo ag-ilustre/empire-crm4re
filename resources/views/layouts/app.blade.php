@@ -13,6 +13,10 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Roboto|Vollkorn+SC|Cinzel|Raleway|Roboto+Condensed" rel="stylesheet" type="text/css">
     
+    
+    {{-- favicon --}}
+    <link rel="icon" type="image/png" href="{{ asset('images/empire-favicon.png') }}">
+
     {{-- Fontawesome --}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     
@@ -26,6 +30,7 @@
             <div class="container">
                 <a href="#" class="scrollup rounded-0"></a>
                 <a class="navbar-brand" id="app-name" href="{{ url('/') }}">
+                    {{-- <img src="{{ asset('images/empire-logo.png') }}" id="empire-logo"> --}}
                     Empire
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -50,45 +55,36 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
-                        @else
+                        @else                          
+                            <li class="nav-item">
+                              <a class="nav-link" href="/home">Home</a>
+                            </li>
                             @if(Auth::user()->role_id === 1)
-                            <!-- Admin's Navbar -->
+                            <!-- add Agent to Admin's Navbar -->
                             <li class="nav-item">
-                              <a class="nav-link" href="/home">Home</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="/admin/agents">Agents</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="/admin/contacts">Contacts</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="/admin/opportunities">Opportunities</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="/admin/projects">Projects</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="/admin/tasks">Tasks</a>
-                            </li>
-                            @elseif(Auth::user()->role_id === 2)
-                            <!-- Agent's Navbar -->
-                            <li class="nav-item">
-                              <a class="nav-link" href="/home">Home</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="/agent/contacts">Contacts</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="/agent/opportunities">Opportunities</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="/agent/properties">Properties</a>
-                            </li>
-                            <li class="nav-item">
-                              <a class="nav-link" href="/agent/tasks">Tasks</a>
+                              <a class="nav-link" href="/agents">Agents</a>
                             </li>
                             @endif
+                            <li class="nav-item">
+                              <a class="nav-link" href="/contacts">Contacts</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/tasks" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tasks
+                                   <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item btn-link" href="/tasks/pending">Pending Tasks</a>
+                                    <a class="dropdown-item btn-link" href="/tasks/completed">Completed Tasks</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="/properties">Properties</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="/projects">Projects</a>
+                            </li>
                     </ul>
 
                     <ul class="navbar-nav ml-auto">

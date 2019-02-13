@@ -18,9 +18,9 @@ use Auth;
 class AgentController extends Controller
 {
     public function showAgentContacts() {
-    	$id = Auth::user()->id;
-        $user_id = User::find($id);
-        $contacts = Contact::where('user_id', 2)->get(); //edit to original $user_id
+    	$user_id = Auth::user()->id;
+        // $user_id = User::find($id);
+        $contacts = Contact::where('user_id', $user_id)->get(); //edit to original $user_id
         $stages = Stage::all();
         return view('agent.contacts', compact('contacts', 'stages')); 
     }
@@ -48,7 +48,7 @@ class AgentController extends Controller
         //to validate $request from form
         $this->validate($request, $rules);
 
-        $id = Auth::user()->id;
+        $user_id = Auth::user()->id;
         $users = User::all();
         $contact = new Contact;
         $contact->first_name = $request->contactFirstName;
@@ -59,11 +59,11 @@ class AgentController extends Controller
         $contact->company = $request->contactCompany;
         $contact->address = $request->contactAddress;
         $contact->stage_id = $request->contactStage;
-        $contact->user_id = $id;
+        $contact->user_id = $user_id;
         $contact->save();
 
         Session::flash("successmessage", "New Contact added successfully!");
-        return redirect('/agent/contacts');
+        return redirect('/contacts');
     }
 
     public function viewProfileContact($id) {
@@ -165,7 +165,7 @@ class AgentController extends Controller
         $contact->save();
 
         Session::flash("successmessage", "Edited Profile successfully!");
-        return redirect('/agent/contacts/viewprofile/'.$id);        
+        return redirect('/contacts/viewprofile/'.$id);        
     }
 
     public function showAddAPropertyForm($id) {
@@ -228,6 +228,80 @@ class AgentController extends Controller
          
 
         Session::flash("successmessage", "New Property added successfully!");
-        return redirect('/agent/contacts/viewprofile/'.$id);  
+        return redirect('/contacts/viewprofile/'.$id);  
     }
+
+    public function showPendingTasks() {
+        $user_id = Auth::user()->id; // get user id
+        $contacts = Contact::where('user_id', $user_id)->get(); //edit to original $user_id
+        // dd($contacts);
+        $stages = Stage::all();
+        $pendingtasks = Task::where('task_status_id', 1)->get();
+
+        $collection = collect($pendingtasks);
+
+        $tasks = $collection->sortBy('deadline');
+        // dd($tasks);
+
+        return view('agent.pendingtasks', compact('contacts', 'stages', 'tasks'));
+    }
+
+    public function deleteTask($id) {
+        $task = Task::find($id); 
+        $task->delete();
+
+        return response()->json(['status' => 'deleted', 'message'=> 'Deleted Task successfully!', 'taskdelete_id'=> $id]);
+    }
+
+    public function showAddATaskForm() {
+        $user_id = Auth::user()->id;
+        $contacts = Contact::where('user_id', $user_id)->get();
+
+        return view('agent.addatask', compact('contacts'));
+    }
+
+    public function saveAddedTask(Request $request) {
+         $rules = array(
+            "newTaskContactId" => "required",
+            "newTaskName" => "required",
+            "newTaskDeadline" => "required",            
+        );
+        //to validate $request from form
+        $this->validate($request, $rules);
+
+        $task = new Task;
+        $task->contact_id = $request->newTaskContactId;
+        $task->name = $request->newTaskName;
+        $task->deadline = $request->newTaskDeadline;
+        $task->task_status_id = 1;
+        $task->save();
+        // dd($task);
+        Session::flash("successmessage", "New Task added successfully!");
+        return redirect('/tasks/pending');
+    }
+
+    public function showAddATaskFormVP($id) {
+        $contact = Contact::find($id);
+        return view('agent.viewprofile_addatask', compact('contact'));
+    }
+
+    public function saveNewTaskVP($id, Request $request) {
+         $rules = array(
+            "newTaskNameVP" => "required",
+            "newTaskDeadlineVP" => "required",            
+        );
+        //to validate $request from form
+        $this->validate($request, $rules);
+
+        $task = new Task;
+        $task->name = $request->newTaskNameVP;
+        $task->deadline = $request->newTaskDeadlineVP;
+        $task->task_status_id = 1;
+        $task->contact_id = $id;
+        $task->save();
+        // dd($task);
+        Session::flash("successmessage", "New Task added successfully!");
+        return redirect('/contacts/viewprofile/'.$id);
+    }
+
 }

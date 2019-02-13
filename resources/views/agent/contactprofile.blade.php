@@ -4,14 +4,20 @@
 
 @section('content')
 	
-	<div class="container">
+	<div class="container-fluid">
+			{{-- BREADCRUMB --}}
 			<div class="row">
-				<div class="col-lg-12 mt-4 title-banner p-4">
-					<h4 class="current-page text-center"><span class="text-underline"><i class="fas fa-user-alt"></i> Contact Profile</span></h4>
+				<div class="col-lg-12 mt-4 px-4">
+					<nav aria-label="breadcrumb">
+					  <ol class="breadcrumb">
+					  	<li class="breadcrumb-item"><a href="/contacts">Contacts</a></li>
+					    <li class="breadcrumb-item active" aria-current="page">View Profile</li>
+					  </ol>
+					</nav>
 				</div>
-			</div>		
+			</div>	
 							
-			<div class="row justify-content-center errorBox mb-4">
+			<div class="row justify-content-center errorBox my-2">
 				{{-- ERROR MESSAGE FROM AJAX --}}
 				<div class="col-8 mx-auto p-2" id="errorBoxContactProfile">
 					<span id="errorMessageContactProfile" class=".ajax-error-messag"></span>
@@ -30,7 +36,7 @@
 			<div class="row" id="profile-card">
 				{{-- Basic Contact Info --}}
 				<div class="col-lg-5 col-md-5 col-sm-12 h-100">
-					<div class="card view-profile-card p-2">
+					<div class="card view-profile-card px-2 py-1">
 						<div class="view-profile-avatar p-1 mx-auto">
 							<img class="card-img-top p-3" src="/{{ $contact->image_path }}" alt="Image of {{ $contact->first_name}} {{ $contact->last_name}}">								
 						</div>
@@ -47,7 +53,7 @@
 					    	<p class="card-text my-0"><i class="fas fa-map-marker-alt px-2"></i>{{ $contact->address }}</p>
 					    	<p class="card-text my-0"><i class="fas fa-briefcase px-2"></i>{{ $contact->occupation }} at {{ $contact->company }}</p>
 					    	<div class="text-center p-2">
-						    	<a href="/agent/contacts/editcontact/{{ $contact->id }}" class="btn btn-greencyan my-2 px-3 text-center">Edit Profile</a>
+						    	<a href="/contacts/editcontact/{{ $contact->id }}" class="btn btn-greencyan my-2 px-3 text-center">Edit Profile</a>
 					    	</div>
 					  	</div>
 					</div>				
@@ -58,7 +64,7 @@
 				<div class="col-lg-7 col-md-7 col-sm-12 h-100">
 					{{-- <div class="row"> --}}
 						{{-- <div class="col-12"> --}}
-							<div class="card p-2 w-100">
+							<div class="card px-2 py-1 w-100">
 								
 								<div class="tabs w-80 p-1 my-1">
 								    <input type="radio" name="tab" id="tab1" checked="checked">
@@ -70,7 +76,7 @@
 								    	{{-- Tasks --}}
 								     	<div id="tab-content-1" class="tab-content p-2 scroll w-100">
 								     		<div class="text-right">
-									     		<a href="#" class="btn btn-link btn-icon no-underline my-2 px-3 text-center" onclick="openAddATaskModal({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target="#agentcontactsAddATask" title="Add a Task"><i class="fas fa-calendar-alt mx-1"></i> Add a Task</a>
+									     		<a href="/contacts/viewprofile/addatask/{{ $contact->id }}" class="btn btn-link btn-icon no-underline my-2 px-3 text-center" title="Add a Task"><i class="fas fa-calendar-alt mx-1"></i> Add a Task</a>
 									     	</div>
 
 							        		<ul>
@@ -98,7 +104,7 @@
 									   {{-- Properties --}}
 									   <div id="tab-content-2" class="tab-content p-2 scroll w-100">
 									    	<div class="text-right">
-										    	<a href="/agent/contacts/addaproperty/{{ $contact->id}}" class="btn btn-link btn-icon my-2 px-3 text-center no-underline" title="Add a Property"><i class="far fa-building mx-1"></i> Add a Property</a>
+										    	<a href="/contacts/addaproperty/{{ $contact->id}}" class="btn btn-link btn-icon my-2 px-3 text-center no-underline" title="Add a Property"><i class="far fa-building mx-1"></i> Add a Property</a>
 									    	</div>
 
 								    		@foreach($properties as $property)
@@ -203,6 +209,10 @@
 
 	function openDeletePropertyModal(id) {
 
+	}
+
+	function deleteProperty() {
+		
 	}
 
 </script>

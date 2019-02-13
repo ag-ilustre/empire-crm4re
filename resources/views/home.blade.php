@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pagetitle', 'Dashboard')
+@section('pagetitle', 'Home')
 
 @section('content')
  @if(Auth::user()->role_id === 1)

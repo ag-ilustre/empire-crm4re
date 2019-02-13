@@ -14,18 +14,37 @@ body {
 	background-attachment: fixed;
 }
 
-.title-banner {
-  height: 80px;
-  width: 80vh;
+#empire-logo {
+  width: 200px;
+}
+
+.breadcrumb {
+  height: 50px;
   vertical-align: middle !important; 
-  letter-spacing: 2px;
+  border-radius: 0px;
   /*background: rgb(249,249,249);
   background: linear-gradient(90deg, rgba(249,249,249,1) 0%, rgba(67,5,65,0.008) 50%, rgba(249,249,249,1) 100%);*/
-  background-image: linear-gradient(to right, rgba(67, 5, 65, 0.05), rgba(67, 5, 65, 0.8), rgba(67, 5, 65, 0.05));
+  background-image: linear-gradient(to right, rgba(67, 5, 65, 0.8), rgba(67, 5, 65, 0.7));
+  /*background-image: linear-gradient(to right, rgba(67, 5, 65, 0.05), rgba(67, 5, 65, 0.8), rgba(67, 5, 65, 0.05));*/
+}
+
+li.breadcrumb-item, li.breadcrumb-item>a {
+  color: hsla(0,0%,100%,.5);
+  font-size: 1rem;
+}
+
+li.breadcrumb-item>a:hover, li.breadcrumb-item>a:active {
+  color: hsla(0,0%,100%,.8);
+  font-size: 1rem;
+}
+
+li.breadcrumb-item.active {
+  color: hsla(0,0%,100%,.8);
+  font-size: 1rem;
 }
 
 .card {
-  background-color: #fcfcfc;
+  background-color: #f5f5f5;
 }
 
 .ajax-error-message {
@@ -57,6 +76,10 @@ nav {
 .nav-link:hover {
 	border-bottom: 1px solid #00bc9c;
 	border-top: 1px solid #00bc9c;
+}
+
+div.dropdown-menu {
+  border-radius: 2px;
 }
 
 a {
@@ -253,12 +276,14 @@ a.no-underline {
 
 .border-purple {
 	border-color:  rgba(67, 5, 65, 1) !important;
-	border-width: 1px !important;
+  border-width: 1px !important;
 }
 
-.table-purple {
-	background-color: #f9f9f9;
-}
+/*.contacts-table {
+	background-color: #f5f5f5;
+  border-top:  10px rgba(67, 5, 65, 1) !important;;
+  border-bottom:  10px rgba(67, 5, 65, 1) !important;;
+}*/
 
 th {
 	color: rgba(67, 5, 65, .8) !important;

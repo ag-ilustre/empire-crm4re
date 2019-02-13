@@ -4,10 +4,21 @@
 
 @section('content')
 
-	<div class="container">
+	<div class="container-fluid">
+		{{-- BREADCRUMB --}}
 		<div class="row">
-			<div class="col-lg-12 my-4">
-				<h4 class="current-page text-center"><span class="text-underline"><i class="fas fa-users"></i> Contacts</span></h4>
+			<div class="col-lg-12 mt-4 px-4">
+				<nav aria-label="breadcrumb">
+				  <ol class="breadcrumb">
+				  	<li class="breadcrumb-item"><a href="/contacts">Contacts</a></li>
+				    <li class="breadcrumb-item active" aria-current="page">Edit Contact</li>
+				  </ol>
+				</nav>
+			</div>
+		</div>	
+
+		<div class="row">
+			<div class="col-lg-12 my-2">
 				{{-- validation errors --}}
 				@if ($errors->any())
 				<div class="alert alert-danger">
@@ -22,12 +33,12 @@
 		</div>	
 
 		<div class="row justify-content-center">
-		    <div class="col-md-8 mt-4">
+		    <div class="col-md-8 my-2">
 		        <div class="card">
 					<div class="card-header card-title">Edit Contact</div>
 
 		            <div class="card-body">
-		                <form id="formEditContact" action="/agent/contacts/editcontact/{{ $contact->id }}" method="POST">
+		                <form id="formEditContact" action="/contacts/editcontact/{{ $contact->id }}" method="POST">
 		                    @csrf
 		                    {{ method_field('PATCH') }}
 
@@ -111,8 +122,8 @@
 					        
 					      	<div class="form-group row mb-0">
 					      	    <div class="col-md-6 offset-md-4">
-    								<button type="submit" class="btn btn-primary px-3">SAVE</button>
-    				       			<a href="/agent/contacts/viewprofile/{{ $contact->id }}" class="btn btn-dark px-3">CANCEL</a>
+    								<button type="submit" class="btn btn-primary px-3">Save</button>
+    				       			<a href="/contacts/viewprofile/{{ $contact->id }}" class="btn btn-dark px-3">Cancel</a>
 					      	    </div>
 					      	</div>
 			      		</form>

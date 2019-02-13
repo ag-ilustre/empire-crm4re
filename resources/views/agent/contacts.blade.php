@@ -5,9 +5,14 @@
 @section('content')
 
 	<div class="container-fluid">
+		{{-- BREADCRUMB --}}
 		<div class="row">
-			<div class="col-lg-12 mt-4 title-banner p-4">
-				<h4 class="current-page text-center"><span class="text-underline"><i class="fas fa-users"></i> Contacts</span></h4>
+			<div class="col-lg-12 mt-4 px-4">
+				<nav aria-label="breadcrumb">
+				  <ol class="breadcrumb">
+				    <li class="breadcrumb-item active" aria-current="page">Contacts</li>
+				  </ol>
+				</nav>
 			</div>
 		</div>		
 						
@@ -36,73 +41,64 @@
 					</div>					
 					<div class="col-5 my-auto div-inline">
 
-						<a class="btn btn-greencyan my-2 px-3" href="/agent/contacts/addacontact" title="Add a Contact"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> Add a Contact</a>									
+						<a class="btn btn-greencyan my-2 px-3" href="/contacts/addacontact" title="Add a Contact"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> Add a Contact</a>									
 
 					</div>
 				</div>
 			</div>			
 		</div>	 --}}
 		<div class="row">						
-			<div class="col-lg-12 table-responsive p-4">
-				<div class="card p-4">
-					
-				<div class="text-right">
-					<a class="btn btn-greencyan px-3" href="/agent/contacts/addacontact" title="Add a Contact"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> Add a Contact</a>		
+			<div class="col-lg-12 table-responsive px-4 py-2">
+					<div class="card p-4">
+						
+					<div class="text-right mb-3">
+						<a class="btn btn-greencyan px-3" href="/contacts/addacontact" title="Add a Contact"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> Add a Contact</a>		
+					</div>
+					<div class="card table-responsive table-hover m-0 p-0">	
+						<table class="table table-hover m-0 p-0">
+						    <thead class="border-purple">
+						        <tr class="my-3">	
+						        	<th width="9%" class="p-3 text-center">#</th>
+						        	<th width="17%" class="p-3">Contact</th>
+						        	<th width="15%" class="p-3">Stage</th>
+						        	<th width="17%" class="p-3">Added on</th>
+						        	<th width="17%" class="p-3">Last Activity on</th>
+						        	<th width="25%" class="p-3 text-center">Actions</th>
+						        </tr>
+						    </thead>
+					  		<tbody>	   
+
+					  			<tbody>
+					  			    @foreach($contacts as $contact)
+					  			    <tr id="contactRow{{ $contact->id }}" class="mr-2 p-3">
+					  			    	<td class="px-3 text-center">{{ $loop->iteration }}</td>
+					  			        <td class="px-3"><a href="/contacts/viewprofile/{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</a></td>
+	  			                    	@foreach($stages as $stage)
+	  			        	                @if($contact->stage_id == $stage->id)
+	  			        	                    <td class="px-3">{{ $stage->name }}</td>
+	  			        	                @endif
+	  			        	            @endforeach
+
+					  			        <td class="px-3">{{ $contact->created_at->diffForHumans() }}</td>
+					  			        <td class="px-3">{{ $contact->updated_at->diffForHumans() }}</td>
+					  			        <td class="px-3 text-center">
+					  			        	{{-- VIEW PROFILE --}}
+					  			        	<a class="btn btn-link btn-icon" href="/contacts/viewprofile/{{ $contact->id }}" title="View Profile"><i class="fas fa-search mx-1"></i></a>
+					  			        	{{-- DELETE CONTACT --}}
+					  			        	<button class="btn btn-link btn-icon" onclick="openDeleteContactModal({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target="#agentcontactsDeleteContact" title="Delete Contact"><i class="fas fa-trash mx-1"></i></button>
+					  			        	{{-- ADD A TASK --}}
+					  			        	<button class="btn btn-link btn-icon" onclick="openAddATaskModal({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target="#agentcontactsAddATask" title="Add a Task"><i class="fas fa-calendar-alt mx-1"></i></button>
+
+					  			        	
+					  			        </td>		  			        
+					  			    </tr>
+					  			    @endforeach
+					  			</tbody>
+						    </tbody>
+						</table>
+					</div>
 				</div>
-				<div class="table-responsive px-5">	
-					<table class="table table-striped my-3 table-purple">
-					    <thead class="border-purple">
-					        <tr class="my-3">	
-					        	<th width="9%" class="p-3 text-center">#</th>
-					        	<th width="17%" class="p-3">Contact</th>
-					        	<th width="15%" class="p-3">Stage</th>
-					        	<th width="17%" class="p-3">Added on</th>
-					        	<th width="17%" class="p-3">Last Activity on</th>
-					        	<th width="25%" class="p-3 text-center">Actions</th>
-					        </tr>
-					    </thead>
-				  		<tbody>	   
-
-				  			<tbody>
-				  			    @foreach($contacts as $contact)
-				  			    <tr id="contactRow{{ $contact->id }}" class="mr-2 p-3">
-				  			    	<td class="px-3 text-center">{{ $loop->iteration }}</td>
-				  			        <td class="px-3"><a href="/agent/contacts/viewprofile/{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</a></td>
-  			                    	@foreach($stages as $stage)
-  			        	                @if($contact->stage_id == $stage->id)
-  			        	                    <td class="px-3">{{ $stage->name }}</td>
-  			        	                @endif
-  			        	            @endforeach
-
-				  			        <td class="px-3">{{ $contact->created_at->diffForHumans() }}</td>
-				  			        <td class="px-3">{{ $contact->updated_at->diffForHumans() }}</td>
-				  			        <td class="px-3 text-center">
-				  			        	{{-- VIEW PROFILE --}}
-				  			        	<a class="btn btn-link btn-icon" href="/agent/contacts/viewprofile/{{ $contact->id }}" title="View Profile"><i class="fas fa-search mx-1"></i></a>
-				  			        	{{-- DELETE CONTACT --}}
-				  			        	<button class="btn btn-link btn-icon" onclick="openDeleteContactModal({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target="#agentcontactsDeleteContact" title="Delete Contact"><i class="fas fa-trash mx-1"></i></button>
-				  			        	{{-- ADD A TASK --}}
-				  			        	<a class="btn btn-link btn-icon" onclick="openAddATaskModal({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target="#agentcontactsAddATask" title="Add a Task"><i class="fas fa-calendar-alt mx-1"></i></a>
-
-				  			        	{{-- for stretch goal features --}}
-				  			        	{{-- <span class="nav-item dropdown">
-				  			        	 	<button class="btn btn-link btn-icon" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-h mx-1"></i>
-						            		</button>
-						            		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						  			        	
-						  			        	<a class="dropdown-item btn-link" onclick="openAddANoteModal({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target=".agentcontactsAddANote" title="Add a Note"><i class="far fa-sticky-note mx-1"></i> Add a Note</a>
-						  			        	
-						  			        	<a class="dropdown-item btn-link" onclick="openAddAPropertyModala({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target=".agentcontactsAddATask" title="Add a Task"><i class="far fa-building mx-1"></i> Add a Property</a>
-						  			        </div>
-						  			    </span> --}}
-				  			        </td>		  			        
-				  			    </tr>
-				  			    @endforeach
-				  			</tbody>
-					    </tbody>
-					</table>
-				</div>
-			</div>
+				{{-- end of card --}}
 		</div>
 		</div>
 	</div>
@@ -130,7 +126,7 @@
 		</div>
 
 		<!-- ADD A NOTE -->
-		<div class="modal fade agentcontactsAddANote" tabindex="-1" role="dialog" aria-labelledby="agentcontactsAddANoteModalLabel" aria-hidden="true">
+		{{-- <div class="modal fade agentcontactsAddANote" tabindex="-1" role="dialog" aria-labelledby="agentcontactsAddANoteModalLabel" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		    	<div class="modal-header">
@@ -157,7 +153,7 @@
 		      	</div>
 		    </div>
 		  </div>
-		</div>
+		</div> --}}
 
 		<!-- ADD A TASK -->
 		<div class="modal fade" id="agentcontactsAddATask" tabindex="-1" role="dialog" aria-labelledby="agentcontactsAddATaskModalLabel" aria-hidden="true">
@@ -216,7 +212,7 @@
 		var contactIdToDelete = $('#contactIdToDelete').val();
 		console.log(contactIdToDelete);
 		$.ajax({
-			url: '/agent/contacts/delete/'+contactIdToDelete,
+			url: '/contacts/delete/'+contactIdToDelete,
 			type: 'POST',
 			dataType: 'JSON',
 			data: {
@@ -282,7 +278,7 @@
 			$("#saveNewTask"+contactIdForNewTask).attr("data-dismiss", "modal"); 
 			
 			$.ajax({
-				url: '/agent/contacts/addatask/'+contactIdForNewTask,
+				url: '/contacts/addatask/'+contactIdForNewTask,
 				type: 'POST',
 				dataType: 'JSON',
 				data: {

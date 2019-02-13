@@ -4,10 +4,21 @@
 
 @section('content')
 
-	<div class="container">
+	<div class="container-fluid">
+        {{-- BREADCRUMB --}}
+        <div class="row">
+            <div class="col-lg-12 mt-4 px-4">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/contacts">Contacts</a></li>
+                    <li class="breadcrumb-item "><a href="/contacts/viewprofile/{{ $contact->id }}">View Profile</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Add a Property</li>
+                  </ol>
+                </nav>
+            </div>
+        </div>  
 		<div class="row">
-			<div class="col-lg-12 my-4">
-				<h4 class="current-page text-center"><span class="text-underline"><i class="fas fa-user-alt"></i> {{ $contact->first_name }} {{ $contact->last_name }}</span></h4>
+			<div class="col-lg-12">
 				{{-- validation errors --}}
 				@if ($errors->any())
 				<div class="alert alert-danger">
@@ -24,7 +35,7 @@
 		<div class="row justify-content-center">
 		    <div class="col-md-8 mt-4">
 		        <div class="card">
-					<div class="card-header card-title">Add a Property</div>
+					<div class="card-header card-title">Add a Property for {{ $contact->first_name }} {{ $contact->last_name }}</div>
 
 		            <div class="card-body">
 		                <form id="formAddAProperty" action="" method="POST">
@@ -78,9 +89,9 @@
 					        
 					      	<div class="form-group row mb-0">
 					      	    <div class="col-md-6 offset-md-4">
-    								<button type="submit" class="btn btn-primary px-3">SAVE</button>
-    				       			<button type="reset" class="btn btn-secondary px-3">RESET</button>
-    				       			<a href="/agent/contacts/viewprofile/{{ $contact->id }}" class="btn btn-dark px-3">CANCEL</a>
+    								<button type="submit" class="btn btn-primary px-3">Save</button>
+    				       			<button type="reset" class="btn btn-secondary px-3">Reset</button>
+    				       			<a href="/contacts/viewprofile/{{ $contact->id }}" class="btn btn-dark px-3">Cancel</a>
 					      	    </div>
 					      	</div>
 			      		</form>

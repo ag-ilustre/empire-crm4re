@@ -22,45 +22,58 @@ Route::get('/home', function () {
 //admin
 // Route::group(['middleware' => 'admin'], function() {
 Route::middleware(['admin'])->group(function(){
+    //nav bar
+    Route::get('/agents', 'AdminController@showAgents');
+    Route::get('/contacts', 'AdminController@showContacts');
+
     // agents page
-    Route::get('/admin/agents', 'AdminController@showAgents');
     Route::get('/admin/menu/searchagentspage', 'AdminController@searchAgentsPage');
     Route::get('/admin/menu/addagent', 'AgentController@addAgent');
     Route::delete('/admin/agentdelete/{id}', 'AdminController@deleteAgent');
-    Route::put('/admin/agentroleedit/{id}', 'AdminController@editAgentRole');	
+    Route::put('/admin/agentroleedit/{id}', 'AdminController@editAgentRole');   
 
     // contacts page
-    Route::get('/admin/contacts', 'AdminController@showContacts');
 
 });
 // });
 
 //agent
 Route::middleware(['agent'])->group(function(){
-	// contacts page
-    Route::get('/agent/contacts', 'AgentController@showAgentContacts');
-   	Route::get('/agent/contacts/addacontact', function () {
-       	return view('agent.addacontact');
-       	});
-    Route::post('/agent/contacts/addacontact', 'AgentController@saveNewContact');
-    Route::delete('/agent/contacts/delete/{id}', 'AgentController@deleteContact');
-    Route::post('/agent/contacts/addatask/{id}', 'AgentController@saveNewTask');
+    //nav bar
+    Route::get('/contacts', 'AgentController@showAgentContacts');
+	Route::get('/opportunities', 'AgentController@showOpportunities');
+	Route::get('/tasks', function () {
+    	return view('agent.tasks');
+    	});
     
-    // contact profile
-    Route::get('/agent/contacts/viewprofile/{id}', 'AgentController@viewProfileContact');
-    Route::get('/agent/contacts/editcontact/{id}', 'AgentController@showEditContactForm');
-    Route::patch('/agent/contacts/editcontact/{id}', 'AgentController@saveEditedContact');
-    Route::get('/agent/contacts/addaproperty/{id}', 'AgentController@showAddAPropertyForm');
-    Route::post('/agent/contacts/addaproperty/{id}', 'AgentController@saveNewProperty');
+    // contacts page
+    Route::get('/contacts/addacontact', function () {
+        return view('agent.addacontact');
+        });
+    Route::post('/contacts/addacontact', 'AgentController@saveNewContact');
+    
+    Route::delete('/contacts/delete/{id}', 'AgentController@deleteContact');
+    Route::post('/contacts/addatask/{id}', 'AgentController@saveNewTask');
+    
+    // view profile
+    Route::get('/contacts/viewprofile/{id}', 'AgentController@viewProfileContact');
+                // edit URI for uniformity
+    Route::get('/contacts/editcontact/{id}', 'AgentController@showEditContactForm');
+    Route::patch('/contacts/editcontact/{id}', 'AgentController@saveEditedContact');
+    Route::get('/contacts/addaproperty/{id}', 'AgentController@showAddAPropertyForm');
+    Route::post('/contacts/addaproperty/{id}', 'AgentController@saveNewProperty');
+
+    Route::get('/contacts/viewprofile/addatask/{id}', 'AgentController@showAddATaskFormVP');
+    Route::post('/contacts/viewprofile/addatask/{id}', 'AgentController@saveNewTaskVP');
 
 
     // opportunities page
-	Route::get('/agent/opportunities', 'AgentController@showOpportunities');
 
     // tasks page
-	Route::get('/agent/tasks', function () {
-    	return view('agent.tasks');
-    	});
+    Route::get('/tasks/pending', 'AgentController@showPendingTasks');
+    Route::delete('/contacts/deletetask/{id}', 'AgentController@deleteTask');
+    Route::get('/tasks/addatask', 'AgentController@showAddATaskForm');
+    Route::post('/tasks/addatask', 'AgentController@saveAddedTask');
 });  
 
 Auth::routes();
