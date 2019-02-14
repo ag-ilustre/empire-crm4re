@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{{-- AGENT/CONTACTS --}}
+{{-- ADMIN/CONTACTS --}}
 @section('pagetitle', 'Contacts') 
 
 @section('content')
@@ -24,7 +24,7 @@
 			@if(Session::has("successmessage"))					
 			<div class="col-8 mx-auto p-2">
 				<div class="alert alert-success text-center">
-					<span class=".ajax-error-message">{{ Session::get('successmessage') }} </span>
+					<span class=".ajax-error-messag">{{ Session::get('successmessage') }} </span>
 				    <button class="btn btn-link" onclick="closeErrorBox()"><i class="fas fa-window-close"></i></button>
 				</div>
 			</div>
@@ -50,33 +50,21 @@
 		<div class="row">						
 			<div class="col-lg-12 px-4 py-2">
 					<div class="card p-4">
+						
 					<div class="text-right mb-3">
-					@if(Auth::user()->role_id === 1)
-						<a class="btn btn-greencyan px-3" href="/admin/contacts/addacontact" title="Add a Contact"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> Add a Contact</a>
-					@else
-						<a class="btn btn-greencyan px-3" href="/contacts/addacontact" title="Add a Contact"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> Add a Contact</a>		
-					@endif
+						<a class="btn btn-greencyan px-3" href="/admin/contacts/addacontact" title="Add a Contact"><i class="fas fa-plus"></i><i class="fas fa-user-alt"></i> Add a Contact</a>		
 					</div>
 					<div class="table-responsive table-hover m-0 p-0">	
 						<table class="table table-hover m-0 p-0">
 						    <thead class="border-purple">
 						        <tr class="my-3">	
-						        	@if(Auth::user()->role_id === 1)
-						        	<th width="9%" class="p-3 text-center">#</th>
-						        	<th width="14%" class="p-3 text-left">Agent</th>
-						        	<th width="14%" class="p-3 text-left">Contact</th>
-						        	<th width="10%" class="p-3 text-left">Stage</th>
-						        	<th width="14%" class="p-3 text-left">Added on</th>
-						        	<th width="14%" class="p-3 text-left">Last Activity on</th>
-						        	<th width="25%" class="p-3 text-center">Actions</th>
-						        	@else
-						        	<th width="9%" class="p-3 text-center">#</th>
-						        	<th width="17%" class="p-3">Contact</th>
-						        	<th width="15%" class="p-3">Stage</th>
-						        	<th width="17%" class="p-3">Added on</th>
-						        	<th width="17%" class="p-3">Last Activity on</th>
-						        	<th width="25%" class="p-3 text-center">Actions</th>
-						        	@endif
+						        	<th class="p-3 text-center">#</th>
+						        	<th class="p-3">Agent</th>
+						        	<th class="p-3">Contact</th>
+						        	<th class="p-3">Stage</th>
+						        	<th class="p-3">Added on</th>
+						        	<th class="p-3">Last Activity on</th>
+						        	<th class="p-3 text-center">Actions</th>
 						        </tr>
 						    </thead>
 					  		<tbody>	   
@@ -85,37 +73,24 @@
 					  			    @foreach($contacts as $contact)
 					  			    <tr id="contactRow{{ $contact->id }}" class="mr-2 p-3">
 					  			    	<td class="px-3 text-center">{{ $loop->iteration }}</td>
-					  			    	@if(Auth::user()->role_id === 1)
 					  			    	@foreach($users as $user)
 					  			    	    @if($contact->user_id == $user->id)
-					  			    	        <td class="px-3 text-left">{{ $user->first_name }} {{ $user->last_name }}</td>
+					  			    	        <td class="p-4">{{ $user->first_name }} {{ $user->last_name }}</td>
 					  			    	    @endif
 					  			    	@endforeach
-					  			    	@endif
 
-					  			    	@if(Auth::user()->role_id === 1)
-					  			    	<td class="px-3 text-left"><a href="/admin/contacts/viewprofile/{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</a></td>
-					  			    	@else
-					  			        <td class="px-3 text-left"><a href="/contacts/viewprofile/{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</a></td>
-					  			        @endif
-
+					  			        <td class="px-3"><a href="/admin/contacts/viewprofile/{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</a></td>
 	  			                    	@foreach($stages as $stage)
 	  			        	                @if($contact->stage_id == $stage->id)
-	  			        	                    <td class="px-3 text-left">{{ $stage->name }}</td>
+	  			        	                    <td class="px-3">{{ $stage->name }}</td>
 	  			        	                @endif
 	  			        	            @endforeach
 
-					  			        <td class="px-3 text-left">{{ $contact->created_at->diffForHumans() }}</td>
-					  			        <td class="px-3 text-left">{{ $contact->updated_at->diffForHumans() }}</td>
+					  			        <td class="px-3">{{ $contact->created_at->diffForHumans() }}</td>
+					  			        <td class="px-3">{{ $contact->updated_at->diffForHumans() }}</td>
 					  			        <td class="px-3 text-center">
 					  			        	{{-- VIEW PROFILE --}}
-					  			        	@if(Auth::user()->role_id === 1)
-					  			        	<input type="hidden" id="loggedtoContacts" value="1">
 					  			        	<a class="btn btn-link btn-icon" href="/admin/contacts/viewprofile/{{ $contact->id }}" title="View Profile"><i class="fas fa-search mx-1"></i></a>
-					  			        	@else
-					  			        	<input type="hidden" id="loggedtoContacts" value="2">
-					  			        	<a class="btn btn-link btn-icon" href="/contacts/viewprofile/{{ $contact->id }}" title="View Profile"><i class="fas fa-search mx-1"></i></a>
-					  			        	@endif
 					  			        	{{-- DELETE CONTACT --}}
 					  			        	<button class="btn btn-link btn-icon" onclick="openDeleteContactModal({{ $contact->id }}, '{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target="#agentcontactsDeleteContact" title="Delete Contact"><i class="fas fa-trash mx-1"></i></button>
 					  			        	{{-- ADD A TASK --}}
@@ -156,6 +131,36 @@
 		    </div>
 		  </div>
 		</div>
+
+		<!-- ADD A NOTE -->
+		{{-- <div class="modal fade agentcontactsAddANote" tabindex="-1" role="dialog" aria-labelledby="agentcontactsAddANoteModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		    	<div class="modal-header">
+		    	    <h5 class="modal-title" id="agentcontactsAddANoteModalLabel">View Porfile</h5>
+		    	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		    	    	<span aria-hidden="true">&times;</span>
+		    		</button>
+		    	</div>
+		    	<div class="modal-body">
+	    	        <form>
+	    	          	<div class="form-group">
+	    	            	<label for="recipient-name" class="col-form-label">Recipient:</label>
+		    	            <input type="text" class="form-control" id="recipient-name">
+		    	        </div>
+		    	        <div class="form-group">
+	    	            	<label for="message-text" class="col-form-label">Message:</label>
+		    	            <textarea class="form-control" id="message-text"></textarea>
+	    	          	</div>
+	    	        </form>    	        
+	    	    </div>
+	    	    <div class="modal-footer">
+	       			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary">Send message</button>
+		      	</div>
+		    </div>
+		  </div>
+		</div> --}}
 
 		<!-- ADD A TASK -->
 		<div class="modal fade" id="agentcontactsAddATask" tabindex="-1" role="dialog" aria-labelledby="agentcontactsAddATaskModalLabel" aria-hidden="true">
@@ -212,18 +217,9 @@
 	
 	function deleteContact() {
 		var contactIdToDelete = $('#contactIdToDelete').val();
-		var loggedtoContacts = $('#loggedtoContacts').val();
-
-		if(loggedtoContacts == 1) {
-			var url = '/admin/contacts/delete/'+contactIdToDelete;
-		}else {
-			var url = '/contacts/delete/'+contactIdToDelete;
-		}
-		console.log(url);
-
 		console.log(contactIdToDelete);
 		$.ajax({
-			url: url,
+			url: '/admin/contacts/delete/'+contactIdToDelete,
 			type: 'POST',
 			dataType: 'JSON',
 			data: {
@@ -281,15 +277,6 @@
 		var taskDeadline = $('#taskDeadline').val();
 		console.log(contactIdForNewTask+","+newTask+","+taskDeadline);
 
-		var loggedtoContacts = $('#loggedtoContacts').val();
-
-		if(loggedtoContacts == 1) {
-			var url = '/admin/contacts/addatask/'+contactIdForNewTask;
-		}else {
-			var url = '/contacts/addatask/'+contactIdForNewTask;
-		}
-		console.log(url);
-
 		$('#newTaskErrorMessage').html("");
 		$('#taskDeadlineErrorMessage').html("");
 
@@ -298,7 +285,7 @@
 			$("#saveNewTask"+contactIdForNewTask).attr("data-dismiss", "modal"); 
 			
 			$.ajax({
-				url: url,
+				url: '/admin/contacts/addatask/'+contactIdForNewTask,
 				type: 'POST',
 				dataType: 'JSON',
 				data: {

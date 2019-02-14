@@ -10,7 +10,11 @@
 			<div class="col-lg-12 mt-4 px-4">
 				<nav aria-label="breadcrumb">
 				  <ol class="breadcrumb">
-				  	<li class="breadcrumb-item"><a href="/contacts">Tasks</a></li>
+				  	@if(Auth::user()->role_id === 1)
+				  	<li class="breadcrumb-item"><a href="/admin/contacts">Pending Tasks</a></li>
+				  	@else
+				  	<li class="breadcrumb-item"><a href="/contacts">Pending Tasks</a></li>
+				    @endif
 				    <li class="breadcrumb-item active" aria-current="page">Add a Task</li>
 				  </ol>
 				</nav>
@@ -21,7 +25,7 @@
 			<div class="col-lg-12 my-4">
 				{{-- validation errors --}}
 				@if ($errors->any())
-				<div class="alert alert-danger">
+				<div class="alert alert-danger mx-auto">
 				    <ul class="list-unstyled">
 				        @foreach ($errors->all() as $error) {{-- will print the error/s if any--}}
 				        <li>{{ $error }}</li>
@@ -46,8 +50,7 @@
             	            	<label class="col-md-4 col-form-label text-md-right">Contact Name:</label>
 
             	            	<div class="col-md-6 my-auto pt-1">
-        	    	          		<select class="custom-select" name="newTaskContactId" id="newTaskContactId">
-        	    	          			<option selected>---</option>
+        	    	          		<select class="custom-select" name="newTaskContactId" id="newTaskContactId" required>
         	    	          			@foreach($contacts as $contact)
         	    	          			<option value="{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</option>
         		    	          		@endforeach
@@ -77,7 +80,11 @@
 					      	    <div class="col-md-6 offset-md-4">
     								<button type="submit" class="btn btn-primary px-3">Save</button>
     				       			<button type="reset" class="btn btn-secondary px-3">Reset</button>
+    				       			@if(Auth::user()->role_id === 1)
+    				       			<a href="/admin/contacts" class="btn btn-dark px-3">Cancel</a>
+    				       			@else
     				       			<a href="/contacts" class="btn btn-dark px-3">Cancel</a>
+    				       			@endif
 					      	    </div>
 					      	</div>
 			      		</form>

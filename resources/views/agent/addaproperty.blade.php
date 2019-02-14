@@ -10,8 +10,13 @@
             <div class="col-lg-12 mt-4 px-4">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
+                    @if(Auth::user()->role_id === 1)
+                    <li class="breadcrumb-item"><a href="/admin/contacts">Contacts</a></li>
+                    <li class="breadcrumb-item "><a href="/admin/contacts/viewprofile/{{ $contact->id }}">View Profile</a></li>
+                    @else
                     <li class="breadcrumb-item"><a href="/contacts">Contacts</a></li>
                     <li class="breadcrumb-item "><a href="/contacts/viewprofile/{{ $contact->id }}">View Profile</a></li>
+                    @endif
                     <li class="breadcrumb-item active" aria-current="page">Add a Property</li>
                   </ol>
                 </nav>
@@ -45,7 +50,7 @@
             	            	<label class="col-md-4 col-form-label text-md-right">Select a Project:</label>
 
             	            	<div class="col-md-6 my-auto pt-1">
-        	    	          		<select class="custom-select" name="newPropertyProject" id="newPropertyProject">
+        	    	          		<select class="custom-select" name="newPropertyProject" id="newPropertyProject" required>
         	    	          			<option selected>---</option>
         	    	          			@foreach($projects as $project)
         	    	          			<option value="{{ $project->id }}">{{ $project->name }}</option>
@@ -91,7 +96,11 @@
 					      	    <div class="col-md-6 offset-md-4">
     								<button type="submit" class="btn btn-primary px-3">Save</button>
     				       			<button type="reset" class="btn btn-secondary px-3">Reset</button>
+                                    @if(Auth::user()->role_id === 1)
+                                    <a href="/admin/contacts/viewprofile/{{ $contact->id }}" class="btn btn-dark px-3">Cancel</a>
+                                    @else
     				       			<a href="/contacts/viewprofile/{{ $contact->id }}" class="btn btn-dark px-3">Cancel</a>
+                                    @endif
 					      	    </div>
 					      	</div>
 			      		</form>

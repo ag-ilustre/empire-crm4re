@@ -5,60 +5,68 @@
 @section('content')
 	
 	<div class="container-fluid">
+		{{-- BREADCRUMB --}}
 		<div class="row">
-			<div class="col-lg-12 my-4">
-				<h4 class="current-page text-center"><span class="text-underline"><i class="fas fa-users"></i> Agents</span></h4>
+			<div class="col-lg-12 mt-4 px-4">
+				<nav aria-label="breadcrumb">
+				  <ol class="breadcrumb">
+				    <li class="breadcrumb-item active" aria-current="page">Agents</li>
+				  </ol>
+				</nav>
 			</div>
 		</div>
 		{{-- ERROR MESSAGE FROM AJAX --}}
 		<div class="row justify-content-center errorBox">
-			<div class="col-8 mx-auto p-2" id="errorBoxAgents">
+			<div class="col-8 mx-auto p-2 w-100" id="errorBoxAgents">
 				<span id="errorMessageAgents"></span>
 			</div>
 		</div>
 		
-		<div class="row">
+		{{-- <div class="row">
 			<div class="col-lg-8 col-md-8"></div>
 			<div class="col-lg-3 col-md-3 col-sm-12">
 				<input type="text" id="searchAgentPage" name="searchAgentPage" class="form-control p-1" onkeyup="searchAdminAgents()" placeholder="Search">
 			</div>	
 			<div class="col-lg-1 col-md-1"></div>
-		</div>
-		<div class="row">						
-			<div class="col-lg-12 table-responsive">
-				<div class="table-responsive px-5">				
-				<table class="table table-hover my-3 table-purple">
-				    <thead class="border-purple">
-				        <tr class="mr-2 p-3">
-				            <th width="10%" class="p-3 text-center">#</th>
-				            <th width="20%" class="p-3">Name</th>
-				            <th width="15%" class="p-3">Username</th>
-				            <th width="25%" class="p-3">Email</th>
-				            <th width="15%" class="p-3">Role</th>
-				            <th width="25%" class="p-3">Actions</th>
-				        </tr>
-				    </thead>
-				    <tbody>
-				        @foreach($users as $user)
-				        <tr id="userRow{{ $user->id }}" class="mr-2 p-3">
-				        	<td class="px-3 text-center">{{ $loop->iteration }}</td>
-				            <td class="px-3">{{ $user->first_name }} {{ $user->last_name }}</td>
-				            <td class="px-3">{{ $user->username }}</td>
-				            <td class="px-3">{{ $user->email }}</td>
-				            @foreach($roles as $role)
-				                @if($user->role_id == $role->id)
-				                    <td class="px-3" id="newAgentRole{{ $user->id }}">{{ $role->name }}</td>
-				                    <input type="hidden" id="userRole{{ $role->id }}" value="{{ $role->id }}">
-				                @endif
-				            @endforeach			            
-				            <td class="px-3">			   
-				            	<button type="button" id="btnOpenEditModal{{ $user->id }}" class="btn btn-link btn-icon" data-toggle="modal" onclick="openEditModal('{{ $user->id }}', '{{ $user->first_name }} {{ $user->last_name }}', '{{ $user->role_id }}')"><i class="fas fa-user-edit"></i></button>
-				            	<button type="button" class="btn btn-link btn-icon" onclick="openDeleteModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')" data-toggle="modal"><i class="fas fa-trash"></i></button>
-				            </td>
-				        </tr>
-				        @endforeach
-				    </tbody>
-				</table>
+		</div> --}}
+		<div class="row">	
+			<div class="col-lg-12 px-4 py-2">
+				<div class="card p-4">
+
+					<div class="table-responsive table-hover m-0 p-0">	
+						<table class="table table-hover m-0 p-0">
+						    <thead class="border-purple">
+						        <tr class="mr-2 p-3">
+						            <th width="10%" class="p-3 text-center">#</th>
+						            <th width="20%" class="p-3">Name</th>
+						            <th width="15%" class="p-3">Username</th>
+						            <th width="25%" class="p-3">Email</th>
+						            <th width="15%" class="p-3">Role</th>
+						            <th width="25%" class="p-3">Actions</th>
+						        </tr>
+						    </thead>
+						    <tbody>
+						        @foreach($users as $user)
+						        <tr id="userRow{{ $user->id }}" class="mr-2 p-3">
+						        	<td class="px-3 text-center">{{ $loop->iteration }}</td>
+						            <td class="px-3">{{ $user->first_name }} {{ $user->last_name }}</td>
+						            <td class="px-3">{{ $user->username }}</td>
+						            <td class="px-3">{{ $user->email }}</td>
+						            @foreach($roles as $role)
+						                @if($user->role_id == $role->id)
+						                    <td class="px-3" id="newAgentRole{{ $user->id }}">{{ $role->name }}</td>
+						                    <input type="hidden" id="userRole{{ $role->id }}" value="{{ $role->id }}">
+						                @endif
+						            @endforeach			            
+						            <td class="px-3">			   
+						            	<button type="button" id="btnOpenEditModal{{ $user->id }}" class="btn btn-link btn-icon" data-toggle="modal" onclick="openEditModal('{{ $user->id }}', '{{ $user->first_name }} {{ $user->last_name }}', '{{ $user->role_id }}')"><i class="fas fa-user-edit"></i></button>
+						            	<button type="button" class="btn btn-link btn-icon" onclick="openDeleteModal({{ $user->id }}, '{{ $user->first_name }} {{ $user->last_name }}')" data-toggle="modal"><i class="fas fa-trash"></i></button>
+						            </td>
+						        </tr>
+						        @endforeach
+				    		</tbody>
+						</table>
+					</div>
 				</div>
 			</div>			
 		</div>

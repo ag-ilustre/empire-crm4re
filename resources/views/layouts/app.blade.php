@@ -59,12 +59,34 @@
                             <li class="nav-item">
                               <a class="nav-link" href="/home">Home</a>
                             </li>
+                        {{-- ADMIN'S NAVBAR --}}
                             @if(Auth::user()->role_id === 1)
                             <!-- add Agent to Admin's Navbar -->
                             <li class="nav-item">
-                              <a class="nav-link" href="/agents">Agents</a>
+                              <a class="nav-link" href="/admin/agents">Agents</a>
                             </li>
-                            @endif
+                            <li class="nav-item">
+                              <a class="nav-link" href="/admin/contacts">Contacts</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="/admin/tasks" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tasks
+                                   <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item btn-link" href="/admin/tasks/pending">Pending Tasks</a>
+                                    <a class="dropdown-item btn-link" href="/admin/tasks/completed">Completed Tasks</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="/admin/properties">Properties</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="/admin/projects">Projects</a>
+                            </li>
+                            @else
+                        {{-- AGENT'S NAVBAR --}}
                             <li class="nav-item">
                               <a class="nav-link" href="/contacts">Contacts</a>
                             </li>
@@ -85,6 +107,7 @@
                             <li class="nav-item">
                               <a class="nav-link" href="/projects">Projects</a>
                             </li>
+                            @endif
                     </ul>
 
                     <ul class="navbar-nav ml-auto">

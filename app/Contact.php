@@ -32,6 +32,6 @@ class Contact extends Model
     }
 
     public function projects() {
-        return $this->belongsToMany('\App\Contact', 'contact_projects')->withPivot('project_id', 'property_description', 'property_status_id', 'total_contract_price', 'estimated_commission')->withTimestamps();
+        return $this->belongsToMany('\App\Contact', 'contact_projects', 'contact_id', 'project_id')->withPivot('property_description', 'property_status_id', 'total_contract_price', 'estimated_commission')->withTimestamps();
     }
 }

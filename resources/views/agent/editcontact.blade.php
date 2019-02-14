@@ -10,7 +10,13 @@
 			<div class="col-lg-12 mt-4 px-4">
 				<nav aria-label="breadcrumb">
 				  <ol class="breadcrumb">
+				  	@if(Auth::user()->role_id === 1)
+				  	<li class="breadcrumb-item"><a href="/admin/contacts">Contacts</a></li>
+				  	<li class="breadcrumb-item "><a href="/admin/contacts/viewprofile/{{ $contact->id }}">View Profile</a></li>
+				  	@else
 				  	<li class="breadcrumb-item"><a href="/contacts">Contacts</a></li>
+				  	<li class="breadcrumb-item "><a href="/contacts/viewprofile/{{ $contact->id }}">View Profile</a></li>
+				  	@endif
 				    <li class="breadcrumb-item active" aria-current="page">Edit Contact</li>
 				  </ol>
 				</nav>
@@ -38,7 +44,11 @@
 					<div class="card-header card-title">Edit Contact</div>
 
 		            <div class="card-body">
-		                <form id="formEditContact" action="/contacts/editcontact/{{ $contact->id }}" method="POST">
+		            	@if(Auth::user()->role_id === 1)
+		                <form id="formEditContact" action="/admin/contacts/viewprofile/editcontact/{{ $contact->id }}" method="POST">
+		                @else
+		                <form id="formEditContact" action="/contacts/viewprofile/editcontact/{{ $contact->id }}" method="POST">
+		                @endif
 		                    @csrf
 		                    {{ method_field('PATCH') }}
 
@@ -123,7 +133,11 @@
 					      	<div class="form-group row mb-0">
 					      	    <div class="col-md-6 offset-md-4">
     								<button type="submit" class="btn btn-primary px-3">Save</button>
+    				       			@if(Auth::user()->role_id === 1)
+    				       			<a href="/admin/contacts/viewprofile/{{ $contact->id }}" class="btn btn-dark px-3">Cancel</a>
+    				       			@else
     				       			<a href="/contacts/viewprofile/{{ $contact->id }}" class="btn btn-dark px-3">Cancel</a>
+    				       			@endif
 					      	    </div>
 					      	</div>
 			      		</form>

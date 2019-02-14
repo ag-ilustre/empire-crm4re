@@ -10,7 +10,11 @@
 				<div class="col-lg-12 mt-4 px-4">
 					<nav aria-label="breadcrumb">
 					  <ol class="breadcrumb">
-					  	<li class="breadcrumb-item"><a href="/contacts">Contacts</a></li>
+				  		@if(Auth::user()->role_id === 1)
+				  		<li class="breadcrumb-item"><a href="/admin/contacts">Contacts</a></li>
+				  		@else
+				  		<li class="breadcrumb-item"><a href="/contacts">Contacts</a></li>
+					  	@endif
 					    <li class="breadcrumb-item active" aria-current="page">View Profile</li>
 					  </ol>
 					</nav>
@@ -20,7 +24,7 @@
 			<div class="row justify-content-center errorBox my-2">
 				{{-- ERROR MESSAGE FROM AJAX --}}
 				<div class="col-8 mx-auto p-2" id="errorBoxContactProfile">
-					<span id="errorMessageContactProfile" class=".ajax-error-messag"></span>
+					<span id="errorMessageContactProfile" class=".ajax-error-message"></span>
 				</div>
 				@if(Session::has("successmessage"))					
 				<div class="col-8 mx-auto p-2">
@@ -53,7 +57,11 @@
 					    	<p class="card-text my-0"><i class="fas fa-map-marker-alt px-2"></i>{{ $contact->address }}</p>
 					    	<p class="card-text my-0"><i class="fas fa-briefcase px-2"></i>{{ $contact->occupation }} at {{ $contact->company }}</p>
 					    	<div class="text-center p-2">
-						    	<a href="/contacts/editcontact/{{ $contact->id }}" class="btn btn-greencyan my-2 px-3 text-center">Edit Profile</a>
+					    		@if(Auth::user()->role_id === 1)
+					    		<a href="/admin/contacts/viewprofile/editcontact/{{ $contact->id }}" class="btn btn-greencyan my-2 px-3 text-center">Edit Profile</a>
+					    		@else
+						    	<a href="/contacts/viewprofile/editcontact/{{ $contact->id }}" class="btn btn-greencyan my-2 px-3 text-center">Edit Profile</a>
+						    	@endif
 					    	</div>
 					  	</div>
 					</div>				
@@ -76,7 +84,11 @@
 								    	{{-- Tasks --}}
 								     	<div id="tab-content-1" class="tab-content p-2 scroll w-100">
 								     		<div class="text-right">
+								     			@if(Auth::user()->role_id === 1)
+									     		<a href="/admin/contacts/viewprofile/addatask/{{ $contact->id }}" class="btn btn-link btn-icon no-underline my-2 px-3 text-center" title="Add a Task"><i class="fas fa-calendar-alt mx-1"></i> Add a Task</a>
+									     		@else
 									     		<a href="/contacts/viewprofile/addatask/{{ $contact->id }}" class="btn btn-link btn-icon no-underline my-2 px-3 text-center" title="Add a Task"><i class="fas fa-calendar-alt mx-1"></i> Add a Task</a>
+									     		@endif
 									     	</div>
 
 							        		<ul>
@@ -104,7 +116,11 @@
 									   {{-- Properties --}}
 									   <div id="tab-content-2" class="tab-content p-2 scroll w-100">
 									    	<div class="text-right">
-										    	<a href="/contacts/addaproperty/{{ $contact->id}}" class="btn btn-link btn-icon my-2 px-3 text-center no-underline" title="Add a Property"><i class="far fa-building mx-1"></i> Add a Property</a>
+									    		@if(Auth::user()->role_id === 1)
+									    		<a href="/admin/contacts/viewprofile/addaproperty/{{ $contact->id}}" class="btn btn-link btn-icon my-2 px-3 text-center no-underline" title="Add a Property"><i class="far fa-building mx-1"></i> Add a Property</a>
+										    	@else
+										    	<a href="/contacts/viewprofile/addaproperty/{{ $contact->id}}" class="btn btn-link btn-icon my-2 px-3 text-center no-underline" title="Add a Property"><i class="far fa-building mx-1"></i> Add a Property</a>
+										    	@endif
 									    	</div>
 
 								    		@foreach($properties as $property)

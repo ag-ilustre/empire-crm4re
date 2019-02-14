@@ -51,6 +51,11 @@ li.breadcrumb-item.active {
   font-size: 1rem;
 }
 
+.fa-window-close {
+   color: #00bc9c;
+   font-size: 1rem;
+}
+
 .modal {
   border-radius: 2px;
 }
@@ -476,7 +481,20 @@ img {
         font-size: 1rem;
     }
     
-}
+    li.breadcrumb-item, li.breadcrumb-item>a {
+      color: hsla(0,0%,100%,.5);
+      font-size: 0.8rem;
+    }
+
+    li.breadcrumb-item>a:hover, li.breadcrumb-item>a:active {
+      color: hsla(0,0%,100%,.8);
+      font-size: 0.8rem;
+    }
+
+    li.breadcrumb-item.active {
+      color: hsla(0,0%,100%,.8);
+      font-size: 0.8rem;
+    }
 }
 
 /*TABS IN PROFILE*/

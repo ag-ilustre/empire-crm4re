@@ -5,11 +5,17 @@
 @section('content')
 	
 	<div class="container-fluid">
+		{{-- BREADCRUMB --}}
 		<div class="row">
-			<div class="col-lg-12 my-4">
-				<h3 class="current-page text-center"><span class="text-underline"><i class="fas fa-users"></i> Contacts</span></h3>
+			<div class="col-lg-12 mt-4 px-4">
+				<nav aria-label="breadcrumb">
+				  <ol class="breadcrumb">
+				    <li class="breadcrumb-item active" aria-current="page">Contacts</li>
+				  </ol>
+				</nav>
 			</div>
-		</div>		
+		</div>
+				
 		<div class="row mr-auto">
 			<div class="col-lg-6 col-md-6 col-sm-6"></div>
 			<div class="col-lg-6 col-md-6 col-sm-12">

@@ -109,8 +109,7 @@ class AgentController extends Controller
         }
     }
 
-    public function saveNewTask($id, Request $request) {
-        
+    public function saveNewTask($id, Request $request) { //ajax from contacts page
         $task = new Task;
         $task->name = $request->newTask;
         $task->deadline = $request->taskDeadline;
@@ -213,14 +212,10 @@ class AgentController extends Controller
             $contact->save();
         }
 
-        $projects = Project::all();
-
-        foreach($projects as $project) {
-             if($project->id == $project_id) {
-
-            $contact->projects()->updateExistingPivot($project_id, ['property_description' => $property_description, 'property_status_id' => $property_status_id, 'total_contract_price' => $total_contract_price, 'estimated_commission' => $estimated_commission]);
-            }
-        }
+        $project_id = $request->newPropertyProject;
+        // dd($project_id); 
+        
+        $contact->projects()->attach($project_id, ['contact_id' => $contact->id, 'property_description' => $property_description, 'property_status_id' => $property_status_id, 'total_contract_price' => $total_contract_price, 'estimated_commission' => $estimated_commission]);
 
         // $contact_projects = DB::table('contact_projects')->insert(
         //      ['contact_id' => $contact->id, 'project_id' => $project_id, 'property_description' => $property_description, 'property_status_id' => $property_status_id, 'total_contract_price' => $total_contract_price, 'estimated_commission' => $estimated_commission]
@@ -261,8 +256,8 @@ class AgentController extends Controller
     }
 
     public function saveAddedTask(Request $request) {
-         $rules = array(
-            "newTaskContactId" => "required",
+        $rules = array(
+            "newTaskContactId" => "required|numeric",
             "newTaskName" => "required",
             "newTaskDeadline" => "required",            
         );
@@ -286,7 +281,7 @@ class AgentController extends Controller
     }
 
     public function saveNewTaskVP($id, Request $request) {
-         $rules = array(
+        $rules = array(
             "newTaskNameVP" => "required",
             "newTaskDeadlineVP" => "required",            
         );
@@ -304,4 +299,37 @@ class AgentController extends Controller
         return redirect('/contacts/viewprofile/'.$id);
     }
 
+    public function showCompletedTasks() {
+        $user_id = Auth::user()->id; // get user id
+        $contacts = Contact::where('user_id', $user_id)->get(); //edit to original $user_id
+        // dd($contacts);
+        $stages = Stage::all();
+        $pendingtasks = Task::where('task_status_id', 2)->get();
+
+        $collection = collect($pendingtasks);
+
+        $tasks = $collection->sortBy('deadline');
+        // dd($tasks);
+
+        return view('agent.completedtasks', compact('contacts', 'stages', 'tasks'));
+    }
+
+    public function showProperties() { //NOT YET WORKING
+        $user_id = Auth::user()->id; // get user id
+        $contacts = Contact::where('user_id', $user_id)->get(); //edit to original $user_id
+        $projects = Project::all();
+        $property_statuses = PropertyStatus::all(); // to get names of stages
+
+        foreach($projects as $project){
+            // dd($properties);
+            foreach($properties as $property) {
+                $properties = $project->contacts()->get();
+                // if ($project->id = $property->pivot->project_id){
+                    return view('agent.properties', compact('contacts', 'projects', 'properties', 'property_statuses')); 
+                // }
+            }
+        }
+
+    }
+        
 }

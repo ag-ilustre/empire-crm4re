@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pagetitle', 'Tasks') 
+@section('pagetitle', 'Pending Tasks') 
 
 @section('content')
 
@@ -10,7 +10,7 @@
 			<div class="col-lg-12 mt-4 px-4">
 				<nav aria-label="breadcrumb">
 				  <ol class="breadcrumb">
-				    <li class="breadcrumb-item active" aria-current="page">Tasks</li>
+				    <li class="breadcrumb-item active" aria-current="page">Pending Tasks</li>
 				  </ol>
 				</nav>
 			</div>
@@ -32,14 +32,18 @@
 		</div>
 		
 		<div class="row">						
-			<div class="col-lg-12 table-responsive px-4 py-2">
+			<div class="col-lg-12 px-4 py-2">
 				<div class="card p-4">
 					
 				<div class="text-right mb-3">
+					@if(Auth::user()->role_id === 1)
+					<a class="btn btn-greencyan px-3" href="/admin/tasks/addatask" title="Add a Contact"><i class="fas fa-calendar-alt mx-1"></i> Add a Task</a>		
+					@else
 					<a class="btn btn-greencyan px-3" href="/tasks/addatask" title="Add a Contact"><i class="fas fa-calendar-alt mx-1"></i> Add a Task</a>		
+					@endif
 				</div>
 				{{-- PENDING TASKS TABLE --}}
-				<div class="card table-responsive m-0 p-0">	
+				<div class="table-responsive m-0 p-0">	
 					<table class="table table-hover m-0 p-0">
 					    <thead class="border-purple">
 					        <tr class="my-3">	
@@ -65,7 +69,14 @@
 				  			        {{-- contact --}}
 				  			        @foreach($contacts as $contact)
 				  			        @if($contact->id == $task->contact_id)
-					  			        <td class="px-3"><a href="/contacts/viewprofile/{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</a></td>
+					  			        <td class="px-3">
+					  			        	@if(Auth::user()->role_id === 1)
+					  			        	<input type="hidden" id="loggedtoPendingTasks" value="1">
+					  			        	<a href="/admin/contacts/viewprofile/{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</a>
+					  			        	@else
+					  			        	<a href="/contacts/viewprofile/{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</a>
+					  			        	@endif
+					  			        </td>
 	  			                    	@foreach($stages as $stage)
 	  			        	                @if($stage->id == $contact->stage_id )
 	  			        	        {{-- stage --}}
@@ -178,9 +189,18 @@
 
 	function deleteTask() {
 		var taskIdToDelete = $('#taskIdToDelete').val();
+		var loggedtoPendingTasks = $('#loggedtoPendingTasks').val();
+
+		if(loggedtoPendingTasks == 1) {
+			var url = '/admin/contacts/deletetask/'+taskIdToDelete;
+		}else {
+			var url = '/contacts/deletetask/'+taskIdToDelete;
+		}
+		console.log(url);
+
 		console.log(taskIdToDelete);
 		$.ajax({
-			url: '/contacts/deletetask/'+taskIdToDelete,
+			url: url,
 			type: 'POST',
 			dataType: 'JSON',
 			data: {

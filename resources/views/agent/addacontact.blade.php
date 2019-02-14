@@ -10,7 +10,11 @@
 			<div class="col-lg-12 mt-4 px-4">
 				<nav aria-label="breadcrumb">
 				  <ol class="breadcrumb">
+				  	@if(Auth::user()->role_id === 1)
+				  	<li class="breadcrumb-item"><a href="/admin/contacts">Contacts</a></li>
+				  	@else
 				  	<li class="breadcrumb-item"><a href="/contacts">Contacts</a></li>
+				    @endif
 				    <li class="breadcrumb-item active" aria-current="page">Add a Contact</li>
 				  </ol>
 				</nav>
@@ -40,6 +44,23 @@
 		            <div class="card-body">
 		                <form id="formAddAContact" action="" method="POST">
 		                    @csrf
+
+		                    @if(Auth::user()->role_id === 1)
+            	        	{{-- Users --}}
+            	          	<div class="form-group row">
+            	            	<label class="col-md-4 col-form-label text-md-right">Select an Agent:</label>
+
+            	            	<div class="col-md-6 my-auto pt-1">
+        	    	          		<select class="custom-select" name="contactAgent" id="contactAgent">
+        	    	          			<option selected>---</option>
+        	    	          			@foreach($users as $user)
+        	    	          			<option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+        		    	          		@endforeach
+        	    	          		</select>
+        		    	            {{-- <p id="newprojectErrorMessage"></p> --}}
+            	            	</div>
+        	    	        </div>
+        	    	        @endif
 
 		                    <div class="form-group row">
 		                        <label for="contactFirstName" class="col-md-4 col-form-label text-md-right">First Name:</label>
