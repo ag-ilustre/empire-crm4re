@@ -67,14 +67,14 @@
 						        	<th width="14%" class="p-3 text-left">Contact</th>
 						        	<th width="10%" class="p-3 text-left">Stage</th>
 						        	<th width="14%" class="p-3 text-left">Added on</th>
-						        	<th width="14%" class="p-3 text-left">Last Activity on</th>
+						        	<th width="14%" class="p-3 text-left">Last Update on</th>
 						        	<th width="25%" class="p-3 text-center">Actions</th>
 						        	@else
 						        	<th width="9%" class="p-3 text-center">#</th>
 						        	<th width="17%" class="p-3">Contact</th>
 						        	<th width="15%" class="p-3">Stage</th>
 						        	<th width="17%" class="p-3">Added on</th>
-						        	<th width="17%" class="p-3">Last Activity on</th>
+						        	<th width="17%" class="p-3">Last Update on</th>
 						        	<th width="25%" class="p-3 text-center">Actions</th>
 						        	@endif
 						        </tr>

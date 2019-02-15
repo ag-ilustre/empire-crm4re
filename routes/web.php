@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('auth.login');
-// });
+Route::get('/', function () {
+    return view('index');
+});
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -46,11 +46,14 @@ Route::middleware(['admin'])->group(function(){
     Route::get('/admin/contacts/viewprofile/editcontact/{id}', 'AdminController@showEditContactForm');
     Route::patch('/admin/contacts/viewprofile/editcontact/{id}', 'AdminController@saveEditedContact');
     // view profile - add a property
-    Route::get('/admin/contacts/viewprofile/addaproperty/{id}', 'AdminController@showAddAPropertyForm');
-    Route::post('/admin/contacts/viewprofile/addaproperty/{id}', 'AdminController@saveNewProperty');
+    Route::get('/admin/contacts/viewprofile/addaproperty/{id}', 'AdminController@showAddAPropertyFormVP');
+    Route::post('/admin/contacts/viewprofile/addaproperty/{id}', 'AdminController@saveNewPropertyVP');
     // view profile - add a task
     Route::get('/admin/contacts/viewprofile/addatask/{id}', 'AdminController@showAddATaskFormVP');
     Route::post('/admin/contacts/viewprofile/addatask/{id}', 'AdminController@saveNewTaskVP');
+    // view profile - upload photo
+    Route::get('/admin/contacts/viewprofile/uploadphoto/{id}', 'AdminController@showUploadPhotoForm');
+    Route::post('/admin/contacts/viewprofile/uploadphoto/{id}', 'AdminController@saveUploadPhoto');
 
     // tasks page
     Route::get('/admin/tasks/pending', 'AdminController@showPendingTasks'); //ok
@@ -84,12 +87,14 @@ Route::middleware(['agent'])->group(function(){
     Route::get('/contacts/viewprofile/editcontact/{id}', 'AgentController@showEditContactForm');
     Route::patch('/contacts/viewprofile/editcontact/{id}', 'AgentController@saveEditedContact');
     // view profile - add a property
-    Route::get('/contacts/viewprofile/addaproperty/{id}', 'AgentController@showAddAPropertyForm');
-    Route::post('/contacts/viewprofile/addaproperty/{id}', 'AgentController@saveNewProperty');
+    Route::get('/contacts/viewprofile/addaproperty/{id}', 'AgentController@showAddAPropertyFormVP');
+    Route::post('/contacts/viewprofile/addaproperty/{id}', 'AgentController@saveNewPropertyVP');
     // view profile - add a task
     Route::get('/contacts/viewprofile/addatask/{id}', 'AgentController@showAddATaskFormVP');
     Route::post('/contacts/viewprofile/addatask/{id}', 'AgentController@saveNewTaskVP');
-
+    // view profile - upload photo
+    Route::get('/contacts/viewprofile/uploadphoto/{id}', 'AgentController@showUploadPhotoForm');
+    Route::post('/contacts/viewprofile/uploadphoto/{id}', 'AgentController@saveUploadPhoto');
 
     // tasks page
     Route::get('/tasks/pending', 'AgentController@showPendingTasks');
@@ -100,6 +105,8 @@ Route::middleware(['agent'])->group(function(){
 
     // properties page
     Route::get('/properties', 'AgentController@showProperties');
+    Route::get('/properties/addaproperty', 'AgentController@showAddAPropertyForm');
+    Route::post('/properties/addaproperty', 'AgentController@saveNewProperty');
     
 });  
 

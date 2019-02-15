@@ -146,7 +146,7 @@ a:active {
     border-radius: 2px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
     border: 1px solid rgba(67, 5, 65, 0.8);
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 }
 .btn.btn-primary:hover {
     transition: .4s;
@@ -170,7 +170,7 @@ a:active {
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
     border: 1px #00bc9c;
     margin: 5px;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
 }
 .btn.btn-greencyan:hover {
     transition: .1s;
@@ -329,7 +329,7 @@ h4.current-page {
     /*font-family: 'Roboto', sans-serif;*/
     font-size: 1.8rem;
     font-weight: 500;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     margin: 0 30px;
     padding: 5px 0;
 }

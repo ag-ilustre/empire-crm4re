@@ -39,10 +39,10 @@
 		{{-- <div class="px-1" id="profile-card"> --}}
 			<div class="row" id="profile-card">
 				{{-- Basic Contact Info --}}
-				<div class="col-lg-5 col-md-5 col-sm-12 h-100">
+				<div class="col-lg-4 col-md-5 col-sm-12 h-90 mt-1 mb-4">
 					<div class="card view-profile-card px-2 py-1">
 						<div class="view-profile-avatar p-1 mx-auto">
-							<img class="card-img-top p-3" src="/{{ $contact->image_path }}" alt="Image of {{ $contact->first_name}} {{ $contact->last_name}}">								
+							<img class="card-img-top p-3" src="/{{ $contact->image_path }}" alt="Image of {{ $contact->first_name}} {{ $contact->last_name}}" id="avatar{{ $contact->id}}">		
 						</div>
 					  	<div class="card-body mx-auto p-1">
 					    	<h3 class="text-center mb-2">{{ $contact->first_name }} {{ $contact->last_name }}</h3>
@@ -59,8 +59,10 @@
 					    	<div class="text-center p-2">
 					    		@if(Auth::user()->role_id === 1)
 					    		<a href="/admin/contacts/viewprofile/editcontact/{{ $contact->id }}" class="btn btn-greencyan my-2 px-3 text-center">Edit Profile</a>
+					    		<a href="/admin/contacts/viewprofile/uploadphoto/{{ $contact->id }}" class="btn btn-greencyan my-2 px-3 text-center">Upload Photo</a>
 					    		@else
 						    	<a href="/contacts/viewprofile/editcontact/{{ $contact->id }}" class="btn btn-greencyan my-2 px-3 text-center">Edit Profile</a>
+						    	<a href="/contacts/viewprofile/uploadphoto/{{ $contact->id }}" class="btn btn-greencyan my-2 px-3 text-center">Upload Photo</a>
 						    	@endif
 					    	</div>
 					  	</div>
@@ -69,7 +71,7 @@
 				{{-- end of Basic Contact Info --}}
 
 				{{-- Tasks and Properties --}}
-				<div class="col-lg-7 col-md-7 col-sm-12 h-100">
+				<div class="col-lg-8 col-md-7 col-sm-12 h-90 my-1">
 					{{-- <div class="row"> --}}
 						{{-- <div class="col-12"> --}}
 							<div class="card px-2 py-1 w-100">
@@ -124,15 +126,19 @@
 									    	</div>
 
 								    		@foreach($properties as $property)
-										   	<div class="card m-2 p-1">
+										   	<div class="card m-2 p-2">
 												   	@foreach($projects as $project)
 											   		@if($project->id == $property->pivot->project_id)
 									    			<div>
 									    				<h3 class="m-2">{{ $project->name }} </h3> 
 									    				<div class="m-2 div-inline">
 									    					{{-- property_id, contact_id, project_id, property desc --}}
-									    					<button type="button" id="btnOpenEditPropertyModal" class="btn btn-link btn-icon px-3" data-toggle="modal" onclick="openEditModal({{ $property->id}})"><i class="fas fa-user-edit"></i></button>
-									    					<button type="button" class="btn btn-link btn-icon px-3" onclick="openDeletePropertyModal({{ $property->id}})" data-toggle="modal" data-target="#deletePropertyModal"><i class="fas fa-trash"></i></button>
+
+									    					{{-- DO NOT DELETE. NO METHODS YET!!!! --}}
+									    					{{-- <button type="button" id="btnOpenEditPropertyModal" class="btn btn-link btn-icon px-3" data-toggle="modal" onclick="openEditModal({{ $property->id}})"><i class="fas fa-edit"></i></button>
+									    					<button type="button" class="btn btn-link btn-icon px-3" onclick="openDeletePropertyModal({{ $property->id}})" data-toggle="modal" data-target="#deletePropertyModal"><i class="fas fa-trash"></i></button> --}}
+									    					{{-- DO NOT DELETE. NO METHODS YET!!!! --}}
+
 									    				</div>
 									    			</div>
 								    				@endif
@@ -153,11 +159,11 @@
 								    			  </tr>
 								    			  <tr>
 								    			    <th class="px-2" width="60%">Total Contract Price:</th>
-								    			    <td class="px-2" width="40%">Php {{ number_format($property->pivot->total_contract_price, 2) }}</td>
+								    			    <td class="px-2" width="40%">&#8369; {{ number_format($property->pivot->total_contract_price, 2) }}</td>
 								    			  </tr>
 								    			  <tr>
 								    			  	<th class="px-2" width="60%">Estimated Commission:</th>
-								    			  	<td class="px-2" width="40%">Php {{ number_format($property->pivot->estimated_commission, 2) }}</td>
+								    			  	<td class="px-2" width="40%">&#8369; {{ number_format($property->pivot->estimated_commission, 2) }}</td>
 								    			  </tr>
 								    			</table>							    				
 										   	</div>
@@ -194,7 +200,7 @@
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		    	<div class="modal-header">
-		    	    <h5 class="modal-title" id="deletePropertyModalModalLabel">Delete Contact</h5>
+		    	    <h5 class="modal-title" id="deletePropertyModalLabel">Delete Contact</h5>
 		    	    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		    	    	<span aria-hidden="true">&times;</span>
 		    		</button>
@@ -210,6 +216,8 @@
 		    </div>
 		  </div>
 		</div>
+
+
 	
 
 @endsection
@@ -221,6 +229,10 @@
 	// for session successmessage
 	function closeErrorBox() {
 		$('.errorBox').fadeOut(3000);
+	}
+
+	function uploadImage(id) {
+
 	}
 
 	function openDeletePropertyModal(id) {

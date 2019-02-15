@@ -79,12 +79,12 @@
                                     <a class="dropdown-item btn-link" href="/admin/tasks/completed">Completed Tasks</a>
                                 </div>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                               <a class="nav-link" href="/admin/properties">Properties</a>
-                            </li>
-                            <li class="nav-item">
+                            </li> --}}
+                            {{-- <li class="nav-item">
                               <a class="nav-link" href="/admin/projects">Projects</a>
-                            </li>
+                            </li> --}}
                             @else
                         {{-- AGENT'S NAVBAR --}}
                             <li class="nav-item">
@@ -101,12 +101,12 @@
                                     <a class="dropdown-item btn-link" href="/tasks/completed">Completed Tasks</a>
                                 </div>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                               <a class="nav-link" href="/properties">Properties</a>
-                            </li>
-                            <li class="nav-item">
+                            </li> --}}
+                            {{-- <li class="nav-item">
                               <a class="nav-link" href="/projects">Projects</a>
-                            </li>
+                            </li> --}}
                             @endif
                     </ul>
 

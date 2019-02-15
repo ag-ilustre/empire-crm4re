@@ -37,9 +37,9 @@
 					
 				<div class="text-right mb-3">
 					@if(Auth::user()->role_id === 1)
-					<a class="btn btn-greencyan px-3" href="/admin/tasks/addatask" title="Add a Contact"><i class="fas fa-calendar-alt mx-1"></i> Add a Task</a>		
+					<a class="btn btn-greencyan px-3" href="/admin/tasks/addatask" title="Add a Contact"><i class="fas fa-plus"></i><i class="fas fa-calendar-alt mx-1"></i> Add a Task</a>		
 					@else
-					<a class="btn btn-greencyan px-3" href="/tasks/addatask" title="Add a Contact"><i class="fas fa-calendar-alt mx-1"></i> Add a Task</a>		
+					<a class="btn btn-greencyan px-3" href="/tasks/addatask" title="Add a Contact"><i class="fas fa-plus"></i><i class="fas fa-calendar-alt mx-1"></i> Add a Task</a>		
 					@endif
 				</div>
 				{{-- PENDING TASKS TABLE --}}
@@ -91,7 +91,9 @@
 				  			        	<button class="btn btn-link btn-icon" onclick="openCompleteTaskModal({{ $task->id }})" data-toggle="modal" data-target="#completeTask" title="Complete Task"><i class="fas fa-check mx-1"></i></button>
 				  			        	
 				  			        	{{-- EDIT TASK --}}
-				  			        	<a class="btn btn-link btn-icon" onclick="openEditTaskModal({{ $task->id }}, '{{ $task->name }}','{{ $contact->last_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target="#editTask" title="Edit Task"><i class="fas fa-calendar-alt mx-1"></i></a>
+				  			        	{{-- DO NOT DELETE. NO METHOD YET!!!! --}}
+				  			        	{{-- <a class="btn btn-link btn-icon" onclick="openEditTaskModal({{ $task->id }}, '{{ $task->name }}','{{ $contact->last_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target="#editTask" title="Edit Task"><i class="fas fa-edit"></i></a> --}}
+				  			        	{{-- DO NOT DELETE. NO METHOD YET!!!! --}}
 				  			        	
 				  			        	{{-- DELETE TASK --}}
 				  			        	@foreach($contacts as $contact)

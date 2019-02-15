@@ -11,11 +11,9 @@
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb">
                     @if(Auth::user()->role_id === 1)
-                    <li class="breadcrumb-item"><a href="/admin/contacts">Contacts</a></li>
-                    <li class="breadcrumb-item "><a href="/admin/contacts/viewprofile/{{ $contact->id }}">View Profile</a></li>
+                    <li class="breadcrumb-item"><a href="/admin/properties">Properties</a></li>
                     @else
-                    <li class="breadcrumb-item"><a href="/contacts">Contacts</a></li>
-                    <li class="breadcrumb-item "><a href="/contacts/viewprofile/{{ $contact->id }}">View Profile</a></li>
+                    <li class="breadcrumb-item"><a href="/properties">Properties</a></li>
                     @endif
                     <li class="breadcrumb-item active" aria-current="page">Add a Property</li>
                   </ol>
@@ -40,11 +38,23 @@
 		<div class="row justify-content-center">
 		    <div class="col-md-8 mt-4">
 		        <div class="card">
-					<div class="card-header card-title">Add a Property for {{ $contact->first_name }} {{ $contact->last_name }}</div>
+					<div class="card-header card-title">Add a Property</div>
 
 		            <div class="card-body">
 		                <form id="formAddAProperty" action="" method="POST">
 		                    @csrf
+            	        	{{-- Contact Name --}}
+            	          	<div class="form-group row">
+            	            	<label class="col-md-4 col-form-label text-md-right">Contact Name:</label>
+
+            	            	<div class="col-md-6 my-auto pt-1">
+        	    	          		<select class="custom-select" name="newPropertyContactId" id="newPropertyContactId" required>
+        	    	          			@foreach($contacts as $contact)
+        	    	          			<option value="{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</option>
+        		    	          		@endforeach
+        	    	          		</select>
+            	            	</div>
+        	    	        </div>
             	        	{{-- Project Name --}}
             	          	<div class="form-group row">
             	            	<label class="col-md-4 col-form-label text-md-right">Select a Project:</label>
@@ -96,9 +106,9 @@
     								<button type="submit" class="btn btn-primary px-3">Save</button>
     				       			<button type="reset" class="btn btn-secondary px-3">Reset</button>
                                     @if(Auth::user()->role_id === 1)
-                                    <a href="/admin/contacts/viewprofile/{{ $contact->id }}" class="btn btn-dark px-3">Cancel</a>
+                                    <a href="/admin/properties" class="btn btn-dark px-3">Cancel</a>
                                     @else
-    				       			<a href="/contacts/viewprofile/{{ $contact->id }}" class="btn btn-dark px-3">Cancel</a>
+    				       			<a href="/properties" class="btn btn-dark px-3">Cancel</a>
                                     @endif
 					      	    </div>
 					      	</div>

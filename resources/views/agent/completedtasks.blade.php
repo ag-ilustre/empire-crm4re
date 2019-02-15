@@ -43,18 +43,16 @@
 						<table class="table table-hover m-0 p-0">
 						    <thead class="border-purple">
 						        <tr class="my-3">	
-						        	<th width="9%" class="p-3 text-center">#</th>
-						        	<th width="17%" class="p-3">Deadline</th>
-						        	<th width="17%" class="p-3">Task</th>
-						        	<th width="15%" class="p-3">Contact</th>
-						        	<th width="12%" class="p-3">Stage</th>
-						        	{{-- <th width="30%" class="p-3 text-center">Actions</th> --}}
+						        	<th width="10%" class="p-3 text-center">#</th>
+						        	<th width="20%" class="p-3">Deadline</th>
+						        	<th width="35%" class="p-3">Task</th>
+						        	<th width="20%" class="p-3">Contact</th>
+						        	<th width="15%" class="p-3">Completed on</th>
 						        </tr>
 						    </thead>
 					  		<tbody>	   
-					  			<tbody>
-					  			    @foreach($tasks as $task)
-					  			    <tr id="taskRow{{ $task->id }}" class="mr-2 p-2">
+					  			@foreach($tasks as $task)
+					  			    <tr id="ctaskRow{{ $task->id }}" class="mr-2 p-2">
 					  			    	{{-- # --}}
 					  			    	<td class="px-3 text-center">{{ $loop->iteration }}</td>
 										{{-- deadline --}}
@@ -63,35 +61,20 @@
 					  			        <td class="px-3">{{ $task->name }}</td>
 					  			        
 					  			        {{-- contact --}}
-					  			        @foreach($contacts as $contact)
-					  			        @if($contact->id == $task->contact_id)
-						  			        <td class="px-3"><a href="/contacts/viewprofile/{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</a></td>
-		  			                    	@foreach($stages as $stage)
-		  			        	                @if($stage->id == $contact->stage_id )
-		  			        	        {{-- stage --}}
-		  			        	                    <td class="px-3">{{ $stage->name }}</td>
-		  			        	                @endif
-		  			        	            @endforeach
-						  			    @endif
-						  			    @endforeach
-						  			    {{-- actions --}}
-					  			        {{-- <td class="px-2 text-center">
-					  			        	
-					  			        	<button class="btn btn-link btn-icon" onclick="openCompleteTaskModal({{ $task->id }})" data-toggle="modal" data-target="#completeTask" title="Complete Task"><i class="fas fa-check mx-1"></i></button>
-					  			        	
-					  			        	
-					  			        	<a class="btn btn-link btn-icon" onclick="openEditTaskModal({{ $task->id }}, '{{ $task->name }}','{{ $contact->last_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target="#editTask" title="Edit Task"><i class="fas fa-calendar-alt mx-1"></i></a>
-					  			        	
-					  			        	
-					  			        	@foreach($contacts as $contact)
-					  			        	@if($contact->id == $task->contact_id)
-					  			        	<button class="btn btn-link btn-icon" onclick="openDeleteTaskModal({{ $task->id }}, '{{ $task->name }}','{{ $contact->first_name }} {{ $contact->last_name }}')" data-toggle="modal" data-target="#deleteTask" title="Delete Task"><i class="fas fa-trash mx-1"></i></button>
-					  			        	@endif
-						  			    	@endforeach
-					  			        </td> --}}		  			        
+					  			        <td class="px-3">
+					  			       	@foreach($contacts as $contact)
+					  			        	@if($task->contact_id == $contact->id)
+						  			        	@if(Auth::user()->role_id === 1)
+						  			        	<a href="/admin/contacts/viewprofile/{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</a>
+						  			        	@else
+						  			        	<a href="/contacts/viewprofile/{{ $contact->id }}">{{ $contact->first_name }} {{ $contact->last_name }}</a>
+						  			        	@endif
+						  			    	@endif
+						  			   	@endforeach
+				  			        	</td>
+				  			        	<td class="px-3">{{ $task->updated_at }}</td>
 					  			    </tr>
-					  			    @endforeach
-					  			</tbody>
+					  			@endforeach
 						    </tbody>
 						</table>
 					</div>

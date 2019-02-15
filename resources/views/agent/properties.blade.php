@@ -48,15 +48,16 @@
 					        	<th width="12%" class="p-3">Contact</th>
 					        	<th width="12%" class="p-3">Property Description</th>
 					        	<th width="12%" class="p-3">Property Status</th>
-					        	<th width="12%" class="p-3">Total Contract Price</th>
-					        	<th width="12%" class="p-3">Estimated Commission</th>
+					        	<th width="12%" class="p-3">Total Contract Price (&#8369;)</th>
+					        	<th width="12%" class="p-3">Estimated Commission (&#8369;)</th>
 					        	<th width="23%" class="p-3 text-center">Actions</th>
 					        </tr>
 					    </thead>
 				  		<tbody>	   
 				  			<tbody>
-				  			    @foreach($properties as $property)
-				  			    <tr id="taskRow{{ $property->id }}" class="mr-2 p-2">
+				  				@foreach($projects as $project)
+				  			    @foreach($project->contacts() as $property)
+				  			    <tr id="propertyRow{{ $property->id }}" class="mr-2 p-2">
 				  			    	{{-- # --}}
 				  			    	<td class="px-3 text-center">{{ $loop->iteration }}</td>
 									{{-- Project --}}
@@ -80,10 +81,10 @@
   			        	            @endif
   			        	            @endforeach
   			        	            {{-- Total Contract Price --}}
-					  			    <td class="px-3">{{ $property->pivot->total_contract_price }}</td>
+					  			    <td class="px-3">{{ number_format($property->pivot->total_contract_price, 2, '.', ',') }}</td>
   			        	            {{-- Estimated Commission --}}
-					  			    <td class="px-3">{{ $property->pivot->estimated_commission }}</td>
-
+					  			    <td class="px-3">{{ number_format($property->pivot->estimated_commission, 2, '.', ',') }}</td>
+					  			    {{-- {{ number_format($mobility->travelcosts, 2, '.', ',') }} --}}
 					  			    {{-- actions --}}
 				  			        <td class="px-2 text-center">
 				  			        	
@@ -94,6 +95,7 @@
 				  			        	<button class="btn btn-link btn-icon" onclick="openDeleteTaskModal()" data-toggle="modal" data-target="#deleteTask" title="Delete Task"><i class="fas fa-trash mx-1"></i></button>
 				  			        </td>		  			        
 				  			    </tr>
+				  			    @endforeach
 				  			    @endforeach
 				  			</tbody>
 					    </tbody>

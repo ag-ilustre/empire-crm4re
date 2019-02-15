@@ -167,7 +167,7 @@ class AgentController extends Controller
         return redirect('/contacts/viewprofile/'.$id);        
     }
 
-    public function showAddAPropertyForm($id) {
+    public function showAddAPropertyFormVP($id) {
         $user_id = Auth::user()->id; // get user id
         $contact = Contact::find($id); // get specific contact
         // $tasks = $contact->tasks()->get(); // get all tasks for contact
@@ -183,7 +183,7 @@ class AgentController extends Controller
         }       
     }
 
-    public function saveNewProperty($id, Request $request) {
+    public function saveNewPropertyVP($id, Request $request) {
         $rules = array(
             "newPropertyProject" => "required",
             "newPropertyDescription" => "required",
@@ -193,7 +193,6 @@ class AgentController extends Controller
         //to validate $request from form
         $this->validate($request, $rules);
 
-        $project_id = $request->newPropertyProject;
         // dd($project_id);
         $property_description = $request->newPropertyDescription;
         $property_status_id = $request->newPropertyStatus;
@@ -304,10 +303,9 @@ class AgentController extends Controller
         $contacts = Contact::where('user_id', $user_id)->get(); //edit to original $user_id
         // dd($contacts);
         $stages = Stage::all();
-        $pendingtasks = Task::where('task_status_id', 2)->get();
+        $completedtasks = Task::where('task_status_id', 2)->get();
 
-        $collection = collect($pendingtasks);
-
+        $collection = collect($completedtasks);
         $tasks = $collection->sortBy('deadline');
         // dd($tasks);
 
@@ -318,18 +316,96 @@ class AgentController extends Controller
         $user_id = Auth::user()->id; // get user id
         $contacts = Contact::where('user_id', $user_id)->get(); //edit to original $user_id
         $projects = Project::all();
-        $property_statuses = PropertyStatus::all(); // to get names of stages
 
-        foreach($projects as $project){
-            // dd($properties);
-            foreach($properties as $property) {
-                $properties = $project->contacts()->get();
-                // if ($project->id = $property->pivot->project_id){
-                    return view('agent.properties', compact('contacts', 'projects', 'properties', 'property_statuses')); 
-                // }
-            }
+        $property_statuses = PropertyStatus::all();
+        
+        return view('agent.properties', compact('contacts', 'projects', 'property_statuses')); 
+        // foreach ($contacts as $contact) {
+        //     $properties = $contact->projects()->get();
+        //     // dd($properties);
+        // }
+        
+    }
+    
+    public function showAddAPropertyForm() {
+        $user_id = Auth::user()->id;
+
+        $getcontacts = Contact::where('user_id', $user_id)->get();
+        $collection = collect($getcontacts);
+        $contacts = $collection->sortBy('first_name');
+
+        $property_statuses = PropertyStatus::all(); // to get names of stages
+        $projects = Project::all(); // to get names of stages
+        
+        return view('agent.properties_addaproperty', compact('contacts', 'property_statuses', 'projects')); 
+    }
+
+    public function saveNewProperty(Request $request) {
+        $rules = array(
+            "newPropertyContactId" => "required",
+            "newPropertyProject" => "required",
+            "newPropertyDescription" => "required",
+            "newPropertyStatus" => "required",
+            "newPropertyTotalContractPrice"  => "required"
+        );
+        //to validate $request from form
+        $this->validate($request, $rules);
+
+        $contact_id = $request->newPropertyContactId;
+        // dd($project_id);
+        $property_description = $request->newPropertyDescription;
+        $property_status_id = $request->newPropertyStatus;
+        $total_contract_price = $request->newPropertyTotalContractPrice;
+
+        $estimated_commission = 0.04 * $total_contract_price;
+
+        $contact = Contact::find($contact_id);
+
+        //Change contact_stage per property_status_id
+        if ($property_status_id == 5) {
+            $contact->stage_id = 4; //change the contact_stage to "lost" since a property acquisition is cancelled!
+            $contact->save();
+        } else {
+            $contact->stage_id = 3; //change the contact_stage to "customer" since a property is reserved/purchased!
+            $contact->save();
         }
 
-    }
+        $project_id = $request->newPropertyProject;
+        // dd($project_id); 
         
+        $contact->projects()->attach($project_id, ['contact_id' => $contact_id, 'property_description' => $property_description, 'property_status_id' => $property_status_id, 'total_contract_price' => $total_contract_price, 'estimated_commission' => $estimated_commission]);
+
+        Session::flash("successmessage", "New Property added successfully!");
+        return redirect('/properties');  
+    }
+
+    public function showUploadPhotoForm($id) {
+         $contact = Contact::find($id);
+
+         return view('agent.viewprofile_uploadphoto', compact('contact'));
+    }
+
+    public function saveUploadPhoto($id, Request $request) {
+        $rules = array(
+            "image_path"  => "required|image|mimes:jpeg, jpg, png, gif, svg|max:2048"
+        );
+
+        $this->validate($request, $rules);
+
+        $contact = Contact::find($id);
+        //uploading the image
+        $image = $request->file('image_path'); //sample.jpg
+        $image_name = time().".".$image->getClientOriginalExtension(); //151688578.jpg
+                    //time() - includes date and time (up to seconds)
+        $destination = "images/";
+        $image->move($destination, $image_name);
+
+        //saving the image path
+        $contact->image_path  = $destination.$image_name;
+        $contact->save(); 
+        Session::flash("successmessage", "Image saved successfully!");
+        return redirect('/contacts/viewprofile/'.$id);
+    }
 }
+
+

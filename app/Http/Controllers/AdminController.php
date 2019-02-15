@@ -198,7 +198,7 @@ class AdminController extends Controller
         return redirect('/admin/contacts/viewprofile/'.$id);        
     }
 
-    public function showAddAPropertyForm($id) {
+    public function showAddAPropertyFormVP($id) {
         $contact = Contact::find($id); // get specific contact
         $property_statuses = PropertyStatus::all(); // to get names of stages
         
@@ -209,7 +209,7 @@ class AdminController extends Controller
        
     }
 
-    public function saveNewProperty($id, Request $request) {
+    public function saveNewPropertyVP($id, Request $request) {
         $rules = array(
             "newPropertyProject" => "required|numeric",
             "newPropertyDescription" => "required",
@@ -335,4 +335,31 @@ class AdminController extends Controller
         return view('agent.completedtasks', compact('contacts', 'stages', 'tasks'));
     }
 
+    public function showUploadPhotoForm($id) {
+         $contact = Contact::find($id);
+
+         return view('agent.viewprofile_uploadphoto', compact('contact'));
+    }
+
+    public function saveUploadPhoto($id, Request $request) {
+        $rules = array(
+            "image_path"  => "required|image|mimes:jpeg, jpg, png, gif, svg|max:2048"
+        );
+
+        $this->validate($request, $rules);
+
+        $contact = Contact::find($id);
+        //uploading the image
+        $image = $request->file('image_path'); //sample.jpg
+        $image_name = time().".".$image->getClientOriginalExtension(); //151688578.jpg
+                    //time() - includes date and time (up to seconds)
+        $destination = "images/";
+        $image->move($destination, $image_name);
+
+        //saving the image path
+        $contact->image_path  = $destination.$image_name;
+        $contact->save(); 
+        Session::flash("successmessage", "Image saved successfully!");
+        return redirect('/admin/contacts/viewprofile/'.$id);
+    }
 }
